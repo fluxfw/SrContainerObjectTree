@@ -26,8 +26,8 @@ class CurriculumApplicationService
     protected $start_node_ref_id = 0;
 
 
-    public const CMD_VAR_NAME = "curriculumcmd";
-    public const CMD_GET_TREE = "getTree";
+    const CMD_VAR_NAME = "curriculumcmd";
+    const CMD_GET_TREE = "getTree";
 
     private function __construct() {
 

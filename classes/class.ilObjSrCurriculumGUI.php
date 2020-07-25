@@ -33,7 +33,6 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
     const LANG_MODULE_OBJECT = "object";
     const LANG_MODULE_SETTINGS = "settings";
     const PLUGIN_CLASS_NAME = ilSrCurriculumPlugin::class;
-    const TAB_CONTENTS = "contents";
     const TAB_PERMISSIONS = "perm_settings";
     const TAB_SETTINGS = "settings";
     const TAB_SHOW_CONTENTS = "show_contents";
