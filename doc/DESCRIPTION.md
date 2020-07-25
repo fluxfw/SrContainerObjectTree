@@ -1,0 +1,1 @@
+# SrCurriculum ILIAS Plugin Description

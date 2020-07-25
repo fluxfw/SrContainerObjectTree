@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/css/main.1978881e.chunk.css",
+    "main.js": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/js/main.4810bbe3.chunk.js",
+    "main.js.map": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/js/main.4810bbe3.chunk.js.map",
+    "runtime-main.js": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/js/runtime-main.7a20f340.js",
+    "runtime-main.js.map": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/js/runtime-main.7a20f340.js.map",
+    "static/js/2.81669ebd.chunk.js": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/js/2.81669ebd.chunk.js",
+    "static/js/2.81669ebd.chunk.js.map": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/js/2.81669ebd.chunk.js.map",
+    "index.html": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/index.html",
+    "precache-manifest.f1053e33c779250063f6ff99aed72d97.js": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/precache-manifest.f1053e33c779250063f6ff99aed72d97.js",
+    "service-worker.js": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/service-worker.js",
+    "static/css/main.1978881e.chunk.css.map": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/css/main.1978881e.chunk.css.map",
+    "static/js/2.81669ebd.chunk.js.LICENSE.txt": "/Customizing/global/plugins/Services/Repository/RepositoryObject/SrCurriculum/src/Curriculum/UI/build/static/js/2.81669ebd.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7a20f340.js",
+    "static/js/2.81669ebd.chunk.js",
+    "static/css/main.1978881e.chunk.css",
+    "static/js/main.4810bbe3.chunk.js"
+  ]
+}
