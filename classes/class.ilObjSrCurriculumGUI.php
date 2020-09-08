@@ -23,7 +23,6 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
     use DICTrait;
     use SrCurriculumTrait;
 
-    const CMD_MANAGE_CONTENTS = "manageContents";
     const CMD_PERMISSIONS = "perm";
     const CMD_SETTINGS = "settings";
     const CMD_SETTINGS_STORE = "settingsStore";
@@ -46,11 +45,7 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
      */
     public static function getStartCmd() : string
     {
-        if (ilObjSrCurriculumAccess::hasWriteAccess()) {
-            return self::CMD_MANAGE_CONTENTS;
-        } else {
-            return self::CMD_SHOW_CONTENTS;
-        }
+        return self::CMD_SHOW_CONTENTS;
     }
 
 
@@ -124,7 +119,6 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
                         $this->{$cmd}();
                         break;
 
-                    case self::CMD_MANAGE_CONTENTS:
                     case self::CMD_SETTINGS:
                     case self::CMD_SETTINGS_STORE:
                         // Write commands
@@ -168,27 +162,12 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
     /**
      *
      */
-    protected function manageContents()/* : void*/
-    {
-        self::dic()->tabs()->activateTab(self::TAB_CONTENTS);
-
-        // TODO: Implement manageContents
-        $this->show("");
-    }
-
-
-    /**
-     *
-     */
     protected function setTabs()/* : void*/
     {
         self::dic()->tabs()->addTab(self::TAB_SHOW_CONTENTS, self::plugin()->translate("show_contents", self::LANG_MODULE_OBJECT), self::dic()->ctrl()
             ->getLinkTarget($this, self::CMD_SHOW_CONTENTS));
 
         if (ilObjSrCurriculumAccess::hasWriteAccess()) {
-            self::dic()->tabs()->addTab(self::TAB_CONTENTS, self::plugin()->translate("manage_contents", self::LANG_MODULE_OBJECT), self::dic()
-                ->ctrl()->getLinkTarget($this, self::CMD_MANAGE_CONTENTS));
-
             self::dic()->tabs()->addTab(self::TAB_SETTINGS, self::plugin()->translate("settings", self::LANG_MODULE_SETTINGS), self::dic()->ctrl()
                 ->getLinkTarget($this, self::CMD_SETTINGS));
         }
@@ -271,7 +250,6 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
     {
         self::dic()->tabs()->activateTab(self::TAB_SHOW_CONTENTS);
 
-        // TODO: Implement showContents
         $this->show("");
     }
 }

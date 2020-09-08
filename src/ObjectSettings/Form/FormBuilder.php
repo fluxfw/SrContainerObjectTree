@@ -47,8 +47,8 @@ class FormBuilder extends AbstractFormBuilder
     protected function getButtons() : array
     {
         $buttons = [
-            ilObjSrCurriculumGUI::CMD_SETTINGS_STORE  => self::plugin()->translate("save", ilObjSrCurriculumGUI::LANG_MODULE_SETTINGS),
-            ilObjSrCurriculumGUI::CMD_MANAGE_CONTENTS => self::plugin()->translate("cancel", ilObjSrCurriculumGUI::LANG_MODULE_SETTINGS)
+            ilObjSrCurriculumGUI::CMD_SETTINGS_STORE => self::plugin()->translate("save", ilObjSrCurriculumGUI::LANG_MODULE_SETTINGS),
+            ilObjSrCurriculumGUI::CMD_SHOW_CONTENTS  => self::plugin()->translate("cancel", ilObjSrCurriculumGUI::LANG_MODULE_SETTINGS)
         ];
 
         return $buttons;

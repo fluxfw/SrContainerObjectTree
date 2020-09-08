@@ -11,7 +11,6 @@ xsrc_new#:#SrCurriculum anlegen
 xsrc_read#:#Lesen
 xsrc_visible#:#Sichtbar
 xsrc_write#:#Bearbeiten
-object_manage_contents#:#Bearbeiten
 object_offline#:#Offline
 object_permission_denied#:#Zugriff verweigert
 object_show_contents#:#Inhalte
