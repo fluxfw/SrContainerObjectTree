@@ -30,9 +30,9 @@
 					</clipPath>
 					
 						<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-394.6424" y1="-287.9496" x2="-394.1424" y2="-287.9496" gradientTransform="matrix(47.6278 0 0 47.6278 18800.9492 13729.9062)">
-						<stop  offset="0" style="stop-color:#40E0D0"/>
-						<stop  offset="0.0198" style="stop-color:#40E0D0"/>
-						<stop  offset="1" style="stop-color:#40E0D0"/>
+						<stop  offset="0" style="stop-color:#008cd7"/>
+						<stop  offset="0.0198" style="stop-color:#008cd7"/>
+						<stop  offset="1" style="stop-color:#008cd7"/>
 					</linearGradient>
 					<rect x="4.975" y="7" clip-path="url(#SVGID_2_)" fill="url(#SVGID_3_)" width="23.865" height="17"/>
 				</g>
