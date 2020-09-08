@@ -1,0 +1,25 @@
+obj_xsrc#:#SrCurriculum
+obj_xsrc_duplicate#:#Copy SrCurriculum
+objs_xsrc#:#SrCurriculum's
+objs_xsrc_duplicate#:#Copy SrCurriculum's
+rbac_create_xsrc#:#Create SrCurriculum
+rep_robj_xsrc_obj_xsrc#:#SrCurriculum
+xsrc_add#:#Add
+xsrc_delete#:#Delete
+xsrc_edit_permission#:#Edit permission
+xsrc_new#:#Create SrCurriculum
+xsrc_read#:#Read
+xsrc_visible#:#visible
+xsrc_write#:#Edit
+object_manage_contents#:#Edit
+object_offline#:#Offline
+object_permission_denied#:#Permission denied
+object_show_contents#:#Contents
+object_status#:#Status
+settings_cancel#:#Cancel
+settings_description#:#Description
+settings_online#:#Online
+settings_save#:#Save
+settings_saved#:#Settings saved
+settings_settings#:#Settings
+settings_title#:#Title
