@@ -103,11 +103,11 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
 
 
     /**
-     * @param int $obj_ref_id
+     * @param int $container_ref_id
      */
-    public function setContainerRefId(int $obj_ref_id)/* : void*/
+    public function setContainerRefId(int $container_ref_id)/* : void*/
     {
-        $this->object_settings->setContainerRefId($obj_ref_id);
+        $this->object_settings->setContainerRefId($container_ref_id);
     }
 
 
