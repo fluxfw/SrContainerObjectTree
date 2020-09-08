@@ -76,6 +76,15 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
 
 
     /**
+     * @return int
+     */
+    public function getContainerRefId() : int
+    {
+        return $this->object_settings->getContainerRefId();
+    }
+
+
+    /**
      * @inheritDoc
      */
     public final function initType()/* : void*/
@@ -90,6 +99,15 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     public function isOnline() : bool
     {
         return $this->object_settings->isOnline();
+    }
+
+
+    /**
+     * @param int $obj_ref_id
+     */
+    public function setContainerRefId(int $obj_ref_id)/* : void*/
+    {
+        $this->object_settings->setContainerRefId($obj_ref_id);
     }
 
 

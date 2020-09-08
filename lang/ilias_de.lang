@@ -16,6 +16,7 @@ object_permission_denied#:#Zugriff verweigert
 object_show_contents#:#Inhalte
 object_status#:#Status
 settings_cancel#:#Abbrechen
+settings_container_object#:#Container-Objekt
 settings_description#:#Beschreibung
 settings_online#:#Online
 settings_save#:#Speichern

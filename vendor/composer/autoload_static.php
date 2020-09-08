@@ -7,27 +7,27 @@ namespace Composer\Autoload;
 class ComposerStaticInit4b226a890de0f300db22f4232c7dcba5
 {
     public static $files = array (
-        '06ea6699f69b9e17c5d0bdc4dcc7124b' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
+        '191e06d0a46fe00fcbda4e0e9d644545' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 42,
-            'srag\\Plugins\\SrContainerObjectTree\\' => 26,
+            'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 51,
+            'srag\\Plugins\\SrContainerObjectTree\\' => 35,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\SrContainerObjectTree\\' => 22,
-            'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 34,
-            'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 37,
+            'srag\\DIC\\SrContainerObjectTree\\' => 31,
+            'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 43,
+            'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 46,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' =>
+        'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
-        'srag\\Plugins\\SrContainerObjectTree\\' =>
+        'srag\\Plugins\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
@@ -35,15 +35,15 @@ class ComposerStaticInit4b226a890de0f300db22f4232c7dcba5
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\SrContainerObjectTree\\' =>
+        'srag\\DIC\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrContainerObjectTree\\' =>
+        'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' =>
+        'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -145,7 +145,7 @@ class ComposerStaticInit4b226a890de0f300db22f4232c7dcba5
         'srag\\LibrariesNamespaceChanger\\RemovePHP72Backport' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/RemovePHP72Backport.php',
         'srag\\LibrariesNamespaceChanger\\UpdatePluginReadme' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/UpdatePluginReadme.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Factory' => __DIR__ . '/../..' . '/src/ObjectSettings/Factory.php',
-        'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/ObjectSettings/Form/FormBuilder.php',
+        'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/ObjectSettings/Form/class.FormBuilder.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\ObjectSettings' => __DIR__ . '/../..' . '/src/ObjectSettings/ObjectSettings.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Repository' => __DIR__ . '/../..' . '/src/ObjectSettings/Repository.php',
         'srag\\Plugins\\SrContainerObjectTree\\Repository' => __DIR__ . '/../..' . '/src/Repository.php',

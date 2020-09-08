@@ -16,6 +16,7 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilInfoScreenGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilObjectCopyGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilCommonActionDispatcherGUI
+ * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder
  */
 class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 {
@@ -108,6 +109,10 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
         switch (strtolower($next_class)) {
+            case strtolower(FormBuilder::class):
+                self::dic()->ctrl()->forwardCommand($this->getSettingsForm());
+                break;
+
             default:
                 switch ($cmd) {
                     case self::CMD_SHOW_CONTENTS:

@@ -101,7 +101,7 @@ return array(
     'srag\\LibrariesNamespaceChanger\\RemovePHP72Backport' => $vendorDir . '/srag/librariesnamespacechanger/src/RemovePHP72Backport.php',
     'srag\\LibrariesNamespaceChanger\\UpdatePluginReadme' => $vendorDir . '/srag/librariesnamespacechanger/src/UpdatePluginReadme.php',
     'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Factory' => $baseDir . '/src/ObjectSettings/Factory.php',
-    'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Form\\FormBuilder' => $baseDir . '/src/ObjectSettings/Form/FormBuilder.php',
+    'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Form\\FormBuilder' => $baseDir . '/src/ObjectSettings/Form/class.FormBuilder.php',
     'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\ObjectSettings' => $baseDir . '/src/ObjectSettings/ObjectSettings.php',
     'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Repository' => $baseDir . '/src/ObjectSettings/Repository.php',
     'srag\\Plugins\\SrContainerObjectTree\\Repository' => $baseDir . '/src/Repository.php',

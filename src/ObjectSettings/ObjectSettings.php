@@ -24,6 +24,15 @@ class ObjectSettings extends ActiveRecord
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     const TABLE_NAME = "rep_robj_" . ilSrContainerObjectTreePlugin::PLUGIN_ID . "_obj";
     /**
+     * @var int
+     *
+     * @con_has_field    true
+     * @con_fieldtype    integer
+     * @con_length       8
+     * @con_is_notnull   true
+     */
+    protected $container_ref_id = 0;
+    /**
      * @var bool
      *
      * @con_has_field    true
@@ -73,6 +82,24 @@ class ObjectSettings extends ActiveRecord
     public function getConnectorContainerName() : string
     {
         return self::TABLE_NAME;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getContainerRefId() : int
+    {
+        return $this->container_ref_id;
+    }
+
+
+    /**
+     * @param int $container_ref_id
+     */
+    public function setContainerRefId(int $container_ref_id)/* : void*/
+    {
+        $this->container_ref_id = $container_ref_id;
     }
 
 

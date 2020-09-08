@@ -16,6 +16,7 @@ object_permission_denied#:#Permission denied
 object_show_contents#:#Contents
 object_status#:#Status
 settings_cancel#:#Cancel
+settings_container_object#:#Container object
 settings_description#:#Description
 settings_online#:#Online
 settings_save#:#Save
