@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\InputGUIWrapperUIInputComponent;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\InputGUIWrapperUIInputComponent;
 
 use Closure;
 use ilCheckboxInputGUI;
@@ -11,13 +11,13 @@ use ILIAS\UI\Implementation\Component\Input\Field\Input;
 use ILIAS\UI\Implementation\Component\Input\NameSource;
 use ILIAS\Validation\Factory as ValidationFactory;
 use ilRepositorySelector2InputGUI;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\Items\Items;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\Items\Items;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class InputGUIWrapperUIInputComponent
  *
- * @package srag\CustomInputGUIs\SrCurriculum\InputGUIWrapperUIInputComponent
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\InputGUIWrapperUIInputComponent
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\ActiveRecordConfig\SrCurriculum;
+namespace srag\ActiveRecordConfig\SrContainerObjectTree;
 
 use ActiveRecord;
 use ilObject;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\ObjectPropertyFormGUI;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\ObjectPropertyFormGUI;
 
 /**
  * Class ActiveRecordObjectFormGUI
  *
- * @package    srag\ActiveRecordConfig\SrCurriculum
+ * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

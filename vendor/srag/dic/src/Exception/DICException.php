@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Exception;
+namespace srag\DIC\SrContainerObjectTree\Exception;
 
 use ilException;
 
 /**
  * Class DICException
  *
- * @package srag\DIC\SrCurriculum\Exception
+ * @package srag\DIC\SrContainerObjectTree\Exception
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

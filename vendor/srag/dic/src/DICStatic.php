@@ -1,24 +1,24 @@
 <?php
 
-namespace srag\DIC\SrCurriculum;
+namespace srag\DIC\SrContainerObjectTree;
 
 use ilLogLevel;
 use ilPlugin;
-use srag\DIC\SrCurriculum\DIC\DICInterface;
-use srag\DIC\SrCurriculum\DIC\Implementation\ILIAS54DIC;
-use srag\DIC\SrCurriculum\DIC\Implementation\ILIAS60DIC;
-use srag\DIC\SrCurriculum\Exception\DICException;
-use srag\DIC\SrCurriculum\Output\Output;
-use srag\DIC\SrCurriculum\Output\OutputInterface;
-use srag\DIC\SrCurriculum\Plugin\Plugin;
-use srag\DIC\SrCurriculum\Plugin\PluginInterface;
-use srag\DIC\SrCurriculum\Version\Version;
-use srag\DIC\SrCurriculum\Version\VersionInterface;
+use srag\DIC\SrContainerObjectTree\DIC\DICInterface;
+use srag\DIC\SrContainerObjectTree\DIC\Implementation\ILIAS54DIC;
+use srag\DIC\SrContainerObjectTree\DIC\Implementation\ILIAS60DIC;
+use srag\DIC\SrContainerObjectTree\Exception\DICException;
+use srag\DIC\SrContainerObjectTree\Output\Output;
+use srag\DIC\SrContainerObjectTree\Output\OutputInterface;
+use srag\DIC\SrContainerObjectTree\Plugin\Plugin;
+use srag\DIC\SrContainerObjectTree\Plugin\PluginInterface;
+use srag\DIC\SrContainerObjectTree\Version\Version;
+use srag\DIC\SrContainerObjectTree\Version\VersionInterface;
 
 /**
  * Class DICStatic
  *
- * @package srag\DIC\SrCurriculum
+ * @package srag\DIC\SrContainerObjectTree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

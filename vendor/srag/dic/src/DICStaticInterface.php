@@ -1,17 +1,17 @@
 <?php
 
-namespace srag\DIC\SrCurriculum;
+namespace srag\DIC\SrContainerObjectTree;
 
-use srag\DIC\SrCurriculum\DIC\DICInterface;
-use srag\DIC\SrCurriculum\Exception\DICException;
-use srag\DIC\SrCurriculum\Output\OutputInterface;
-use srag\DIC\SrCurriculum\Plugin\PluginInterface;
-use srag\DIC\SrCurriculum\Version\VersionInterface;
+use srag\DIC\SrContainerObjectTree\DIC\DICInterface;
+use srag\DIC\SrContainerObjectTree\Exception\DICException;
+use srag\DIC\SrContainerObjectTree\Output\OutputInterface;
+use srag\DIC\SrContainerObjectTree\Plugin\PluginInterface;
+use srag\DIC\SrContainerObjectTree\Version\VersionInterface;
 
 /**
  * Interface DICStaticInterface
  *
- * @package srag\DIC\SrCurriculum
+ * @package srag\DIC\SrContainerObjectTree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

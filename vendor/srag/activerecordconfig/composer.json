@@ -27,7 +27,7 @@
   },
   "autoload": {
     "psr-4": {
-      "srag\\ActiveRecordConfig\\SrCurriculum\\": "src/"
+      "srag\\ActiveRecordConfig\\SrContainerObjectTree\\": "src/"
     }
   },
   "config": {

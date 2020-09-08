@@ -1,18 +1,18 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\WeekdayInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\WeekdayInputGUI;
 
 use ilCalendarUtil;
 use ilFormPropertyGUI;
 use ilTableFilterItem;
 use ilTemplate;
-use srag\CustomInputGUIs\SrCurriculum\Template\Template;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class WeekdayInputGUI
  *
- * @package srag\CustomInputGUIs\SrCurriculum\WeekdayInputGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\WeekdayInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Theodor Truffer <tt@studer-raimann.ch>

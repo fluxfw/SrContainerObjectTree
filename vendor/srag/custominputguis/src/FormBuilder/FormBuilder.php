@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\FormBuilder;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder;
 
 use ILIAS\UI\Component\Input\Container\Form\Form;
 
 /**
  * Interface FormBuilder
  *
- * @package srag\CustomInputGUIs\SrCurriculum\FormBuilder
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

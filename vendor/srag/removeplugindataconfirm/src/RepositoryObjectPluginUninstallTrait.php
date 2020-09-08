@@ -1,11 +1,11 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm\SrCurriculum;
+namespace srag\RemovePluginDataConfirm\SrContainerObjectTree;
 
 /**
  * Trait RepositoryObjectPluginUninstallTrait
  *
- * @package srag\RemovePluginDataConfirm\SrCurriculum
+ * @package srag\RemovePluginDataConfirm\SrContainerObjectTree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

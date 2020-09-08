@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\DIC;
+namespace srag\DIC\SrContainerObjectTree\DIC;
 
 use Collator;
 use ilAccessHandler;
@@ -66,13 +66,13 @@ use ilToolbarGUI;
 use ilTree;
 use ilUIService;
 use Session;
-use srag\DIC\SrCurriculum\Database\DatabaseInterface;
-use srag\DIC\SrCurriculum\Exception\DICException;
+use srag\DIC\SrContainerObjectTree\Database\DatabaseInterface;
+use srag\DIC\SrContainerObjectTree\Exception\DICException;
 
 /**
  * Interface DICInterface
  *
- * @package srag\DIC\SrCurriculum\DIC
+ * @package srag\DIC\SrContainerObjectTree\DIC
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

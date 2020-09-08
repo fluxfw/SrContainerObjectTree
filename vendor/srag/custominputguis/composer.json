@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "srag\\CustomInputGUIs\\SrCurriculum\\": "src/"
+      "srag\\CustomInputGUIs\\SrContainerObjectTree\\": "src/"
     }
   },
   "config": {

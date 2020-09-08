@@ -1,1 +1,1 @@
-# SrCurriculum ILIAS Plugin Description
+# SrContainerObjectTree ILIAS Plugin Description

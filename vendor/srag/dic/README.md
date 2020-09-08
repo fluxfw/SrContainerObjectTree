@@ -23,7 +23,7 @@ So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/pac
 Declare your class like follow:
 ```php
 //...
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 //...
 class x {
 	//...
@@ -209,7 +209,7 @@ If you realy need to access to original ILIAS `ilDB` instance, use `self:.dic()-
 ### Native AutoIncrement (MySQL) / Native Sequence (PostgreSQL)
 Use auto increment on a spec. field (in `dbupdate.php`):
 ```php
-\srag\DIC\SrCurriculum\x\DICStatic::dic()->database()->createAutoIncrement(\srag\Plugins\x\x\x::TABLE_NAME, "id");
+\srag\DIC\SrContainerObjectTree\x\DICStatic::dic()->database()->createAutoIncrement(\srag\Plugins\x\x\x::TABLE_NAME, "id");
 ```
 
 Reset auto increment:

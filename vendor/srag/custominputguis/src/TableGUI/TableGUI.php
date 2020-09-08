@@ -1,23 +1,23 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\TableGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\TableGUI;
 
 use ilCSVWriter;
 use ilExcel;
 use ilFormPropertyGUI;
 use ilHtmlToPdfTransformerFactory;
 use ilTable2GUI;
-use srag\CustomInputGUIs\SrCurriculum\MultiLineNewInputGUI\MultiLineNewInputGUI;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\Items\Items;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\PropertyFormGUI;
-use srag\CustomInputGUIs\SrCurriculum\TableGUI\Exception\TableGUIException;
-use srag\CustomInputGUIs\SrCurriculum\Template\Template;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\MultiLineNewInputGUI\MultiLineNewInputGUI;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\Items\Items;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\PropertyFormGUI;
+use srag\CustomInputGUIs\SrContainerObjectTree\TableGUI\Exception\TableGUIException;
+use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class TableGUI
  *
- * @package    srag\CustomInputGUIs\SrCurriculum\TableGUI
+ * @package    srag\CustomInputGUIs\SrContainerObjectTree\TableGUI
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

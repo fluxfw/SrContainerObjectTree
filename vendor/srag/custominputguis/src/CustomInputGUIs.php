@@ -1,14 +1,14 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum;
+namespace srag\CustomInputGUIs\SrContainerObjectTree;
 
-use srag\CustomInputGUIs\SrCurriculum\ViewControlModeUI\ViewControlModeUI;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\ViewControlModeUI\ViewControlModeUI;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class CustomInputGUIs
  *
- * @package srag\CustomInputGUIs\SrCurriculum
+ * @package srag\CustomInputGUIs\SrContainerObjectTree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

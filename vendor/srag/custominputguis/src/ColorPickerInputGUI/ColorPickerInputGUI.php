@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\ColorPickerInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\ColorPickerInputGUI;
 
 use ilColorPickerInputGUI;
-use srag\CustomInputGUIs\SrCurriculum\Template\Template;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class ColorPickerInputGUI
  *
- * @package srag\CustomInputGUIs\SrCurriculum\ColorPickerInputGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\ColorPickerInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Database;
+namespace srag\DIC\SrContainerObjectTree\Database;
 
 use ilDBPdo;
 use ilDBPdoInterface;
 use PDO;
-use srag\DIC\SrCurriculum\Exception\DICException;
+use srag\DIC\SrContainerObjectTree\Exception\DICException;
 
 /**
  * Class PdoContextHelper
  *
- * @package srag\DIC\SrCurriculum\Database
+ * @package srag\DIC\SrContainerObjectTree\Database
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

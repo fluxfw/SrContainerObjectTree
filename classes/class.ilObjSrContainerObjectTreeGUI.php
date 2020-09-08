@@ -1,27 +1,27 @@
 <?php
 
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\Plugins\SrCurriculum\ObjectSettings\Form\FormBuilder;
-use srag\Plugins\SrCurriculum\Utils\SrCurriculumTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
+use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
- * Class ilObjSrCurriculumGUI
+ * Class ilObjSrContainerObjectTreeGUI
  *
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
- * @ilCtrl_isCalledBy ilObjSrCurriculumGUI: ilRepositoryGUI
- * @ilCtrl_isCalledBy ilObjSrCurriculumGUI: ilObjPluginDispatchGUI
- * @ilCtrl_isCalledBy ilObjSrCurriculumGUI: ilAdministrationGUI
- * @ilCtrl_Calls      ilObjSrCurriculumGUI: ilPermissionGUI
- * @ilCtrl_Calls      ilObjSrCurriculumGUI: ilInfoScreenGUI
- * @ilCtrl_Calls      ilObjSrCurriculumGUI: ilObjectCopyGUI
- * @ilCtrl_Calls      ilObjSrCurriculumGUI: ilCommonActionDispatcherGUI
+ * @ilCtrl_isCalledBy ilObjSrContainerObjectTreeGUI: ilRepositoryGUI
+ * @ilCtrl_isCalledBy ilObjSrContainerObjectTreeGUI: ilObjPluginDispatchGUI
+ * @ilCtrl_isCalledBy ilObjSrContainerObjectTreeGUI: ilAdministrationGUI
+ * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilPermissionGUI
+ * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilInfoScreenGUI
+ * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilObjectCopyGUI
+ * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilCommonActionDispatcherGUI
  */
-class ilObjSrCurriculumGUI extends ilObjectPluginGUI
+class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 {
 
     use DICTrait;
-    use SrCurriculumTrait;
+    use SrContainerObjectTreeTrait;
 
     const CMD_PERMISSIONS = "perm";
     const CMD_SETTINGS = "settings";
@@ -29,13 +29,13 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
     const CMD_SHOW_CONTENTS = "showContents";
     const LANG_MODULE_OBJECT = "object";
     const LANG_MODULE_SETTINGS = "settings";
-    const PLUGIN_CLASS_NAME = ilSrCurriculumPlugin::class;
+    const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     const TAB_CONTENTS = "contents";
     const TAB_PERMISSIONS = "perm_settings";
     const TAB_SETTINGS = "settings";
     const TAB_SHOW_CONTENTS = "show_contents";
     /**
-     * @var ilObjSrCurriculum
+     * @var ilObjSrContainerObjectTree
      */
     public $object;
 
@@ -52,9 +52,9 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
     /**
      * @inheritDoc
      *
-     * @param ilObjSrCurriculum $a_new_object
+     * @param ilObjSrContainerObjectTree $a_new_object
      */
-    public function afterSave(/*ilObjSrCurriculum*/ ilObject $a_new_object)/* : void*/
+    public function afterSave(/*ilObjSrContainerObjectTree*/ ilObject $a_new_object)/* : void*/
     {
         parent::afterSave($a_new_object);
     }
@@ -83,7 +83,7 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
      */
     public final function getType() : string
     {
-        return ilSrCurriculumPlugin::PLUGIN_ID;
+        return ilSrContainerObjectTreePlugin::PLUGIN_ID;
     }
 
 
@@ -103,7 +103,7 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
      */
     public function performCommand(string $cmd)/* : void*/
     {
-        self::dic()->help()->setScreenIdComponent(ilSrCurriculumPlugin::PLUGIN_ID);
+        self::dic()->help()->setScreenIdComponent(ilSrContainerObjectTreePlugin::PLUGIN_ID);
 
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
@@ -112,8 +112,8 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
                 switch ($cmd) {
                     case self::CMD_SHOW_CONTENTS:
                         // Read commands
-                        if (!ilObjSrCurriculumAccess::hasReadAccess()) {
-                            ilObjSrCurriculumAccess::redirectNonAccess(ilRepositoryGUI::class);
+                        if (!ilObjSrContainerObjectTreeAccess::hasReadAccess()) {
+                            ilObjSrContainerObjectTreeAccess::redirectNonAccess(ilRepositoryGUI::class);
                         }
 
                         $this->{$cmd}();
@@ -122,8 +122,8 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
                     case self::CMD_SETTINGS:
                     case self::CMD_SETTINGS_STORE:
                         // Write commands
-                        if (!ilObjSrCurriculumAccess::hasWriteAccess()) {
-                            ilObjSrCurriculumAccess::redirectNonAccess($this);
+                        if (!ilObjSrContainerObjectTreeAccess::hasWriteAccess()) {
+                            ilObjSrContainerObjectTreeAccess::redirectNonAccess($this);
                         }
 
                         $this->{$cmd}();
@@ -131,7 +131,7 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
 
                     default:
                         // Unknown command
-                        ilObjSrCurriculumAccess::redirectNonAccess(ilRepositoryGUI::class);
+                        ilObjSrContainerObjectTreeAccess::redirectNonAccess(ilRepositoryGUI::class);
                         break;
                 }
                 break;
@@ -167,12 +167,12 @@ class ilObjSrCurriculumGUI extends ilObjectPluginGUI
         self::dic()->tabs()->addTab(self::TAB_SHOW_CONTENTS, self::plugin()->translate("show_contents", self::LANG_MODULE_OBJECT), self::dic()->ctrl()
             ->getLinkTarget($this, self::CMD_SHOW_CONTENTS));
 
-        if (ilObjSrCurriculumAccess::hasWriteAccess()) {
+        if (ilObjSrContainerObjectTreeAccess::hasWriteAccess()) {
             self::dic()->tabs()->addTab(self::TAB_SETTINGS, self::plugin()->translate("settings", self::LANG_MODULE_SETTINGS), self::dic()->ctrl()
                 ->getLinkTarget($this, self::CMD_SETTINGS));
         }
 
-        if (ilObjSrCurriculumAccess::hasEditPermissionAccess()) {
+        if (ilObjSrContainerObjectTreeAccess::hasEditPermissionAccess()) {
             self::dic()->tabs()->addTab(self::TAB_PERMISSIONS, self::plugin()->translate(self::TAB_PERMISSIONS, "", [], false), self::dic()->ctrl()
                 ->getLinkTargetByClass([
                     self::class,

@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\HiddenInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\HiddenInputGUI;
 
 use ilHiddenInputGUI;
-use srag\CustomInputGUIs\SrCurriculum\Template\Template;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class HiddenInputGUI
  *
- * @package srag\CustomInputGUIs\SrCurriculum\HiddenInputGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\HiddenInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

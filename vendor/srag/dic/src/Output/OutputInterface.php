@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Output;
+namespace srag\DIC\SrContainerObjectTree\Output;
 
 use ilTemplateException;
 use JsonSerializable;
-use srag\DIC\SrCurriculum\Exception\DICException;
+use srag\DIC\SrContainerObjectTree\Exception\DICException;
 use stdClass;
 
 /**
  * Interface OutputInterface
  *
- * @package srag\DIC\SrCurriculum\Output
+ * @package srag\DIC\SrContainerObjectTree\Output
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

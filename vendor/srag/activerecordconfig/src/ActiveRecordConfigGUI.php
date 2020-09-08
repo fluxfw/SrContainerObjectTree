@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\ActiveRecordConfig\SrCurriculum;
+namespace srag\ActiveRecordConfig\SrContainerObjectTree;
 
 use ilPluginConfigGUI;
 use ilUtil;
-use srag\ActiveRecordConfig\SrCurriculum\Exception\ActiveRecordConfigException;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\ActiveRecordConfig\SrContainerObjectTree\Exception\ActiveRecordConfigException;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class ActiveRecordConfigGUI
  *
- * @package    srag\ActiveRecordConfig\SrCurriculum
+ * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

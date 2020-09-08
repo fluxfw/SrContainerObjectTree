@@ -1,20 +1,20 @@
 <?php
 
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\Plugins\SrCurriculum\Utils\SrCurriculumTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
- * Class ilObjSrCurriculumAccess
+ * Class ilObjSrContainerObjectTreeAccess
  *
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ilObjSrCurriculumAccess extends ilObjectPluginAccess
+class ilObjSrContainerObjectTreeAccess extends ilObjectPluginAccess
 {
 
     use DICTrait;
-    use SrCurriculumTrait;
+    use SrContainerObjectTreeTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrCurriculumPlugin::class;
+    const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
      * @var self|null
      */
@@ -22,7 +22,7 @@ class ilObjSrCurriculumAccess extends ilObjectPluginAccess
 
 
     /**
-     * ilObjSrCurriculumAccess constructor
+     * ilObjSrContainerObjectTreeAccess constructor
      */
     public function __construct()
     {
@@ -35,7 +35,7 @@ class ilObjSrCurriculumAccess extends ilObjectPluginAccess
      */
     public static function _isOffline(/*int*/ $a_obj_id) : bool
     {
-        $object_settings = self::srCurriculum()->objectSettings()->getObjectSettingsById(intval($a_obj_id));
+        $object_settings = self::srContainerObjectTree()->objectSettings()->getObjectSettingsById(intval($a_obj_id));
 
         if ($object_settings !== null) {
             return (!$object_settings->isOnline());
@@ -119,7 +119,7 @@ class ilObjSrCurriculumAccess extends ilObjectPluginAccess
      */
     public static function redirectNonAccess($class, string $cmd = "")/* : void*/
     {
-        ilUtil::sendFailure(self::plugin()->translate("permission_denied", ilObjSrCurriculumGUI::LANG_MODULE_OBJECT), true);
+        ilUtil::sendFailure(self::plugin()->translate("permission_denied", ilObjSrContainerObjectTreeGUI::LANG_MODULE_OBJECT), true);
 
         if (is_object($class)) {
             self::dic()->ctrl()->clearParameters($class);

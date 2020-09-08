@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm\SrCurriculum;
+namespace srag\RemovePluginDataConfirm\SrContainerObjectTree;
 
 use ilUIPluginRouterGUI;
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\DIC\SrCurriculum\Util\LibraryLanguageInstaller;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\DIC\SrContainerObjectTree\Util\LibraryLanguageInstaller;
 
 /**
  * Trait BasePluginUninstallTrait
  *
- * @package srag\RemovePluginDataConfirm\SrCurriculum
+ * @package srag\RemovePluginDataConfirm\SrContainerObjectTree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

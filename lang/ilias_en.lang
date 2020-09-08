@@ -1,16 +1,16 @@
-obj_xsrc#:#SrCurriculum
-obj_xsrc_duplicate#:#Copy SrCurriculum
-objs_xsrc#:#SrCurriculum's
-objs_xsrc_duplicate#:#Copy SrCurriculum's
-rbac_create_xsrc#:#Create SrCurriculum
-rep_robj_xsrc_obj_xsrc#:#SrCurriculum
-xsrc_add#:#Add
-xsrc_delete#:#Delete
-xsrc_edit_permission#:#Edit permission
-xsrc_new#:#Create SrCurriculum
-xsrc_read#:#Read
-xsrc_visible#:#visible
-xsrc_write#:#Edit
+obj_xcot#:#SrContainerObjectTree
+obj_xcot_duplicate#:#Copy SrContainerObjectTree
+objs_xcot#:#SrContainerObjectTree's
+objs_xcot_duplicate#:#Copy SrContainerObjectTree's
+rbac_create_xcot#:#Create SrContainerObjectTree
+rep_robj_xcot_obj_xcot#:#SrContainerObjectTree
+xcot_add#:#Add
+xcot_delete#:#Delete
+xcot_edit_permission#:#Edit permission
+xcot_new#:#Create SrContainerObjectTree
+xcot_read#:#Read
+xcot_visible#:#visible
+xcot_write#:#Edit
 object_offline#:#Offline
 object_permission_denied#:#Permission denied
 object_show_contents#:#Contents

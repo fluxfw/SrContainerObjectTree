@@ -1,17 +1,17 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Loader;
+namespace srag\DIC\SrContainerObjectTree\Loader;
 
 use ILIAS\UI\Component\Component;
 use ILIAS\UI\Implementation\Render\ComponentRenderer;
 use ILIAS\UI\Implementation\Render\Loader;
 use ILIAS\UI\Implementation\Render\RendererFactory;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class AbstractLoaderDetector
  *
- * @package srag\DIC\SrCurriculum\Loader
+ * @package srag\DIC\SrContainerObjectTree\Loader
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

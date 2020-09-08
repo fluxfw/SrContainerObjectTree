@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\Template;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\Template;
 
 use ilTemplate;
 
 /**
  * Class Template
  *
- * @package srag\CustomInputGUIs\SrCurriculum\Template
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\Template
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

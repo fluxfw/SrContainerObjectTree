@@ -1,20 +1,20 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Output;
+namespace srag\DIC\SrContainerObjectTree\Output;
 
 use ILIAS\UI\Component\Component;
 use ILIAS\UI\Implementation\Render\Template;
 use ilTable2GUI;
 use ilTemplate;
 use JsonSerializable;
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\DIC\SrCurriculum\Exception\DICException;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\DIC\SrContainerObjectTree\Exception\DICException;
 use stdClass;
 
 /**
  * Class Output
  *
- * @package srag\DIC\SrCurriculum\Output
+ * @package srag\DIC\SrContainerObjectTree\Output
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

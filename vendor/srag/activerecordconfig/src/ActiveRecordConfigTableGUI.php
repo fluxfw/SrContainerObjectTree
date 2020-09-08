@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\ActiveRecordConfig\SrCurriculum;
+namespace srag\ActiveRecordConfig\SrContainerObjectTree;
 
-use srag\CustomInputGUIs\SrCurriculum\TableGUI\TableGUI;
+use srag\CustomInputGUIs\SrContainerObjectTree\TableGUI\TableGUI;
 
 /**
  * Class ActiveRecordConfigTableGUI
  *
- * @package    srag\ActiveRecordConfig\SrCurriculum
+ * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

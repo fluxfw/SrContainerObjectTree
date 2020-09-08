@@ -1,24 +1,24 @@
 <?php
 
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\Plugins\SrCurriculum\Utils\SrCurriculumTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
- * Class ilObjSrCurriculumListGUI
+ * Class ilObjSrContainerObjectTreeListGUI
  *
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ilObjSrCurriculumListGUI extends ilObjectPluginListGUI
+class ilObjSrContainerObjectTreeListGUI extends ilObjectPluginListGUI
 {
 
     use DICTrait;
-    use SrCurriculumTrait;
+    use SrContainerObjectTreeTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrCurriculumPlugin::class;
+    const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
 
 
     /**
-     * ilObjSrCurriculumListGUI constructor
+     * ilObjSrContainerObjectTreeListGUI constructor
      *
      * @param int $a_context
      */
@@ -33,7 +33,7 @@ class ilObjSrCurriculumListGUI extends ilObjectPluginListGUI
      */
     public function getGuiClass() : string
     {
-        return ilObjSrCurriculumGUI::class;
+        return ilObjSrContainerObjectTreeGUI::class;
     }
 
 
@@ -44,11 +44,11 @@ class ilObjSrCurriculumListGUI extends ilObjectPluginListGUI
     {
         $props = [];
 
-        if (ilObjSrCurriculumAccess::_isOffline($this->obj_id)) {
+        if (ilObjSrContainerObjectTreeAccess::_isOffline($this->obj_id)) {
             $props[] = [
                 "alert"    => true,
-                "property" => self::plugin()->translate("status", ilObjSrCurriculumGUI::LANG_MODULE_OBJECT),
-                "value"    => self::plugin()->translate("offline", ilObjSrCurriculumGUI::LANG_MODULE_OBJECT)
+                "property" => self::plugin()->translate("status", ilObjSrContainerObjectTreeGUI::LANG_MODULE_OBJECT),
+                "value"    => self::plugin()->translate("offline", ilObjSrContainerObjectTreeGUI::LANG_MODULE_OBJECT)
             ];
         }
 
@@ -89,7 +89,7 @@ class ilObjSrCurriculumListGUI extends ilObjectPluginListGUI
         $commands = [
             [
                 "permission" => "read",
-                "cmd"        => ilObjSrCurriculumGUI::getStartCmd(),
+                "cmd"        => ilObjSrContainerObjectTreeGUI::getStartCmd(),
                 "default"    => true
             ]
         ];
@@ -103,6 +103,6 @@ class ilObjSrCurriculumListGUI extends ilObjectPluginListGUI
      */
     public function initType()/* : void*/
     {
-        $this->setType(ilSrCurriculumPlugin::PLUGIN_ID);
+        $this->setType(ilSrContainerObjectTreePlugin::PLUGIN_ID);
     }
 }

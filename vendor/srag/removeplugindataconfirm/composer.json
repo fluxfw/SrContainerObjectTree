@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "srag\\RemovePluginDataConfirm\\SrCurriculum\\": "src/"
+      "srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\": "src/"
     }
   },
   "config": {

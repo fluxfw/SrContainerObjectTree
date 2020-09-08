@@ -1,11 +1,11 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Version;
+namespace srag\DIC\SrContainerObjectTree\Version;
 
 /**
  * Interface VersionInterface
  *
- * @package srag\DIC\SrCurriculum\Version
+ * @package srag\DIC\SrContainerObjectTree\Version
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

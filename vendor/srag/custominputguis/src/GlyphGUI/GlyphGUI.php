@@ -1,14 +1,14 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\GlyphGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\GlyphGUI;
 
 use ilGlyphGUI;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class GlyphGUI
  *
- * @package srag\CustomInputGUIs\SrCurriculum\GlyphGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\GlyphGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>

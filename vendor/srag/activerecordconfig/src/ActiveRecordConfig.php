@@ -1,17 +1,17 @@
 <?php
 
-namespace srag\ActiveRecordConfig\SrCurriculum;
+namespace srag\ActiveRecordConfig\SrContainerObjectTree;
 
 use arConnector;
-use srag\ActiveRecordConfig\SrCurriculum\Config\AbstractFactory;
-use srag\ActiveRecordConfig\SrCurriculum\Config\AbstractRepository;
-use srag\ActiveRecordConfig\SrCurriculum\Config\Config;
-use srag\ActiveRecordConfig\SrCurriculum\Exception\ActiveRecordConfigException;
+use srag\ActiveRecordConfig\SrContainerObjectTree\Config\AbstractFactory;
+use srag\ActiveRecordConfig\SrContainerObjectTree\Config\AbstractRepository;
+use srag\ActiveRecordConfig\SrContainerObjectTree\Config\Config;
+use srag\ActiveRecordConfig\SrContainerObjectTree\Exception\ActiveRecordConfigException;
 
 /**
  * Class ActiveRecordConfig
  *
- * @package    srag\ActiveRecordConfig\SrCurriculum
+ * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
@@ -151,7 +151,7 @@ class ActiveRecordConfig extends Config
 /**
  * Class ActiveRecordConfigRepository
  *
- * @package    srag\ActiveRecordConfig\SrCurriculum
+ * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
@@ -255,7 +255,7 @@ final class ActiveRecordConfigRepository extends AbstractRepository
 /**
  * Class ActiveRecordConfigFactory
  *
- * @package    srag\ActiveRecordConfig\SrCurriculum
+ * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

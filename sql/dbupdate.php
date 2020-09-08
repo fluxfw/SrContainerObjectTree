@@ -1,4 +1,4 @@
 <#1>
 <?php
-\srag\Plugins\SrCurriculum\Repository::getInstance()->installTables();
+\srag\Plugins\SrContainerObjectTree\Repository::getInstance()->installTables();
 ?>

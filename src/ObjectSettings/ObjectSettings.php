@@ -1,17 +1,17 @@
 <?php
 
-namespace srag\Plugins\SrCurriculum\ObjectSettings;
+namespace srag\Plugins\SrContainerObjectTree\ObjectSettings;
 
 use ActiveRecord;
 use arConnector;
-use ilSrCurriculumPlugin;
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\Plugins\SrCurriculum\Utils\SrCurriculumTrait;
+use ilSrContainerObjectTreePlugin;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
  * Class ObjectSettings
  *
- * @package srag\Plugins\SrCurriculum\ObjectSettings
+ * @package srag\Plugins\SrContainerObjectTree\ObjectSettings
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -19,10 +19,10 @@ class ObjectSettings extends ActiveRecord
 {
 
     use DICTrait;
-    use SrCurriculumTrait;
+    use SrContainerObjectTreeTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrCurriculumPlugin::class;
-    const TABLE_NAME = "rep_robj_" . ilSrCurriculumPlugin::PLUGIN_ID . "_obj";
+    const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
+    const TABLE_NAME = "rep_robj_" . ilSrContainerObjectTreePlugin::PLUGIN_ID . "_obj";
     /**
      * @var bool
      *

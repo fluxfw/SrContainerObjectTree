@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\MultiSelectSearchInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\MultiSelectSearchInputGUI;
 
 use ilUtil;
 
 /**
  * Class MultiSelectSearchInput2GUI
  *
- * @package    srag\CustomInputGUIs\SrCurriculum\MultiSelectSearchInputGUI
+ * @package    srag\CustomInputGUIs\SrContainerObjectTree\MultiSelectSearchInputGUI
  *
  * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author     Oskar Truffer <ot@studer-raimann.ch>

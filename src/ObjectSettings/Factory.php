@@ -1,18 +1,18 @@
 <?php
 
-namespace srag\Plugins\SrCurriculum\ObjectSettings;
+namespace srag\Plugins\SrContainerObjectTree\ObjectSettings;
 
-use ilObjSrCurriculum;
-use ilObjSrCurriculumGUI;
-use ilSrCurriculumPlugin;
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\Plugins\SrCurriculum\ObjectSettings\Form\FormBuilder;
-use srag\Plugins\SrCurriculum\Utils\SrCurriculumTrait;
+use ilObjSrContainerObjectTree;
+use ilObjSrContainerObjectTreeGUI;
+use ilSrContainerObjectTreePlugin;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
+use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
  * Class Factory
  *
- * @package srag\Plugins\SrCurriculum\ObjectSettings
+ * @package srag\Plugins\SrContainerObjectTree\ObjectSettings
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -20,9 +20,9 @@ final class Factory
 {
 
     use DICTrait;
-    use SrCurriculumTrait;
+    use SrContainerObjectTreeTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrCurriculumPlugin::class;
+    const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
      * @var self|null
      */
@@ -52,12 +52,12 @@ final class Factory
 
 
     /**
-     * @param ilObjSrCurriculumGUI $parent
-     * @param ilObjSrCurriculum    $object
+     * @param ilObjSrContainerObjectTreeGUI $parent
+     * @param ilObjSrContainerObjectTree    $object
      *
      * @return FormBuilder
      */
-    public function newFormBuilderInstance(ilObjSrCurriculumGUI $parent, ilObjSrCurriculum $object) : FormBuilder
+    public function newFormBuilderInstance(ilObjSrContainerObjectTreeGUI $parent, ilObjSrContainerObjectTree $object) : FormBuilder
     {
         $form = new FormBuilder($parent, $object);
 

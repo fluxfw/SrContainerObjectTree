@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Database;
+namespace srag\DIC\SrContainerObjectTree\Database;
 
 use ilDBPdoInterface;
 use ilDBStatement;
@@ -8,7 +8,7 @@ use ilDBStatement;
 /**
  * Interface DatabaseInterface
  *
- * @package srag\DIC\SrCurriculum\Database
+ * @package srag\DIC\SrContainerObjectTree\Database
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

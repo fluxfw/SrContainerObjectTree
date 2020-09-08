@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm\SrCurriculum;
+namespace srag\RemovePluginDataConfirm\SrContainerObjectTree;
 
 require_once __DIR__ . "./../../../autoload.php";
 
@@ -9,17 +9,17 @@ use ilConfirmationGUI;
 use ilObjComponentSettingsGUI;
 use ilSession;
 use ilUtil;
-use srag\DIC\SrCurriculum\DICStatic;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICStatic;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class RemovePluginDataConfirmCtrl
  *
- * @package           srag\RemovePluginDataConfirm\SrCurriculum
+ * @package           srag\RemovePluginDataConfirm\SrContainerObjectTree
  *
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
- * @ilCtrl_isCalledBy srag\RemovePluginDataConfirm\SrCurriculum\RemovePluginDataConfirmCtrl: ilUIPluginRouterGUI
+ * @ilCtrl_isCalledBy srag\RemovePluginDataConfirm\SrContainerObjectTree\RemovePluginDataConfirmCtrl: ilUIPluginRouterGUI
  */
 class RemovePluginDataConfirmCtrl
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\Waiter;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\Waiter;
 
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class Waiter
  *
- * @package srag\CustomInputGUIs\SrCurriculum\Waiter
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\Waiter
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

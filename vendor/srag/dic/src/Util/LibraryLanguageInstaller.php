@@ -1,18 +1,18 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Util;
+namespace srag\DIC\SrContainerObjectTree\Util;
 
 use ilDBConstants;
 use ilGlobalCache;
 use ilObjLanguage;
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\DIC\SrCurriculum\Plugin\Pluginable;
-use srag\DIC\SrCurriculum\Plugin\PluginInterface;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\DIC\SrContainerObjectTree\Plugin\Pluginable;
+use srag\DIC\SrContainerObjectTree\Plugin\PluginInterface;
 
 /**
  * Class LibraryLanguageInstaller
  *
- * @package srag\DIC\SrCurriculum\Util
+ * @package srag\DIC\SrContainerObjectTree\Util
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

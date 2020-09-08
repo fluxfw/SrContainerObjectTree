@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\ActiveRecordConfig\SrCurriculum\Config;
+namespace srag\ActiveRecordConfig\SrContainerObjectTree\Config;
 
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class AbstractFactory
  *
- * @package srag\ActiveRecordConfig\SrCurriculum\Config
+ * @package srag\ActiveRecordConfig\SrContainerObjectTree\Config
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

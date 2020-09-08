@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\ActiveRecordConfig\SrCurriculum\Exception;
+namespace srag\ActiveRecordConfig\SrContainerObjectTree\Exception;
 
 use ilException;
 
 /**
  * Class ActiveRecordConfigException
  *
- * @package srag\ActiveRecordConfig\SrCurriculum\Exception
+ * @package srag\ActiveRecordConfig\SrContainerObjectTree\Exception
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *

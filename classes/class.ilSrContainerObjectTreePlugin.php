@@ -3,24 +3,24 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use ILIAS\DI\Container;
-use srag\CustomInputGUIs\SrCurriculum\Loader\CustomInputGUIsLoaderDetector;
-use srag\Plugins\SrCurriculum\Utils\SrCurriculumTrait;
-use srag\RemovePluginDataConfirm\SrCurriculum\RepositoryObjectPluginUninstallTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\Loader\CustomInputGUIsLoaderDetector;
+use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
+use srag\RemovePluginDataConfirm\SrContainerObjectTree\RepositoryObjectPluginUninstallTrait;
 
 /**
- * Class ilSrCurriculumPlugin
+ * Class ilSrContainerObjectTreePlugin
  *
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ilSrCurriculumPlugin extends ilRepositoryObjectPlugin
+class ilSrContainerObjectTreePlugin extends ilRepositoryObjectPlugin
 {
 
     use RepositoryObjectPluginUninstallTrait;
-    use SrCurriculumTrait;
+    use SrContainerObjectTreeTrait;
 
     const PLUGIN_CLASS_NAME = self::class;
-    const PLUGIN_ID = "xsrc";
-    const PLUGIN_NAME = "SrCurriculum";
+    const PLUGIN_ID = "xcot";
+    const PLUGIN_NAME = "SrContainerObjectTree";
     /**
      * @var self|null
      */
@@ -28,7 +28,7 @@ class ilSrCurriculumPlugin extends ilRepositoryObjectPlugin
 
 
     /**
-     * ilSrCurriculumPlugin constructor
+     * ilSrContainerObjectTreePlugin constructor
      */
     public function __construct()
     {
@@ -92,7 +92,7 @@ class ilSrCurriculumPlugin extends ilRepositoryObjectPlugin
      */
     protected function deleteData()/* : void*/
     {
-        self::srCurriculum()->dropTables();
+        self::srContainerObjectTree()->dropTables();
     }
 
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace srag\DIC\SrCurriculum\Plugin;
+namespace srag\DIC\SrContainerObjectTree\Plugin;
 
 use Exception;
 use ilLanguage;
 use ilPlugin;
-use srag\CustomInputGUIs\SrCurriculum\Template\Template;
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\DIC\SrCurriculum\Exception\DICException;
+use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\DIC\SrContainerObjectTree\Exception\DICException;
 
 /**
  * Class Plugin
  *
- * @package srag\DIC\SrCurriculum\Plugin
+ * @package srag\DIC\SrContainerObjectTree\Plugin
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

@@ -1,14 +1,14 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\TextInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\TextInputGUI;
 
 use ilTextInputGUI;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class TextInputGUI
  *
- * @package srag\CustomInputGUIs\SrCurriculum\TextInputGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\TextInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

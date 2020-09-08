@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\Plugins\SrCurriculum;
+namespace srag\Plugins\SrContainerObjectTree;
 
-use ilSrCurriculumPlugin;
-use srag\DIC\SrCurriculum\DICTrait;
-use srag\Plugins\SrCurriculum\ObjectSettings\Repository as ObjectSettingsRepository;
-use srag\Plugins\SrCurriculum\Utils\SrCurriculumTrait;
+use ilSrContainerObjectTreePlugin;
+use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\Repository as ObjectSettingsRepository;
+use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
  * Class Repository
  *
- * @package srag\Plugins\SrCurriculum
+ * @package srag\Plugins\SrContainerObjectTree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -18,9 +18,9 @@ final class Repository
 {
 
     use DICTrait;
-    use SrCurriculumTrait;
+    use SrContainerObjectTreeTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrCurriculumPlugin::class;
+    const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
      * @var self|null
      */

@@ -1,20 +1,20 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\MultiLineNewInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\MultiLineNewInputGUI;
 
 use ilFormPropertyGUI;
 use ILIAS\UI\Component\Glyph\Factory as GlyphFactory54;
 use ilTableFilterItem;
 use ilTemplate;
 use ilToolbarItem;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\Items\Items;
-use srag\CustomInputGUIs\SrCurriculum\Template\Template;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\Items\Items;
+use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class MultiLineNewInputGUI
  *
- * @package srag\CustomInputGUIs\SrCurriculum\MultiLineNewInputGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\MultiLineNewInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

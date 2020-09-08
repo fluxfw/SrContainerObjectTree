@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\ActiveRecordConfig\SrCurriculum\Config;
+namespace srag\ActiveRecordConfig\SrContainerObjectTree\Config;
 
 use ActiveRecord;
 use arConnector;
 use LogicException;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class Config
  *
- * @package srag\ActiveRecordConfig\SrCurriculum\Config
+ * @package srag\ActiveRecordConfig\SrContainerObjectTree\Config
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

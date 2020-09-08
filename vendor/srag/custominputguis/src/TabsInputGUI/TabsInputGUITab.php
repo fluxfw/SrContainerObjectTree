@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\TabsInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\TabsInputGUI;
 
 use ilFormPropertyGUI;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\Items\Items;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\Items\Items;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class TabsInputGUITab
  *
- * @package srag\CustomInputGUIs\SrCurriculum\TabsInputGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\TabsInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

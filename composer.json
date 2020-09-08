@@ -1,10 +1,10 @@
 {
-  "name": "srag/plugins/srcurriculum",
+  "name": "srag/plugins/srcontainerobjecttree",
   "description": "",
   "version": "1.0.0",
   "ilias_plugin": {
-    "id": "xsrc",
-    "name": "SrCurriculum",
+    "id": "xcot",
+    "name": "SrContainerObjectTree",
     "ilias_min_version": "5.4.0",
     "ilias_max_version": "6.999",
     "lucene_search": true,
@@ -14,9 +14,9 @@
   "keywords": [
     "ILIAS",
     "Plugin",
-    "SrCurriculum"
+    "SrContainerObjectTree"
   ],
-  "homepage": "https://github.com/studer-raimann/SrCurriculum",
+  "homepage": "https://github.com/studer-raimann/SrContainerObjectTree",
   "license": "GPL-3.0-only",
   "authors": [
     {
@@ -27,7 +27,7 @@
     }
   ],
   "support": {
-    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLSrCurriculum"
+    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLCOT"
   },
   "require": {
     "php": ">=7.0",
@@ -39,7 +39,7 @@
   },
   "autoload": {
     "psr-4": {
-      "srag\\Plugins\\SrCurriculum\\": "src/"
+      "srag\\Plugins\\SrContainerObjectTree\\": "src/"
     },
     "classmap": [
       "classes/"

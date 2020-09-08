@@ -1,14 +1,14 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\ViewControlModeUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\ViewControlModeUI;
 
 use ilSession;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 
 /**
  * Class ViewControlModeUI
  *
- * @package srag\CustomInputGUIs\SrCurriculum\ViewControlModeUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\ViewControlModeUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

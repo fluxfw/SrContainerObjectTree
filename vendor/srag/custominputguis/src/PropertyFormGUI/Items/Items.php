@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\Items;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\Items;
 
 use ilDateTime;
 use ilFormPropertyGUI;
@@ -11,19 +11,19 @@ use ilPropertyFormGUI;
 use ilRadioOption;
 use ilRepositorySelector2InputGUI;
 use ilUtil;
-use srag\CustomInputGUIs\SrCurriculum\MultiLineInputGUI\MultiLineInputGUI;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\Exception\PropertyFormGUIException;
-use srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\PropertyFormGUI;
-use srag\CustomInputGUIs\SrCurriculum\TableGUI\TableGUI;
-use srag\CustomInputGUIs\SrCurriculum\Template\Template;
-use srag\CustomInputGUIs\SrCurriculum\UIInputComponentWrapperInputGUI\UIInputComponentWrapperInputGUI;
-use srag\DIC\SrCurriculum\DICTrait;
+use srag\CustomInputGUIs\SrContainerObjectTree\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\Exception\PropertyFormGUIException;
+use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\PropertyFormGUI;
+use srag\CustomInputGUIs\SrContainerObjectTree\TableGUI\TableGUI;
+use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
+use srag\CustomInputGUIs\SrContainerObjectTree\UIInputComponentWrapperInputGUI\UIInputComponentWrapperInputGUI;
+use srag\DIC\SrContainerObjectTree\DICTrait;
 use TypeError;
 
 /**
  * Class Items
  *
- * @package srag\CustomInputGUIs\SrCurriculum\PropertyFormGUI\Items
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\Items
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
