@@ -2,6 +2,7 @@
 
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
+use srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -17,6 +18,7 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilObjectCopyGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilCommonActionDispatcherGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder
+ * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl: ilObjSrContainerObjectTreeGUI
  */
 class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 {
@@ -113,6 +115,11 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
                 self::dic()->ctrl()->forwardCommand($this->getSettingsForm());
                 break;
 
+            case strtolower(TreeCtrl::class):
+                self::dic()->tabs()->activateTab(self::TAB_SHOW_CONTENTS);
+                self::dic()->ctrl()->forwardCommand(new TreeCtrl($this->object->getContainerRefId()));
+                break;
+
             default:
                 switch ($cmd) {
                     case self::CMD_SHOW_CONTENTS:
@@ -169,23 +176,39 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
      */
     protected function setTabs()/* : void*/
     {
-        self::dic()->tabs()->addTab(self::TAB_SHOW_CONTENTS, self::plugin()->translate("show_contents", self::LANG_MODULE_OBJECT), self::dic()->ctrl()
-            ->getLinkTarget($this, self::CMD_SHOW_CONTENTS));
+        if (!self::dic()->ctrl()->isAsynch()) {
+            self::dic()->ui()->mainTemplate()->setTitle($this->object->getTitle());
 
-        if (ilObjSrContainerObjectTreeAccess::hasWriteAccess()) {
-            self::dic()->tabs()->addTab(self::TAB_SETTINGS, self::plugin()->translate("settings", self::LANG_MODULE_SETTINGS), self::dic()->ctrl()
-                ->getLinkTarget($this, self::CMD_SETTINGS));
+            self::dic()->ui()->mainTemplate()->setDescription($this->object->getDescription());
+
+            if (!$this->object->isOnline()) {
+                self::dic()->ui()->mainTemplate()->setAlertProperties([
+                    [
+                        "alert"    => true,
+                        "property" => self::plugin()->translate("status", self::LANG_MODULE_OBJECT),
+                        "value"    => self::plugin()->translate("offline", self::LANG_MODULE_OBJECT)
+                    ]
+                ]);
+            }
+
+            self::dic()->tabs()->addTab(self::TAB_SHOW_CONTENTS, self::plugin()->translate("show_contents", self::LANG_MODULE_OBJECT), self::dic()->ctrl()
+                ->getLinkTarget($this, self::CMD_SHOW_CONTENTS));
+
+            if (ilObjSrContainerObjectTreeAccess::hasWriteAccess()) {
+                self::dic()->tabs()->addTab(self::TAB_SETTINGS, self::plugin()->translate("settings", self::LANG_MODULE_SETTINGS), self::dic()->ctrl()
+                    ->getLinkTarget($this, self::CMD_SETTINGS));
+            }
+
+            if (ilObjSrContainerObjectTreeAccess::hasEditPermissionAccess()) {
+                self::dic()->tabs()->addTab(self::TAB_PERMISSIONS, self::plugin()->translate(self::TAB_PERMISSIONS, "", [], false), self::dic()->ctrl()
+                    ->getLinkTargetByClass([
+                        self::class,
+                        ilPermissionGUI::class
+                    ], self::CMD_PERMISSIONS));
+            }
+
+            self::dic()->tabs()->manual_activation = true; // Show all tabs as links when no activation
         }
-
-        if (ilObjSrContainerObjectTreeAccess::hasEditPermissionAccess()) {
-            self::dic()->tabs()->addTab(self::TAB_PERMISSIONS, self::plugin()->translate(self::TAB_PERMISSIONS, "", [], false), self::dic()->ctrl()
-                ->getLinkTargetByClass([
-                    self::class,
-                    ilPermissionGUI::class
-                ], self::CMD_PERMISSIONS));
-        }
-
-        self::dic()->tabs()->manual_activation = true; // Show all tabs as links when no activation
     }
 
 
@@ -224,37 +247,10 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 
 
     /**
-     * @param string $html
-     */
-    protected function show(string $html)/* : void*/
-    {
-        if (!self::dic()->ctrl()->isAsynch()) {
-            self::dic()->ui()->mainTemplate()->setTitle($this->object->getTitle());
-
-            self::dic()->ui()->mainTemplate()->setDescription($this->object->getDescription());
-
-            if (!$this->object->isOnline()) {
-                self::dic()->ui()->mainTemplate()->setAlertProperties([
-                    [
-                        "alert"    => true,
-                        "property" => self::plugin()->translate("status", self::LANG_MODULE_OBJECT),
-                        "value"    => self::plugin()->translate("offline", self::LANG_MODULE_OBJECT)
-                    ]
-                ]);
-            }
-        }
-
-        self::output()->output($html);
-    }
-
-
-    /**
      *
      */
     protected function showContents()/* : void*/
     {
-        self::dic()->tabs()->activateTab(self::TAB_SHOW_CONTENTS);
-
-        $this->show("");
+        self::dic()->ctrl()->redirectByClass(TreeCtrl::class);
     }
 }

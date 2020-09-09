@@ -149,6 +149,8 @@ class ComposerStaticInit4b226a890de0f300db22f4232c7dcba5
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\ObjectSettings' => __DIR__ . '/../..' . '/src/ObjectSettings/ObjectSettings.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Repository' => __DIR__ . '/../..' . '/src/ObjectSettings/Repository.php',
         'srag\\Plugins\\SrContainerObjectTree\\Repository' => __DIR__ . '/../..' . '/src/Repository.php',
+        'srag\\Plugins\\SrContainerObjectTree\\Tree\\Repository' => __DIR__ . '/../..' . '/src/Tree/Repository.php',
+        'srag\\Plugins\\SrContainerObjectTree\\Tree\\TreeCtrl' => __DIR__ . '/../..' . '/src/Tree/class.TreeCtrl.php',
         'srag\\Plugins\\SrContainerObjectTree\\Utils\\SrContainerObjectTreeTrait' => __DIR__ . '/../..' . '/src/Utils/SrContainerObjectTreeTrait.php',
         'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\BasePluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/BasePluginUninstallTrait.php',
         'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\PluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',

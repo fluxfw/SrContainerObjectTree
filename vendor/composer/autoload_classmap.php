@@ -105,6 +105,8 @@ return array(
     'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\ObjectSettings' => $baseDir . '/src/ObjectSettings/ObjectSettings.php',
     'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Repository' => $baseDir . '/src/ObjectSettings/Repository.php',
     'srag\\Plugins\\SrContainerObjectTree\\Repository' => $baseDir . '/src/Repository.php',
+    'srag\\Plugins\\SrContainerObjectTree\\Tree\\Repository' => $baseDir . '/src/Tree/Repository.php',
+    'srag\\Plugins\\SrContainerObjectTree\\Tree\\TreeCtrl' => $baseDir . '/src/Tree/class.TreeCtrl.php',
     'srag\\Plugins\\SrContainerObjectTree\\Utils\\SrContainerObjectTreeTrait' => $baseDir . '/src/Utils/SrContainerObjectTreeTrait.php',
     'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\BasePluginUninstallTrait' => $vendorDir . '/srag/removeplugindataconfirm/src/BasePluginUninstallTrait.php',
     'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\PluginUninstallTrait' => $vendorDir . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',

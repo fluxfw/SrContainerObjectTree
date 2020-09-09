@@ -23,3 +23,5 @@ settings_save#:#Speichern
 settings_saved#:#Einstellungen gespeichert
 settings_settings#:#Einstellungen
 settings_title#:#Titel
+tree_empty#:#Leer
+tree_error#:#Baum konnte nicht geladen werden

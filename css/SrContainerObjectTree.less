@@ -1,0 +1,122 @@
+.SrContainerObjectTree {
+  background-color: white;
+  color: black;
+
+  &, * {
+	height: auto;
+	padding: 5px;
+	width: 100%;
+  }
+
+  .SrContainerObjectTreeNode {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	.SrContainerObjectTreeArrow {
+	  cursor: pointer;
+	  flex-grow: 0;
+	  flex-shrink: 0;
+	  height: 20px;
+	  transition: transform 50ms;
+	  width: 20px;
+
+	  &:before {
+		border-right: 1px solid currentColor;
+		border-top: 1px solid currentColor;
+		content: "";
+		display: block;
+		height: 10px;
+		margin-left: -5px;
+		margin-top: 2px;
+		transform: rotate(45deg);
+		width: 10px;
+	  }
+
+	  & ~ .SrContainerObjectTreeLink {
+		margin-left: 0;
+	  }
+
+	  &.SrContainerObjectTreeArrowOpen {
+		transform: rotate(90deg);
+	  }
+
+	  &:not(.SrContainerObjectTreeArrowOpen) ~ .SrContainerObjectTreeChildren {
+		display: none;
+	  }
+	}
+
+	.SrContainerObjectTreeLink {
+	  align-items: center;
+	  cursor: pointer;
+	  display: flex;
+	  flex-direction: row;
+	  flex-grow: 1;
+	  flex-shrink: 1;
+	  flex-wrap: wrap;
+	  margin-left: 20px;
+	  padding: 0;
+	  width: 0;
+
+	  &:hover {
+		text-decoration: underline;
+	  }
+
+	  .SrContainerObjectTreeIcon {
+		flex-grow: 0;
+		flex-shrink: 0;
+		height: 20px;
+		padding: 0;
+		width: 20px;
+	  }
+
+	  .SrContainerObjectTreeTitle {
+		flex-grow: 1;
+		flex-shrink: 1;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 0;
+	  }
+	}
+
+	.SrContainerObjectTreeChildren {
+	  border-left: 1px solid currentColor;
+	  flex-grow: 0;
+	  flex-shrink: 0;
+	  margin-left: 35px;
+	}
+  }
+
+  .SrContainerObjectTreeLoading {
+	animation: SrContainerObjectTreeLoading 1s infinite;
+	border-top: 1px solid currentColor;
+	border-radius: 20px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	height: 20px;
+	margin: 5px;
+	padding: 0;
+	width: 20px;
+
+	@keyframes SrContainerObjectTreeLoading {
+	  0% {
+		transform: rotate(0deg);
+	  }
+	  100% {
+		transform: rotate(360deg);
+	  }
+	}
+  }
+
+  .SrContainerObjectTreeEmpty {
+	color: gray;
+	font-style: italic;
+  }
+
+  .SrContainerObjectTreeError {
+	color: red;
+	font-style: italic;
+  }
+}

@@ -8,6 +8,7 @@ use ilRepositorySelector2InputGUI;
 use ilSrContainerObjectTreePlugin;
 use srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder\AbstractFormBuilder;
 use srag\CustomInputGUIs\SrContainerObjectTree\InputGUIWrapperUIInputComponent\InputGUIWrapperUIInputComponent;
+use srag\Plugins\SrContainerObjectTree\Tree\Repository;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -88,7 +89,7 @@ class FormBuilder extends AbstractFormBuilder
                 ->translate("container_object", ilObjSrContainerObjectTreeGUI::LANG_MODULE_SETTINGS),
                 "container_ref_id", null, self::class)))->withRequired(true)
         ];
-        $fields["container_ref_id"]->getInput()->getExplorerGUI()->setSelectableTypes(["cat", "crs", "fold", "grp", "root"]);
+        $fields["container_ref_id"]->getInput()->getExplorerGUI()->setSelectableTypes(Repository::CONTAINER_TYPES);
 
         return $fields;
     }

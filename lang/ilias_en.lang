@@ -23,3 +23,5 @@ settings_save#:#Save
 settings_saved#:#Settings saved
 settings_settings#:#Settings
 settings_title#:#Title
+tree_empty#:#Empty
+tree_error#:#Tree could not be loaded
