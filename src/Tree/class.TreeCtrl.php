@@ -44,6 +44,8 @@ class TreeCtrl
      */
     public function executeCommand()/*: void*/
     {
+        $this->setTabs();
+
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
         switch (strtolower($next_class)) {
@@ -87,5 +89,14 @@ class TreeCtrl
             ->getHtml($this->container_ref_id, self::dic()->ctrl()->getLinkTarget($this, self::CMD_GET_CHILDREN, "", true) . "&" . self::GET_PARAM_PARENT_REF_ID);
 
         self::output()->output($html);
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*: void*/
+    {
+
     }
 }

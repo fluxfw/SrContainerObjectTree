@@ -98,23 +98,23 @@
     },
     {
         "name": "srag/dic",
-        "version": "v0.25.1",
-        "version_normalized": "0.25.1.0",
+        "version": "v0.26.0",
+        "version_normalized": "0.26.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/DIC.git",
-            "reference": "022cb0b92b003096380055a450597a5dbdbbe831"
+            "reference": "02bcc37c2006bf654dd913ba9d52385352365db7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/022cb0b92b003096380055a450597a5dbdbbe831",
-            "reference": "022cb0b92b003096380055a450597a5dbdbbe831",
+            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/02bcc37c2006bf654dd913ba9d52385352365db7",
+            "reference": "02bcc37c2006bf654dd913ba9d52385352365db7",
             "shasum": ""
         },
         "require": {
             "php": ">=7.0"
         },
-        "time": "2020-06-09T05:30:37+00:00",
+        "time": "2020-09-10T10:12:12+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -190,24 +190,24 @@
     },
     {
         "name": "srag/removeplugindataconfirm",
-        "version": "v0.6.4",
-        "version_normalized": "0.6.4.0",
+        "version": "v0.6.5",
+        "version_normalized": "0.6.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
-            "reference": "fa45bd96920e5a28577810c3d28900dc8083fc6f"
+            "reference": "2e07afde4d42c73a8d66b5dcff9b45e517a93e24"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/fa45bd96920e5a28577810c3d28900dc8083fc6f",
-            "reference": "fa45bd96920e5a28577810c3d28900dc8083fc6f",
+            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/2e07afde4d42c73a8d66b5dcff9b45e517a93e24",
+            "reference": "2e07afde4d42c73a8d66b5dcff9b45e517a93e24",
             "shasum": ""
         },
         "require": {
             "php": ">=7.0",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2020-06-02T12:52:50+00:00",
+        "time": "2020-09-10T07:00:17+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
