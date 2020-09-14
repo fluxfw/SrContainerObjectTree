@@ -73,7 +73,7 @@ class TreeCtrl
     {
         $ref_id = strval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
 
-        $children = self::srContainerObjectTree()->tree()->getChildren($ref_id);
+        $children = self::srContainerObjectTree()->tree()->getChildren($ref_id, true);
 
         self::output()->outputJSON($children);
     }

@@ -64,11 +64,12 @@ final class Repository
 
 
     /**
-     * @param int $ref_id
+     * @param int  $ref_id
+     * @param bool $count_sub_children_types
      *
      * @return array
      */
-    public function getChildren(int $ref_id) : array
+    public function getChildren(int $ref_id, bool $count_sub_children_types = false) : array
     {
         $children = [];
 
@@ -101,12 +102,17 @@ final class Repository
                     continue;
                 }
 
+                $is_container = in_array($sub_item["type"], self::CONTAINER_TYPES);
+
                 $children[] = [
-                    "icon"         => ilObject::_getIcon($sub_item["obj_id"]),
-                    "is_container" => in_array($sub_item["type"], self::CONTAINER_TYPES),
-                    "link"         => ilLink::_getLink($sub_item["child"]),
-                    "ref_id"       => $sub_item["child"],
-                    "title"        => $sub_item["title"]
+                    "count_sub_children_types" => ($is_container && $count_sub_children_types ? $this->getCountSubChildrenTypes($sub_item["child"]) : []),
+                    "description"              => $sub_item["description"],
+                    "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
+                    "is_container"             => $is_container,
+                    "link"                     => ilLink::_getLink($sub_item["child"]),
+                    "ref_id"                   => $sub_item["child"],
+                    "title"                    => $sub_item["title"],
+                    "type"                     => $sub_item["type"]
                 ];
             }
         }
@@ -132,8 +138,7 @@ final class Repository
             "container_ref_id" => $container_ref_id,
             "empty_text"       => self::plugin()->translate("empty", TreeCtrl::LANG_MODULE),
             "error_text"       => self::plugin()->translate("error", TreeCtrl::LANG_MODULE),
-            "fetch_url"        => $fetch_url
-                . "="
+            "fetch_url"        => $fetch_url . "="
         ];
 
         $tpl->setVariableEscaped("CONFIG", base64_encode(json_encode($config)));
@@ -148,5 +153,31 @@ final class Repository
     public function installTables()/* : void*/
     {
 
+    }
+
+
+    /**
+     * @param int $ref_id
+     *
+     * @return array
+     */
+    protected function getCountSubChildrenTypes(int $ref_id) : array
+    {
+        return array_values(array_map(function (array $count_sub_children_type) : array {
+            $count_sub_children_type["type_title"] = self::plugin()->translate("obj" . ($count_sub_children_type["count"] !== 1 ? "s" : "") . "_" . $count_sub_children_type["type"], "", [], false);
+
+            return $count_sub_children_type;
+        }, array_reduce($this->getChildren($ref_id), function (array $count_sub_children_types, array $children) : array {
+            if (!isset($count_sub_children_types[$children["type"]])) {
+                $count_sub_children_types[$children["type"]] = [
+                    "count" => 0,
+                    "type"  => $children["type"]
+                ];
+            }
+
+            $count_sub_children_types[$children["type"]]["count"]++;
+
+            return $count_sub_children_types;
+        }, [])));
     }
 }

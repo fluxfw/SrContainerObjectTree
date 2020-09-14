@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (children.length > 0) {
-                for (const {icon, is_container, link, ref_id, title} of children) {
+                for (const {count_sub_children_types, description, icon, is_container, link, ref_id, title} of children) {
                     const node_el = document.createElement("div");
                     node_el.classList.add("SrContainerObjectTreeNode");
 
@@ -81,6 +81,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     link_el.appendChild(title_el);
 
                     node_el.appendChild(link_el);
+
+                    if (description) {
+                        const description_el = document.createElement("div");
+                        description_el.classList.add("SrContainerObjectTreeDescription");
+                        description_el.innerText = description;
+                        node_el.appendChild(description_el);
+                    }
+
+                    if (is_container && count_sub_children_types.length > 0) {
+                        const count_sub_children_types_el = document.createElement("div");
+                        count_sub_children_types_el.classList.add("SrContainerObjectTreeCountSubChildrenTypes");
+                        count_sub_children_types_el.innerText = count_sub_children_types.map(({count, type_title}) => `${count} ${type_title}`).join(", ");
+                        node_el.appendChild(count_sub_children_types_el);
+                    }
 
                     if (is_container) {
                         node_el.appendChild(children_el);
