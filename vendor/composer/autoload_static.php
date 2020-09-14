@@ -4,26 +4,27 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3b7dfcb4b757d5547ce59dbb616ef1e4
+class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
 {
     public static $files = array (
         '191e06d0a46fe00fcbda4e0e9d644545' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
+        'd6bdef442d4dac29357c0c26ec429399' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 51,
+            'srag\\RemovePluginDataConfirm\\' => 29,
             'srag\\Plugins\\SrContainerObjectTree\\' => 35,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\SrContainerObjectTree\\' => 31,
-            'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 43,
-            'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 46,
+            'srag\\DIC\\' => 9,
+            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\ActiveRecordConfig\\' => 24,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 
+        'srag\\RemovePluginDataConfirm\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -35,15 +36,15 @@ class ComposerStaticInit3b7dfcb4b757d5547ce59dbb616ef1e4
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\SrContainerObjectTree\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 
+        'srag\\ActiveRecordConfig\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -130,6 +131,7 @@ class ComposerStaticInit3b7dfcb4b757d5547ce59dbb616ef1e4
         'srag\\DIC\\SrContainerObjectTree\\Database\\PdoStatementContextHelper' => __DIR__ . '/..' . '/srag/dic/src/Database/PdoStatementContextHelper.php',
         'srag\\DIC\\SrContainerObjectTree\\DevTools\\DevToolsCtrl' => __DIR__ . '/..' . '/srag/dic/src/DevTools/class.DevToolsCtrl.php',
         'srag\\DIC\\SrContainerObjectTree\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
+        'srag\\DIC\\SrContainerObjectTree\\Ilias7PreWarn' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
         'srag\\DIC\\SrContainerObjectTree\\Loader\\AbstractLoaderDetector' => __DIR__ . '/..' . '/srag/dic/src/Loader/AbstractLoaderDetector.php',
         'srag\\DIC\\SrContainerObjectTree\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
         'srag\\DIC\\SrContainerObjectTree\\Output\\OutputInterface' => __DIR__ . '/..' . '/srag/dic/src/Output/OutputInterface.php',
@@ -163,9 +165,9 @@ class ComposerStaticInit3b7dfcb4b757d5547ce59dbb616ef1e4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3b7dfcb4b757d5547ce59dbb616ef1e4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3b7dfcb4b757d5547ce59dbb616ef1e4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3b7dfcb4b757d5547ce59dbb616ef1e4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7::$classMap;
 
         }, null, ClassLoader::class);
     }
