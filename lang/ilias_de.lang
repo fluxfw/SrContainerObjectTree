@@ -1,0 +1,27 @@
+obj_xcot#:#SrContainerObjectTree
+obj_xcot_duplicate#:#SrContainerObjectTree kopieren
+objs_xcot#:#SrContainerObjectTree's
+objs_xcot_duplicate#:#SrContainerObjectTree's kopieren
+rbac_create_xcot#:#SrContainerObjectTree anlegen
+rep_robj_xcot_obj_xcot#:#SrContainerObjectTree
+xcot_add#:#Hinzufügen
+xcot_delete#:#Löschen
+xcot_edit_permission#:#Rechte bearbeiten
+xcot_new#:#SrContainerObjectTree anlegen
+xcot_read#:#Lesen
+xcot_visible#:#Sichtbar
+xcot_write#:#Bearbeiten
+object_offline#:#Offline
+object_permission_denied#:#Zugriff verweigert
+object_show_contents#:#Inhalte
+object_status#:#Status
+settings_cancel#:#Abbrechen
+settings_container_object#:#Container-Objekt
+settings_description#:#Beschreibung
+settings_online#:#Online
+settings_save#:#Speichern
+settings_saved#:#Einstellungen gespeichert
+settings_settings#:#Einstellungen
+settings_title#:#Titel
+tree_empty#:#Leer
+tree_error#:#Baum konnte nicht geladen werden

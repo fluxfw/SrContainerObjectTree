@@ -1,0 +1,27 @@
+obj_xcot#:#SrContainerObjectTree
+obj_xcot_duplicate#:#Copy SrContainerObjectTree
+objs_xcot#:#SrContainerObjectTree's
+objs_xcot_duplicate#:#Copy SrContainerObjectTree's
+rbac_create_xcot#:#Create SrContainerObjectTree
+rep_robj_xcot_obj_xcot#:#SrContainerObjectTree
+xcot_add#:#Add
+xcot_delete#:#Delete
+xcot_edit_permission#:#Edit permission
+xcot_new#:#Create SrContainerObjectTree
+xcot_read#:#Read
+xcot_visible#:#visible
+xcot_write#:#Edit
+object_offline#:#Offline
+object_permission_denied#:#Permission denied
+object_show_contents#:#Contents
+object_status#:#Status
+settings_cancel#:#Cancel
+settings_container_object#:#Container object
+settings_description#:#Description
+settings_online#:#Online
+settings_save#:#Save
+settings_saved#:#Settings saved
+settings_settings#:#Settings
+settings_title#:#Title
+tree_empty#:#Empty
+tree_error#:#Tree could not be loaded
