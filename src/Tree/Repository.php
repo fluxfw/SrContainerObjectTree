@@ -78,6 +78,10 @@ final class Repository
             return $children;
         }
 
+        if (!self::dic()->access()->checkAccess("read", "", $ref_id)) {
+            return $children;
+        }
+
         $types = ilContainerSorting::_getInstance($object->getId())->getBlockPositions();
         if (empty($types)) {
             $types = array_reduce(self::dic()
@@ -93,6 +97,10 @@ final class Repository
 
         foreach ($types as $type) {
             foreach ((array) $sub_items[$type] as $sub_item) {
+                if (!self::dic()->access()->checkAccess("read", "", $sub_item["child"])) {
+                    continue;
+                }
+
                 $children[] = [
                     "icon"         => ilObject::_getIcon($sub_item["obj_id"]),
                     "is_container" => in_array($sub_item["type"], self::CONTAINER_TYPES),
