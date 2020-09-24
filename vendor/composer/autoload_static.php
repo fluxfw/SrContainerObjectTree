@@ -14,17 +14,17 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 51,
             'srag\\Plugins\\SrContainerObjectTree\\' => 35,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\DIC\\SrContainerObjectTree\\' => 31,
+            'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 43,
+            'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 46,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -36,15 +36,15 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -148,10 +148,19 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
         'srag\\LibrariesNamespaceChanger\\PHP7Backport' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/PHP7Backport.php',
         'srag\\LibrariesNamespaceChanger\\RemovePHP72Backport' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/RemovePHP72Backport.php',
         'srag\\LibrariesNamespaceChanger\\UpdatePluginReadme' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/UpdatePluginReadme.php',
+        'srag\\Plugins\\SrContainerObjectTree\\Config\\ConfigCtrl' => __DIR__ . '/../..' . '/src/Config/class.ConfigCtrl.php',
+        'srag\\Plugins\\SrContainerObjectTree\\Config\\Factory' => __DIR__ . '/../..' . '/src/Config/Factory.php',
+        'srag\\Plugins\\SrContainerObjectTree\\Config\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/Config/Form/FormBuilder.php',
+        'srag\\Plugins\\SrContainerObjectTree\\Config\\Repository' => __DIR__ . '/../..' . '/src/Config/Repository.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Factory' => __DIR__ . '/../..' . '/src/ObjectSettings/Factory.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/ObjectSettings/Form/class.FormBuilder.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\ObjectSettings' => __DIR__ . '/../..' . '/src/ObjectSettings/ObjectSettings.php',
         'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\Repository' => __DIR__ . '/../..' . '/src/ObjectSettings/Repository.php',
+        'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\UserSettings\\Factory' => __DIR__ . '/../..' . '/src/ObjectSettings/UserSettings/Factory.php',
+        'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\UserSettings\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/ObjectSettings/UserSettings/Form/FormBuilder.php',
+        'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\UserSettings\\Repository' => __DIR__ . '/../..' . '/src/ObjectSettings/UserSettings/Repository.php',
+        'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\UserSettings\\UserSettings' => __DIR__ . '/../..' . '/src/ObjectSettings/UserSettings/UserSettings.php',
+        'srag\\Plugins\\SrContainerObjectTree\\ObjectSettings\\UserSettings\\UserSettingsCtrl' => __DIR__ . '/../..' . '/src/ObjectSettings/UserSettings/class.UserSettingsCtrl.php',
         'srag\\Plugins\\SrContainerObjectTree\\Repository' => __DIR__ . '/../..' . '/src/Repository.php',
         'srag\\Plugins\\SrContainerObjectTree\\Tree\\Repository' => __DIR__ . '/../..' . '/src/Tree/Repository.php',
         'srag\\Plugins\\SrContainerObjectTree\\Tree\\TreeCtrl' => __DIR__ . '/../..' . '/src/Tree/class.TreeCtrl.php',

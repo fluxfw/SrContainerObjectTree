@@ -9,6 +9,8 @@ use ilObject;
 use ilObjectFactory;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\Config\Form\FormBuilder;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -64,23 +66,29 @@ final class Repository
 
 
     /**
-     * @param int  $ref_id
+     * @param int  $parent_ref_id
+     * @param int  $parent_deep
+     * @param int  $max_deep
      * @param bool $count_sub_children_types
      *
      * @return array
      */
-    public function getChildren(int $ref_id, bool $count_sub_children_types = false) : array
+    public function getChildren(int $parent_ref_id, int $parent_deep, int $max_deep, bool $count_sub_children_types = false) : array
     {
         $children = [];
+        $current_deep = ($parent_deep + 1);
 
-        $object = ilObjectFactory::getInstanceByRefId($ref_id, false);
+        $object = ilObjectFactory::getInstanceByRefId($parent_ref_id, false);
 
-        if (!($object instanceof ilContainer)) {
-            return $children;
-        }
-
-        if (!self::dic()->access()->checkAccess("read", "", $ref_id)) {
-            return $children;
+        if (
+            !($object instanceof ilContainer)
+            || !self::dic()->access()->checkAccess("read", "", $parent_ref_id)
+            || ($max_deep !== 0 && $current_deep > $max_deep)
+        ) {
+            return [
+                "children"     => $children,
+                "current_deep" => $current_deep
+            ];
         }
 
         $types = ilContainerSorting::_getInstance($object->getId())->getBlockPositions();
@@ -102,10 +110,16 @@ final class Repository
                     continue;
                 }
 
-                $is_container = in_array($sub_item["type"], self::CONTAINER_TYPES);
+                $is_container = (in_array($sub_item["type"], self::CONTAINER_TYPES) && ($max_deep === 0 || $current_deep < $max_deep));
+
+                $count_sub_children_types_count = ($is_container && $count_sub_children_types ? $this->getCountSubChildrenTypes($sub_item["child"], $current_deep, $max_deep) : []);
+
+                if ($is_container && empty($count_sub_children_types_count)) {
+                    continue;
+                }
 
                 $children[] = [
-                    "count_sub_children_types" => ($is_container && $count_sub_children_types ? $this->getCountSubChildrenTypes($sub_item["child"]) : []),
+                    "count_sub_children_types" => $count_sub_children_types_count,
                     "description"              => $sub_item["description"],
                     "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
                     "is_container"             => $is_container,
@@ -117,17 +131,21 @@ final class Repository
             }
         }
 
-        return $children;
+        return [
+            "children"     => $children,
+            "current_deep" => $current_deep
+        ];
     }
 
 
     /**
-     * @param int    $container_ref_id
-     * @param string $fetch_url
+     * @param int    $tree_container_ref_id
+     * @param string $tree_fetch_url
+     * @param string $tree_edit_user_settings_url
      *
      * @return string
      */
-    public function getHtml(int $container_ref_id, string $fetch_url) : string
+    public function getHtml(int $tree_container_ref_id, string $tree_fetch_url, string $tree_edit_user_settings_url) : string
     {
         self::dic()->ui()->mainTemplate()->addCss(substr(self::plugin()->directory(), 2) . "/css/SrContainerObjectTree.css");
         self::dic()->ui()->mainTemplate()->addJavaScript(substr(self::plugin()->directory(), 2) . "/js/SrContainerObjectTree.min.js");
@@ -135,10 +153,13 @@ final class Repository
         $tpl = self::plugin()->template("SrContainerObjectTree.html");
 
         $config = [
-            "container_ref_id" => $container_ref_id,
-            "empty_text"       => self::plugin()->translate("empty", TreeCtrl::LANG_MODULE),
-            "error_text"       => self::plugin()->translate("error", TreeCtrl::LANG_MODULE),
-            "fetch_url"        => $fetch_url . "="
+            "edit_user_settings_error_text" => self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE),
+            "edit_user_settings_fetch_url"  => $tree_edit_user_settings_url,
+            "tree_container_ref_id"         => $tree_container_ref_id,
+            "tree_empty_text"               => self::plugin()->translate("empty", TreeCtrl::LANG_MODULE),
+            "tree_error_text"               => self::plugin()->translate("error", TreeCtrl::LANG_MODULE),
+            "tree_fetch_url"                => $tree_fetch_url,
+            "tree_link_objects"             => self::srContainerObjectTree()->config()->getValue(FormBuilder::KEY_LINK_OBJECTS)
         ];
 
         $tpl->setVariableEscaped("CONFIG", base64_encode(json_encode($config)));
@@ -157,17 +178,17 @@ final class Repository
 
 
     /**
-     * @param int $ref_id
-     *
-     * @return array
+     * @param int $parent_ref_id
+     * @param int $parent_deep
+     * @param int $max_deep
      */
-    protected function getCountSubChildrenTypes(int $ref_id) : array
+    protected function getCountSubChildrenTypes(int $parent_ref_id, int $parent_deep, int $max_deep) : array
     {
         return array_values(array_map(function (array $count_sub_children_type) : array {
             $count_sub_children_type["type_title"] = self::plugin()->translate("obj" . ($count_sub_children_type["count"] !== 1 ? "s" : "") . "_" . $count_sub_children_type["type"], "", [], false);
 
             return $count_sub_children_type;
-        }, array_reduce($this->getChildren($ref_id), function (array $count_sub_children_types, array $children) : array {
+        }, array_reduce($this->getChildren($parent_ref_id, $parent_deep, $max_deep)["children"], function (array $count_sub_children_types, array $children) : array {
             if (!isset($count_sub_children_types[$children["type"]])) {
                 $count_sub_children_types[$children["type"]] = [
                     "count" => 0,

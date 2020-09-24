@@ -2,6 +2,7 @@
 
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\ObjectSettings;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettings;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -81,6 +82,15 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     public function getContainerRefId() : int
     {
         return $this->object_settings->getContainerRefId();
+    }
+
+
+    /**
+     * @return UserSettings
+     */
+    public function getUserSettings() : UserSettings
+    {
+        return $this->object_settings->getUserSettings();
     }
 
 

@@ -11,6 +11,10 @@ xcot_new#:#Create SrContainerObjectTree
 xcot_read#:#Read
 xcot_visible#:#visible
 xcot_write#:#Edit
+config_configuration#:#Configuration
+config_configuration_saved#:#Configuration saved
+config_link_objects#:#Link objects
+config_save#:#Save
 object_offline#:#Offline
 object_permission_denied#:#Permission denied
 object_show_contents#:#Contents
@@ -25,3 +29,7 @@ settings_settings#:#Settings
 settings_title#:#Title
 tree_empty#:#Empty
 tree_error#:#Tree could not be loaded
+user_settings_deep_0#:#Whole tree
+user_settings_deep_1#:#Only 1. level
+user_settings_deep_2#:#Only 1. and 2. level
+user_settings_error#:#Form could not be loaded
