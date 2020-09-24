@@ -1,29 +1,29 @@
 <?php
 
-namespace srag\Plugins\SrContainerObjectTree\ObjectSettings;
+namespace srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings;
 
 use ActiveRecord;
 use arConnector;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
-use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettings;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\Method\DisabledMethod;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
- * Class ObjectSettings
+ * Class UserSettings
  *
- * @package srag\Plugins\SrContainerObjectTree\ObjectSettings
+ * @package srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ObjectSettings extends ActiveRecord
+class UserSettings extends ActiveRecord
 {
 
     use DICTrait;
     use SrContainerObjectTreeTrait;
 
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
-    const TABLE_NAME = "rep_robj_" . ilSrContainerObjectTreePlugin::PLUGIN_ID . "_obj";
+    const TABLE_NAME = ilSrContainerObjectTreePlugin::PLUGIN_ID . "_obj_usr";
     /**
      * @var int
      *
@@ -32,16 +32,16 @@ class ObjectSettings extends ActiveRecord
      * @con_length       8
      * @con_is_notnull   true
      */
-    protected $container_ref_id = 0;
+    protected $max_deep = 0;
     /**
-     * @var bool
+     * @var int
      *
      * @con_has_field    true
      * @con_fieldtype    integer
-     * @con_length       1
+     * @con_length       8
      * @con_is_notnull   true
      */
-    protected $is_online = false;
+    protected $obj_id;
     /**
      * @var int
      *
@@ -50,16 +50,22 @@ class ObjectSettings extends ActiveRecord
      * @con_length       8
      * @con_is_notnull   true
      * @con_is_primary   true
+     * @con_sequence     true
      */
-    protected $obj_id;
+    protected $user_settings_id;
     /**
-     * @var UserSettings|null
+     * @var int
+     *
+     * @con_has_field    true
+     * @con_fieldtype    integer
+     * @con_length       8
+     * @con_is_notnull   true
      */
-    protected $user_settings = null;
+    protected $usr_id;
 
 
     /**
-     * ObjectSettings constructor
+     * UserSettings constructor
      *
      * @param int              $primary_key_value
      * @param arConnector|null $connector
@@ -84,17 +90,6 @@ class ObjectSettings extends ActiveRecord
     /**
      * @inheritDoc
      */
-    public function afterObjectLoad()/* : void*/
-    {
-        if (!empty($this->obj_id)) {
-            $this->user_settings = self::srContainerObjectTree()->objectSettings()->userSettings()->getUserSettings($this->obj_id, self::dic()->user()->getId());
-        }
-    }
-
-
-    /**
-     * @inheritDoc
-     */
     public function getConnectorContainerName() : string
     {
         return self::TABLE_NAME;
@@ -104,18 +99,18 @@ class ObjectSettings extends ActiveRecord
     /**
      * @return int
      */
-    public function getContainerRefId() : int
+    public function getMaxDeep() : int
     {
-        return $this->container_ref_id;
+        return $this->max_deep;
     }
 
 
     /**
-     * @param int $container_ref_id
+     * @param int $max_deep
      */
-    public function setContainerRefId(int $container_ref_id)/* : void*/
+    public function setMaxDeep(int $max_deep)/* : void*/
     {
-        $this->container_ref_id = $container_ref_id;
+        $this->max_deep = $max_deep;
     }
 
 
@@ -138,29 +133,38 @@ class ObjectSettings extends ActiveRecord
 
 
     /**
-     * @return UserSettings
+     * @return int
      */
-    public function getUserSettings() : UserSettings
+    public function getUserSettingsId() : int
     {
-        return $this->user_settings;
+        return $this->user_settings_id;
     }
 
 
     /**
-     * @return bool
+     * @param int $user_settings_id
      */
-    public function isOnline() : bool
+    public function setUserSettingsId(int $user_settings_id)/* : void*/
     {
-        return $this->is_online;
+        $this->user_settings_id = $user_settings_id;
     }
 
 
     /**
-     * @param bool $is_online
+     * @return int
      */
-    public function setOnline(bool $is_online = true)/* : void*/
+    public function getUsrId() : int
     {
-        $this->is_online = $is_online;
+        return $this->usr_id;
+    }
+
+
+    /**
+     * @param int $usr_id
+     */
+    public function setUsrId(int $usr_id)/* : void*/
+    {
+        $this->usr_id = $usr_id;
     }
 
 
@@ -172,9 +176,6 @@ class ObjectSettings extends ActiveRecord
         $field_value = $this->{$field_name};
 
         switch ($field_name) {
-            case "is_online":
-                return ($field_value ? 1 : 0);
-
             default:
                 return parent::sleep($field_name);
         }
@@ -187,12 +188,6 @@ class ObjectSettings extends ActiveRecord
     public function wakeUp(/*string*/ $field_name, $field_value)
     {
         switch ($field_name) {
-            case "obj_id":
-                return intval($field_value);
-
-            case "is_online":
-                return boolval($field_value);
-
             default:
                 return parent::wakeUp($field_name, $field_value);
         }

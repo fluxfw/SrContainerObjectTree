@@ -1,49 +1,81 @@
 document.addEventListener("DOMContentLoaded", () => {
     class SrContainerObjectTree {
-        constructor({container_ref_id, el, empty_text, error_text, fetch_url}) {
-            this.container_ref_id = container_ref_id;
-            this.el = el;
-            this.empty_text = empty_text;
-            this.error_text = error_text;
-            this.fetch_url = fetch_url;
+        constructor({edit_user_settings_el, edit_user_settings_error_text, edit_user_settings_fetch_url, tree_container_ref_id, tree_el, tree_empty_text, tree_error_text, tree_fetch_url, tree_link_objects}) {
+            this.edit_user_settings_el = edit_user_settings_el;
+            this.edit_user_settings_error_text = edit_user_settings_error_text;
+            this.edit_user_settings_fetch_url = edit_user_settings_fetch_url;
+            this.tree_container_ref_id = tree_container_ref_id;
+            this.tree_el = tree_el;
+            this.tree_empty_text = tree_empty_text;
+            this.tree_error_text = tree_error_text;
+            this.tree_fetch_url = tree_fetch_url;
+            this.tree_link_objects = tree_link_objects;
         }
 
-        async clickNode({arrow_el, children_el, ref_id}) {
+        clearElement({el}) {
+            el.innerHTML = "";
+        }
+
+        async clickNode({arrow_el, children_el, current_deep, ref_id}) {
             arrow_el.classList.toggle("SrContainerObjectTreeArrowOpen");
 
             if (children_el.children.length === 0) {
                 await this.fetchTree({
+                    parent_deep: current_deep,
                     parent_el: children_el,
                     parent_ref_id: ref_id
                 });
             }
         }
 
-        async fetchTree({parent_el, parent_ref_id}) {
-            const loading_el = document.createElement("div");
-            loading_el.classList.add("SrContainerObjectTreeLoading");
-            parent_el.appendChild(loading_el);
+        async fetchEditUserSettings({parent_el}) {
+            const loading_el = this.insertLoading({parent_el});
 
-            let children;
+            let html;
             try {
-                children = await (await fetch(`${this.fetch_url}${parent_ref_id}`, {
+                html = await (await fetch(this.edit_user_settings_fetch_url, {
                     headers: {
-                        "accept": "application/js",
-                        "content-type": "application/js"
+                        "accept": "text/html"
                     }
-                })).json();
+                })).text();
             } catch (err) {
-                console.error(err);
-
-                const error_el = document.createElement("div");
-                error_el.classList.add("SrContainerObjectTreeError");
-                error_el.innerText = this.error_text;
-                parent_el.appendChild(error_el);
+                this.insertError({
+                    err,
+                    error_text: this.edit_user_settings_error_text,
+                    parent_el
+                });
 
                 return;
             } finally {
-                parent_el.removeChild(loading_el);
+                this.removeLoading({loading_el, parent_el});
             }
+
+            this.initEditUserSettingsForm({html, parent_el});
+        }
+
+        async fetchTree({parent_deep, parent_el, parent_ref_id}) {
+            const loading_el = this.insertLoading({parent_el});
+
+            let result;
+            try {
+                result = await (await fetch(this.tree_fetch_url.replace(":parent_ref_id", parent_ref_id).replace(":parent_deep", parent_deep), {
+                    headers: {
+                        "accept": "application/json"
+                    }
+                })).json();
+            } catch (err) {
+                this.insertError({
+                    err,
+                    error_text: this.tree_error_text,
+                    parent_el
+                });
+
+                return;
+            } finally {
+                this.removeLoading({loading_el, parent_el});
+            }
+
+            const {current_deep, children} = result;
 
             if (children.length > 0) {
                 for (const {count_sub_children_types, description, icon, is_container, link, ref_id, title} of children) {
@@ -53,22 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const children_el = document.createElement("div");
                     children_el.classList.add("SrContainerObjectTreeChildren");
 
-                    if (is_container) {
-                        const arrow_el = document.createElement("div");
-                        arrow_el.classList.add("SrContainerObjectTreeArrow");
-
-                        arrow_el.addEventListener("click", this.clickNode.bind(this, {
-                            arrow_el,
-                            children_el,
-                            ref_id
-                        }));
-
-                        node_el.appendChild(arrow_el);
-                    }
-
-                    const link_el = document.createElement("a");
+                    const link_el = document.createElement(this.tree_link_objects ? "a" : "div");
                     link_el.classList.add("SrContainerObjectTreeLink");
-                    link_el.href = link;
+                    if (this.tree_link_objects) {
+                        link_el.href = link;
+                    }
 
                     const icon_el = document.createElement("img");
                     icon_el.classList.add("SrContainerObjectTreeIcon");
@@ -79,6 +100,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     title_el.classList.add("SrContainerObjectTreeTitle");
                     title_el.innerText = title;
                     link_el.appendChild(title_el);
+
+                    if (is_container) {
+                        const arrow_el = document.createElement("div");
+                        arrow_el.classList.add("SrContainerObjectTreeArrow");
+
+                        const clickNode = this.clickNode.bind(this, {
+                            arrow_el,
+                            children_el,
+                            current_deep,
+                            ref_id
+                        });
+                        arrow_el.addEventListener("click", clickNode);
+                        if (!this.tree_link_objects) {
+                            link_el.addEventListener("click", clickNode);
+                        }
+
+                        node_el.appendChild(arrow_el);
+                    }
 
                     node_el.appendChild(link_el);
 
@@ -105,22 +144,111 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 const empty_el = document.createElement("div");
                 empty_el.classList.add("SrContainerObjectTreeEmpty");
-                empty_el.innerText = this.empty_text;
+                empty_el.innerText = this.tree_empty_text;
                 parent_el.appendChild(empty_el);
             }
         }
 
-        async init() {
+        init() {
+            this.initTree();
+
+            this.initEditUserSettings();
+        }
+
+        async initTree() {
+            this.clearElement({el: this.tree_el});
+
             await this.fetchTree({
-                parent_el: this.el,
-                parent_ref_id: this.container_ref_id
+                parent_deep: 0,
+                parent_el: this.tree_el,
+                parent_ref_id: this.tree_container_ref_id
             });
+        }
+
+        async initEditUserSettings() {
+            await this.fetchEditUserSettings({
+                parent_el: this.edit_user_settings_el
+            });
+        }
+
+        initEditUserSettingsForm({html, parent_el}) {
+            parent_el.insertAdjacentHTML("beforeend", html);
+
+            const form = parent_el.querySelector("form");
+
+            form.addEventListener("change", this.updateEditUserSettings.bind(this, {
+                form,
+                parent_el
+            }));
+        }
+
+        insertError({err, error_text, parent_el}) {
+            console.error(err);
+
+            const error_el = document.createElement("div");
+            error_el.classList.add("SrContainerObjectTreeError");
+            error_el.innerText = error_text;
+            parent_el.appendChild(error_el);
+            return error_el;
+        }
+
+        insertLoading({parent_el}) {
+            const loading_el = document.createElement("div");
+            loading_el.classList.add("SrContainerObjectTreeLoading");
+            parent_el.appendChild(loading_el);
+            return loading_el;
+        }
+
+        removeLoading({loading_el, parent_el}) {
+            parent_el.removeChild(loading_el);
+        }
+
+        async updateEditUserSettings({form, parent_el}) {
+            const data = new FormData(form);
+
+            for (const el of form.querySelectorAll("button,input,select,textarea")) {
+                el.disabled = true;
+            }
+
+            const loading_el = this.insertLoading({parent_el});
+
+            let result;
+            try {
+                result = await (await fetch(form.action, {
+                    body: data,
+                    headers: {
+                        "accept": "application/json"
+                    },
+                    method: form.method
+                })).json();
+            } catch (err) {
+                this.insertError({
+                    err,
+                    error_text: this.edit_user_settings_error_text,
+                    parent_el
+                });
+
+                return;
+            } finally {
+                this.removeLoading({loading_el, parent_el});
+            }
+
+            this.clearElement({el: parent_el});
+
+            const {html, ok} = result;
+
+            this.initEditUserSettingsForm({html, parent_el});
+
+            if (ok) {
+                this.initTree();
+            }
         }
     }
 
     for (const el of document.querySelectorAll(".SrContainerObjectTree")) {
-        const config = JSON.parse(atob(el.dataset.srcontainerobjecttree));
-        config.el = el;
+        const config = JSON.parse(atob(el.dataset.config));
+        config.edit_user_settings_el = el.querySelector(".SrContainerObjectTreeEditUserSettings");
+        config.tree_el = el.querySelector(".SrContainerObjectTreeTree");
 
         const tree = new SrContainerObjectTree(config);
         tree.init();

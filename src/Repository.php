@@ -4,6 +4,7 @@ namespace srag\Plugins\SrContainerObjectTree;
 
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\Config\Repository as ConfigRepository;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\Repository as ObjectSettingsRepository;
 use srag\Plugins\SrContainerObjectTree\Tree\Repository as TreeRepository;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
@@ -51,10 +52,20 @@ final class Repository
 
 
     /**
+     * @return ConfigRepository
+     */
+    public function config() : ConfigRepository
+    {
+        return ConfigRepository::getInstance();
+    }
+
+
+    /**
      *
      */
     public function dropTables()/* : void*/
     {
+        $this->config()->dropTables();
         $this->objectSettings()->dropTables();
         $this->tree()->dropTables();
     }
@@ -65,6 +76,7 @@ final class Repository
      */
     public function installTables()/* : void*/
     {
+        $this->config()->installTables();
         $this->objectSettings()->installTables();
         $this->tree()->installTables();
     }

@@ -4,6 +4,7 @@ namespace srag\Plugins\SrContainerObjectTree\ObjectSettings;
 
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\Repository as UserSettingsRepository;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -74,6 +75,7 @@ final class Repository
     public function dropTables()/* : void*/
     {
         self::dic()->database()->dropTable(ObjectSettings::TABLE_NAME, false);
+        $this->userSettings()->dropTables();
     }
 
 
@@ -111,6 +113,7 @@ final class Repository
     public function installTables()/* : void*/
     {
         ObjectSettings::updateDB();
+        $this->userSettings()->installTables();
     }
 
 
@@ -120,5 +123,14 @@ final class Repository
     public function storeObjectSettings(ObjectSettings $object_settings)/* : void*/
     {
         $object_settings->store();
+    }
+
+
+    /**
+     * @return UserSettingsRepository
+     */
+    public function userSettings() : UserSettingsRepository
+    {
+        return UserSettingsRepository::getInstance();
     }
 }

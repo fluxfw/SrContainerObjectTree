@@ -11,6 +11,10 @@ xcot_new#:#SrContainerObjectTree anlegen
 xcot_read#:#Lesen
 xcot_visible#:#Sichtbar
 xcot_write#:#Bearbeiten
+config_configuration#:#Konfiguration
+config_configuration_saved#:#Konfiguration gespeichert
+config_link_objects#:#Objekte verlinken
+config_save#:#Speichern
 object_offline#:#Offline
 object_permission_denied#:#Zugriff verweigert
 object_show_contents#:#Inhalte
@@ -25,3 +29,7 @@ settings_settings#:#Einstellungen
 settings_title#:#Titel
 tree_empty#:#Leer
 tree_error#:#Baum konnte nicht geladen werden
+user_settings_deep_0#:#Gesamter Baum
+user_settings_deep_1#:#Nur 1. Ebene
+user_settings_deep_2#:#Nur 1. und 2. Ebene
+user_settings_error#:#Formular konnte nicht geladen werden

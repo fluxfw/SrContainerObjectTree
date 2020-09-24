@@ -117,7 +117,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 
             case strtolower(TreeCtrl::class):
                 self::dic()->tabs()->activateTab(self::TAB_SHOW_CONTENTS);
-                self::dic()->ctrl()->forwardCommand(new TreeCtrl($this->object->getContainerRefId()));
+                self::dic()->ctrl()->forwardCommand(new TreeCtrl($this->object));
                 break;
 
             default:
