@@ -67,7 +67,9 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
-            FormBuilder::KEY_LINK_OBJECTS => [Config::TYPE_BOOLEAN, true]
+            FormBuilder::KEY_LINK_OBJECTS                             => [Config::TYPE_BOOLEAN, true],
+            FormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => [Config::TYPE_BOOLEAN, false],
+            FormBuilder::KEY_RECURSIVE_COUNT                          => [Config::TYPE_BOOLEAN, false]
         ];
     }
 

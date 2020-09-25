@@ -20,6 +20,8 @@ class FormBuilder extends AbstractFormBuilder
     use SrContainerObjectTreeTrait;
 
     const KEY_LINK_OBJECTS = "link_objects";
+    const KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY = "only_show_container_objects_if_not_empty";
+    const KEY_RECURSIVE_COUNT = "recursive_count";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
 
 
@@ -53,7 +55,9 @@ class FormBuilder extends AbstractFormBuilder
     protected function getData() : array
     {
         $data = [
-            self::KEY_LINK_OBJECTS => self::srContainerObjectTree()->config()->getValue(self::KEY_LINK_OBJECTS)
+            self::KEY_LINK_OBJECTS                             => self::srContainerObjectTree()->config()->getValue(self::KEY_LINK_OBJECTS),
+            self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::srContainerObjectTree()->config()->getValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
+            self::KEY_RECURSIVE_COUNT                          => self::srContainerObjectTree()->config()->getValue(self::KEY_RECURSIVE_COUNT)
         ];
 
         return $data;
@@ -66,7 +70,12 @@ class FormBuilder extends AbstractFormBuilder
     protected function getFields() : array
     {
         $fields = [
-            self::KEY_LINK_OBJECTS => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()->translate(self::KEY_LINK_OBJECTS, ConfigCtrl::LANG_MODULE))
+            self::KEY_LINK_OBJECTS                             => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
+                ->translate(self::KEY_LINK_OBJECTS, ConfigCtrl::LANG_MODULE)),
+            self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
+                ->translate(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, ConfigCtrl::LANG_MODULE)),
+            self::KEY_RECURSIVE_COUNT                          => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
+                ->translate(self::KEY_RECURSIVE_COUNT, ConfigCtrl::LANG_MODULE))
         ];
 
         return $fields;
@@ -88,5 +97,7 @@ class FormBuilder extends AbstractFormBuilder
     protected function storeData(array $data)/* : void*/
     {
         self::srContainerObjectTree()->config()->setValue(self::KEY_LINK_OBJECTS, boolval($data[self::KEY_LINK_OBJECTS]));
+        self::srContainerObjectTree()->config()->setValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, boolval($data[self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY]));
+        self::srContainerObjectTree()->config()->setValue(self::KEY_RECURSIVE_COUNT, boolval($data[self::KEY_RECURSIVE_COUNT]));
     }
 }
