@@ -14,6 +14,8 @@ xcot_write#:#Bearbeiten
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
 config_link_objects#:#Objekte verlinken
+config_only_show_container_objects_if_not_empty#:#Container-Objekte nur anzeigen wenn sie nicht leer sind
+config_recursive_count#:#Rekursives Zählen
 config_save#:#Speichern
 object_offline#:#Offline
 object_permission_denied#:#Zugriff verweigert

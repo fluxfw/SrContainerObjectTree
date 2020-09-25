@@ -114,7 +114,7 @@ final class Repository
 
                 $count_sub_children_types_count = ($is_container && $count_sub_children_types ? $this->getCountSubChildrenTypes($sub_item["child"], $current_deep, $max_deep) : []);
 
-                if ($is_container && empty($count_sub_children_types_count)) {
+                if (self::srContainerObjectTree()->config()->getValue(FormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY) && $is_container && empty($count_sub_children_types_count)) {
                     continue;
                 }
 
@@ -185,20 +185,43 @@ final class Repository
     protected function getCountSubChildrenTypes(int $parent_ref_id, int $parent_deep, int $max_deep) : array
     {
         return array_values(array_map(function (array $count_sub_children_type) : array {
-            $count_sub_children_type["type_title"] = self::plugin()->translate("obj" . ($count_sub_children_type["count"] !== 1 ? "s" : "") . "_" . $count_sub_children_type["type"], "", [], false);
+            $count_sub_children_type["type_title"] = self::plugin()->translate("obj" . ($count_sub_children_type["count"] !== 1 ? "s" : "") . "_" . $count_sub_children_type["type"],
+                (self::dic()->objDefinition()->isPluginTypeName($count_sub_children_type["type"]) ? "rep_robj_" . $count_sub_children_type["type"] : ""), [], false);
 
             return $count_sub_children_type;
-        }, array_reduce($this->getChildren($parent_ref_id, $parent_deep, $max_deep)["children"], function (array $count_sub_children_types, array $children) : array {
-            if (!isset($count_sub_children_types[$children["type"]])) {
-                $count_sub_children_types[$children["type"]] = [
-                    "count" => 0,
-                    "type"  => $children["type"]
-                ];
-            }
+        }, array_reduce($this->getChildren($parent_ref_id, $parent_deep, $max_deep, self::srContainerObjectTree()->config()->getValue(FormBuilder::KEY_RECURSIVE_COUNT))["children"],
+            function (array $count_sub_children_types, array $children) : array {
+                $count_sub_children_types = $this->getCountSubChildrenTypesCount($count_sub_children_types, $children["type"]);
 
-            $count_sub_children_types[$children["type"]]["count"]++;
+                if (self::srContainerObjectTree()->config()->getValue(FormBuilder::KEY_RECURSIVE_COUNT)) {
+                    foreach ($children["count_sub_children_types"] as $children2) {
+                        $count_sub_children_types = $this->getCountSubChildrenTypesCount($count_sub_children_types, $children2["type"], $children2["count"]);
+                    }
+                }
 
-            return $count_sub_children_types;
-        }, [])));
+                return $count_sub_children_types;
+            }, [])));
+    }
+
+
+    /**
+     * @param array  $count_sub_children_types
+     * @param string $type
+     * @param int    $additional_count
+     *
+     * @return array
+     */
+    protected function getCountSubChildrenTypesCount(array $count_sub_children_types, string $type, int $additional_count = 1) : array
+    {
+        if (!isset($count_sub_children_types[$type])) {
+            $count_sub_children_types[$type] = [
+                "count" => 0,
+                "type"  => $type
+            ];
+        }
+
+        $count_sub_children_types[$type]["count"] += $additional_count;
+
+        return $count_sub_children_types;
     }
 }
