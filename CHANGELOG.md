@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.1.1]
+- Open linked objects in new tab per default
+
 ## [2.1.0]
 - Recursive count config
 - Only show container objects if not empty config

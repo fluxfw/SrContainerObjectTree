@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     link_el.classList.add("SrContainerObjectTreeLink");
                     if (this.tree_link_objects) {
                         link_el.href = link;
+                        link_el.target = "_blank";
                     }
 
                     const icon_el = document.createElement("img");
