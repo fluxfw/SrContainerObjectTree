@@ -8,7 +8,8 @@ use ilRepositorySelector2InputGUI;
 use ilSrContainerObjectTreePlugin;
 use srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder\AbstractFormBuilder;
 use srag\CustomInputGUIs\SrContainerObjectTree\InputGUIWrapperUIInputComponent\InputGUIWrapperUIInputComponent;
-use srag\Plugins\SrContainerObjectTree\Tree\Repository;
+use srag\CustomInputGUIs\SrContainerObjectTree\MultiSelectSearchNewInputGUI\MultiSelectSearchNewInputGUI;
+use srag\Plugins\SrContainerObjectTree\Config\Form\FormBuilder as ConfigFormBuilder;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -86,10 +87,12 @@ class FormBuilder extends AbstractFormBuilder
             "description"      => self::dic()->ui()->factory()->input()->field()->textarea(self::plugin()->translate("description", ilObjSrContainerObjectTreeGUI::LANG_MODULE_SETTINGS)),
             "online"           => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()->translate("online", ilObjSrContainerObjectTreeGUI::LANG_MODULE_SETTINGS)),
             "container_ref_id" => (new InputGUIWrapperUIInputComponent(new ilRepositorySelector2InputGUI(self::plugin()
-                ->translate("container_object", ilObjSrContainerObjectTreeGUI::LANG_MODULE_SETTINGS),
-                "container_ref_id", null, self::class)))->withRequired(true)
+                ->translate("container_object", ilObjSrContainerObjectTreeGUI::LANG_MODULE_SETTINGS), "container_ref_id", null, self::class)))->withRequired(true)
         ];
-        $fields["container_ref_id"]->getInput()->getExplorerGUI()->setSelectableTypes(Repository::CONTAINER_TYPES);
+        $fields["container_ref_id"]->getInput()->getExplorerGUI()->setSelectableTypes(array_merge([MultiSelectSearchNewInputGUI::EMPTY_PLACEHOLDER],
+            self::srContainerObjectTree()->tree()->getContainerObjectTypes(self::srContainerObjectTree()
+                ->config()
+                ->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES))));
 
         return $fields;
     }
