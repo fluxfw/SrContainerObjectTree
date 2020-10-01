@@ -1,7 +1,9 @@
 <?php
 
 use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\Config\Form\FormBuilder as ConfigFormBuilder;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
+use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
@@ -19,6 +21,7 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilCommonActionDispatcherGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder
  * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl: ilObjSrContainerObjectTreeGUI
+ * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettingsCtrl: ilObjSrContainerObjectTreeGUI
  */
 class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 {
@@ -117,7 +120,20 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 
             case strtolower(TreeCtrl::class):
                 self::dic()->tabs()->activateTab(self::TAB_SHOW_CONTENTS);
-                self::dic()->ctrl()->forwardCommand(new TreeCtrl($this->object));
+                self::dic()->ctrl()->forwardCommand(new TreeCtrl(
+                    $this->object->getContainerRefId(),
+                    self::dic()->ctrl()->getLinkTargetByClass(UserSettingsCtrl::class, UserSettingsCtrl::CMD_EDIT_USER_SETTINGS, "", true),
+                    self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_LINK_OBJECTS),
+                    $this->object->getUserSettings()->getMaxDeep(),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_RECURSIVE_COUNT)
+                ));
+                break;
+
+            case strtolower(UserSettingsCtrl::class):
+                self::dic()->ctrl()->forwardCommand(new UserSettingsCtrl($this->object->getUserSettings()));
                 break;
 
             default:

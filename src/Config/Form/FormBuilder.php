@@ -4,6 +4,8 @@ namespace srag\Plugins\SrContainerObjectTree\Config\Form;
 
 use ilSrContainerObjectTreePlugin;
 use srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder\AbstractFormBuilder;
+use srag\CustomInputGUIs\SrContainerObjectTree\InputGUIWrapperUIInputComponent\InputGUIWrapperUIInputComponent;
+use srag\CustomInputGUIs\SrContainerObjectTree\MultiSelectSearchNewInputGUI\MultiSelectSearchNewInputGUI;
 use srag\Plugins\SrContainerObjectTree\Config\ConfigCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
@@ -20,6 +22,7 @@ class FormBuilder extends AbstractFormBuilder
     use SrContainerObjectTreeTrait;
 
     const KEY_LINK_OBJECTS = "link_objects";
+    const KEY_OBJECT_TYPES = "object_types";
     const KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY = "only_show_container_objects_if_not_empty";
     const KEY_RECURSIVE_COUNT = "recursive_count";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
@@ -55,6 +58,7 @@ class FormBuilder extends AbstractFormBuilder
     protected function getData() : array
     {
         $data = [
+            self::KEY_OBJECT_TYPES                             => self::srContainerObjectTree()->config()->getValue(self::KEY_OBJECT_TYPES),
             self::KEY_LINK_OBJECTS                             => self::srContainerObjectTree()->config()->getValue(self::KEY_LINK_OBJECTS),
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::srContainerObjectTree()->config()->getValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
             self::KEY_RECURSIVE_COUNT                          => self::srContainerObjectTree()->config()->getValue(self::KEY_RECURSIVE_COUNT)
@@ -70,6 +74,8 @@ class FormBuilder extends AbstractFormBuilder
     protected function getFields() : array
     {
         $fields = [
+            self::KEY_OBJECT_TYPES                             => (new InputGUIWrapperUIInputComponent(new MultiSelectSearchNewInputGUI(self::plugin()
+                ->translate(self::KEY_OBJECT_TYPES, ConfigCtrl::LANG_MODULE))))->withRequired(true),
             self::KEY_LINK_OBJECTS                             => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_LINK_OBJECTS, ConfigCtrl::LANG_MODULE)),
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
@@ -77,6 +83,8 @@ class FormBuilder extends AbstractFormBuilder
             self::KEY_RECURSIVE_COUNT                          => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_RECURSIVE_COUNT, ConfigCtrl::LANG_MODULE))
         ];
+
+        $fields[self::KEY_OBJECT_TYPES]->getInput()->setOptions(self::srContainerObjectTree()->tree()->getObjectTypes(null, false));
 
         return $fields;
     }
@@ -96,6 +104,7 @@ class FormBuilder extends AbstractFormBuilder
      */
     protected function storeData(array $data)/* : void*/
     {
+        self::srContainerObjectTree()->config()->setValue(self::KEY_OBJECT_TYPES, MultiSelectSearchNewInputGUI::cleanValues((array) $data[self::KEY_OBJECT_TYPES]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_LINK_OBJECTS, boolval($data[self::KEY_LINK_OBJECTS]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, boolval($data[self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_RECURSIVE_COUNT, boolval($data[self::KEY_RECURSIVE_COUNT]));

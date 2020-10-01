@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.2.0]
+- Object types
+
 ## [2.1.1]
 - Open linked objects in new tab per default
 
