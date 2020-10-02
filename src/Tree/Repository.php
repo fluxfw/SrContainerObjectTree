@@ -24,6 +24,8 @@ final class Repository
     use DICTrait;
     use SrContainerObjectTreeTrait;
 
+    const MAX_DEEP_METHOD_END = 1;
+    const MAX_DEEP_METHOD_START = 2;
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
      * @var self|null
@@ -78,6 +80,8 @@ final class Repository
      * @param int   $parent_ref_id
      * @param int   $parent_deep
      * @param int   $max_deep
+     * @param int   $max_deep_method
+     * @param bool  $max_deep_method_start_hide
      * @param array $object_types
      * @param bool  $only_show_container_objects_if_not_empty
      * @param bool  $recursive_count
@@ -89,6 +93,8 @@ final class Repository
         int $parent_ref_id,
         int $parent_deep,
         int $max_deep,
+        int $max_deep_method,
+        bool $max_deep_method_start_hide,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $recursive_count,
@@ -102,7 +108,7 @@ final class Repository
         if (!in_array($object->getType(), $this->getContainerObjectTypes($object_types))
             || !($object instanceof ilContainer)
             || !self::dic()->access()->checkAccess("read", "", $parent_ref_id)
-            || ($max_deep !== 0 && $current_deep > $max_deep)
+            || ($max_deep_method === self::MAX_DEEP_METHOD_END && $max_deep !== 0 && $current_deep > $max_deep)
         ) {
             return [
                 "children"     => $children,
@@ -123,20 +129,28 @@ final class Repository
 
         foreach ($types as $type) {
             foreach ((array) $sub_items[$type] as $sub_item) {
-                if (!in_array($sub_item["type"], $this->getObjectTypes($object_types))
-                    || !self::dic()->access()->checkAccess("read", "", $sub_item["child"])
+                $ref_id = $sub_item["child"];
+                $type = $sub_item["type"];
+
+                if (!in_array($type, $this->getObjectTypes($object_types))
+                    || !self::dic()->access()->checkAccess("read", "", $ref_id)
                 ) {
                     continue;
                 }
 
-                $is_container = (in_array($sub_item["type"], $this->getContainerObjectTypes($object_types))
-                    && ($max_deep === 0 || $current_deep < $max_deep));
+                $is_container = (in_array($type, $this->getContainerObjectTypes($object_types))
+                    && ($max_deep_method !== self::MAX_DEEP_METHOD_END || $max_deep === 0 || $current_deep < $max_deep));
+
+                $start_deep = ($is_container && ($max_deep_method === self::MAX_DEEP_METHOD_START && ($max_deep === 0 || $current_deep < $max_deep)));
 
                 $count_sub_children_types_count = ($is_container
+                && ($max_deep_method_start_hide ? !$start_deep : true)
                 && $count_sub_children_types ? $this->getCountSubChildrenTypes(
-                    $sub_item["child"],
+                    $ref_id,
                     $current_deep,
                     $max_deep,
+                    $max_deep_method,
+                    $max_deep_method_start_hide,
                     $object_types,
                     $only_show_container_objects_if_not_empty,
                     $recursive_count
@@ -151,13 +165,14 @@ final class Repository
 
                 $children[] = [
                     "count_sub_children_types" => $count_sub_children_types_count,
-                    "description"              => $sub_item["description"],
+                    "description"              => (($max_deep_method_start_hide ? !$start_deep : true) ? $sub_item["description"] : ""),
                     "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
                     "is_container"             => $is_container,
-                    "link"                     => ilLink::_getLink($sub_item["child"]),
-                    "ref_id"                   => $sub_item["child"],
+                    "link"                     => ilLink::_getLink($ref_id),
+                    "ref_id"                   => $ref_id,
+                    "start_deep"               => $start_deep,
                     "title"                    => $sub_item["title"],
-                    "type"                     => $sub_item["type"]
+                    "type"                     => $type
                 ];
             }
         }
@@ -285,6 +300,26 @@ final class Repository
 
 
     /**
+     * @param int $ref_id
+     *
+     * @return int
+     */
+    public function getTreeEndDeep(int $ref_id) : int
+    {
+        return (self::dic()->repositoryTree()->getMaximumDepth() - self::dic()->repositoryTree()->getDepth($ref_id));
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getTreeStartDeep() : int
+    {
+        return 1;
+    }
+
+
+    /**
      * @internal
      */
     public function installTables()/* : void*/
@@ -297,6 +332,8 @@ final class Repository
      * @param int   $parent_ref_id
      * @param int   $parent_deep
      * @param int   $max_deep
+     * @param int   $max_deep_method
+     * @param bool  $max_deep_method_start_hide
      * @param array $object_types
      * @param bool  $only_show_container_objects_if_not_empty
      * @param bool  $recursive_count
@@ -307,6 +344,8 @@ final class Repository
         int $parent_ref_id,
         int $parent_deep,
         int $max_deep,
+        int $max_deep_method,
+        bool $max_deep_method_start_hide,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $recursive_count
@@ -319,6 +358,8 @@ final class Repository
             $parent_ref_id,
             $parent_deep,
             $max_deep,
+            $max_deep_method,
+            $max_deep_method_start_hide,
             $object_types,
             $only_show_container_objects_if_not_empty,
             $recursive_count,

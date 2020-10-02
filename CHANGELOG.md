@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.3.0]
+- Max deep available levels
+- Max deep start point method
+- User settings icon
+
 ## [2.2.0]
 - Object types
 

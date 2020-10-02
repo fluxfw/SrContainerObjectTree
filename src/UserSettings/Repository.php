@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings;
+namespace srag\Plugins\SrContainerObjectTree\UserSettings;
 
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
@@ -9,7 +9,7 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 /**
  * Class Repository
  *
- * @package srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings
+ * @package srag\Plugins\SrContainerObjectTree\UserSettings
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

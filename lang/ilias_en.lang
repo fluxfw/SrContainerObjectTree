@@ -14,6 +14,10 @@ xcot_write#:#Edit
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
 config_link_objects#:#Link objects
+config_max_deep_method#:#Max deep method
+config_max_deep_method_end#:#End node
+config_max_deep_method_start#:#Start node
+config_max_deep_method_start_hide#:#Hide description and count (Start node method)
 config_object_types#:#Object types
 config_only_show_container_objects_if_not_empty#:#Only show container objects if not empty
 config_recursive_count#:#Recursive count
@@ -32,7 +36,5 @@ settings_settings#:#Settings
 settings_title#:#Title
 tree_empty#:#Empty
 tree_error#:#Tree could not be loaded
-user_settings_deep_0#:#Whole tree
-user_settings_deep_1#:#Only 1. level
-user_settings_deep_2#:#Only 1. and 2. level
+user_settings_deep_x#:#%s. level
 user_settings_error#:#Form could not be loaded
