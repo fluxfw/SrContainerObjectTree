@@ -46,6 +46,14 @@ class TreeCtrl
      */
     protected $max_deep;
     /**
+     * @var int
+     */
+    protected $max_deep_method;
+    /**
+     * @var bool
+     */
+    protected $max_deep_method_start_hide;
+    /**
      * @var array
      */
     protected $object_types;
@@ -67,6 +75,8 @@ class TreeCtrl
      * @param string $edit_user_settings_error_text
      * @param bool   $link_objects
      * @param int    $max_deep
+     * @param int    $max_deep_method
+     * @param bool   $max_deep_method_start_hide
      * @param array  $object_types
      * @param bool   $only_show_container_objects_if_not_empty
      * @param bool   $recursive_count
@@ -77,6 +87,8 @@ class TreeCtrl
         string $edit_user_settings_error_text,
         bool $link_objects,
         int $max_deep,
+        int $max_deep_method,
+        bool $max_deep_method_start_hide,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $recursive_count
@@ -86,6 +98,8 @@ class TreeCtrl
         $this->edit_user_settings_error_text = $edit_user_settings_error_text;
         $this->link_objects = $link_objects;
         $this->max_deep = $max_deep;
+        $this->max_deep_method = $max_deep_method;
+        $this->max_deep_method_start_hide = $max_deep_method_start_hide;
         $this->object_types = $object_types;
         $this->only_show_container_objects_if_not_empty = $only_show_container_objects_if_not_empty;
         $this->recursive_count = $recursive_count;
@@ -131,6 +145,8 @@ class TreeCtrl
             $parent_ref_id,
             $parent_deep,
             $this->max_deep,
+            $this->max_deep_method,
+            $this->max_deep_method_start_hide,
             $this->object_types,
             $this->only_show_container_objects_if_not_empty,
             $this->recursive_count

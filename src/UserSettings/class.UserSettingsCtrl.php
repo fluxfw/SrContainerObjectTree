@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings;
+namespace srag\Plugins\SrContainerObjectTree\UserSettings;
 
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
@@ -9,7 +9,7 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 /**
  * Class UserSettingsCtrl
  *
- * @package srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings
+ * @package srag\Plugins\SrContainerObjectTree\UserSettings
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -24,6 +24,14 @@ class UserSettingsCtrl
     const LANG_MODULE = "user_settings";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
+     * @var int
+     */
+    protected $tree_end_deep;
+    /**
+     * @var int
+     */
+    protected $tree_start_deep;
+    /**
      * @var UserSettings
      */
     protected $user_settings;
@@ -33,10 +41,14 @@ class UserSettingsCtrl
      * UserSettingsCtrl constructor
      *
      * @param UserSettings $user_settings
+     * @param int          $tree_start_deep
+     * @param int          $tree_end_deep
      */
-    public function __construct(UserSettings $user_settings)
+    public function __construct(UserSettings $user_settings, int $tree_start_deep, int $tree_end_deep)
     {
         $this->user_settings = $user_settings;
+        $this->tree_start_deep = $tree_start_deep;
+        $this->tree_end_deep = $tree_end_deep;
     }
 
 
@@ -72,7 +84,12 @@ class UserSettingsCtrl
      */
     protected function editUserSettings()/* : void*/
     {
-        $form = self::srContainerObjectTree()->objectSettings()->userSettings()->factory()->newFormBuilderInstance($this, $this->user_settings);
+        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance(
+            $this,
+            $this->user_settings,
+            $this->tree_start_deep,
+            $this->tree_end_deep
+        );
 
         self::output()->output($form);
     }
@@ -92,7 +109,12 @@ class UserSettingsCtrl
      */
     protected function updateUserSettings()/* : void*/
     {
-        $form = self::srContainerObjectTree()->objectSettings()->userSettings()->factory()->newFormBuilderInstance($this, $this->user_settings);
+        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance(
+            $this,
+            $this->user_settings,
+            $this->tree_start_deep,
+            $this->tree_end_deep
+        );
 
         $ok = $form->storeForm();
 

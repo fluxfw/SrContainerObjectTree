@@ -14,6 +14,10 @@ xcot_write#:#Bearbeiten
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
 config_link_objects#:#Objekte verlinken
+config_max_deep_method#:#Maximale Tiefe Methode
+config_max_deep_method_end#:#Endpunk
+config_max_deep_method_start#:#Startpunkt
+config_max_deep_method_start_hide#:#Beschreibung und Anzahl ausblenden (Startpunkt-Methode)
 config_object_types#:#Objekt-Typen
 config_only_show_container_objects_if_not_empty#:#Container-Objekte nur anzeigen wenn sie nicht leer sind
 config_recursive_count#:#Rekursives Zählen
@@ -32,7 +36,5 @@ settings_settings#:#Einstellungen
 settings_title#:#Titel
 tree_empty#:#Leer
 tree_error#:#Baum konnte nicht geladen werden
-user_settings_deep_0#:#Gesamter Baum
-user_settings_deep_1#:#Nur 1. Ebene
-user_settings_deep_2#:#Nur 1. und 2. Ebene
+user_settings_deep_x#:#%s. Ebene
 user_settings_error#:#Formular konnte nicht geladen werden

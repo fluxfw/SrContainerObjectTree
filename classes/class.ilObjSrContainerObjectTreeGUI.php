@@ -3,8 +3,8 @@
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\Config\Form\FormBuilder as ConfigFormBuilder;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
-use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl;
+use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -21,7 +21,7 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilCommonActionDispatcherGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder
  * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl: ilObjSrContainerObjectTreeGUI
- * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettingsCtrl: ilObjSrContainerObjectTreeGUI
+ * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl: ilObjSrContainerObjectTreeGUI
  */
 class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 {
@@ -115,7 +115,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 
         switch (strtolower($next_class)) {
             case strtolower(FormBuilder::class):
-                self::dic()->ctrl()->forwardCommand($this->getSettingsForm());
+                self::dic()->ctrl()->forwardCommand(self::srContainerObjectTree()->objectSettings()->factory()->newFormBuilderInstance($this, $this->object));
                 break;
 
             case strtolower(TreeCtrl::class):
@@ -125,7 +125,13 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
                     self::dic()->ctrl()->getLinkTargetByClass(UserSettingsCtrl::class, UserSettingsCtrl::CMD_EDIT_USER_SETTINGS, "", true),
                     self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_LINK_OBJECTS),
-                    $this->object->getUserSettings()->getMaxDeep(),
+                    $this->object->getUserSettings()->getMaxDeep(
+                        self::srContainerObjectTree()->tree()->getTreeEndDeep(
+                            $this->object->getContainerRefId()
+                        )
+                    ),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD_START_HIDE),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_RECURSIVE_COUNT)
@@ -133,7 +139,13 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
                 break;
 
             case strtolower(UserSettingsCtrl::class):
-                self::dic()->ctrl()->forwardCommand(new UserSettingsCtrl($this->object->getUserSettings()));
+                self::dic()->ctrl()->forwardCommand(new UserSettingsCtrl(
+                    $this->object->getUserSettings(),
+                    self::srContainerObjectTree()->tree()->getTreeStartDeep(),
+                    self::srContainerObjectTree()->tree()->getTreeEndDeep(
+                        $this->object->getContainerRefId()
+                    )
+                ));
                 break;
 
             default:
@@ -173,17 +185,6 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     protected function afterConstructor()/* : void*/
     {
 
-    }
-
-
-    /**
-     * @return FormBuilder
-     */
-    protected function getSettingsForm() : FormBuilder
-    {
-        $form = new FormBuilder($this, $this->object);
-
-        return $form;
     }
 
 
@@ -235,7 +236,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     {
         self::dic()->tabs()->activateTab(self::TAB_SETTINGS);
 
-        $form = $this->getSettingsForm();
+        $form = self::srContainerObjectTree()->objectSettings()->factory()->newFormBuilderInstance($this, $this->object);
 
         self::output()->output($form);
     }
@@ -248,7 +249,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     {
         self::dic()->tabs()->activateTab(self::TAB_SETTINGS);
 
-        $form = $this->getSettingsForm();
+        $form = self::srContainerObjectTree()->objectSettings()->factory()->newFormBuilderInstance($this, $this->object);
 
         if (!$form->storeForm()) {
             self::output()->output($form);

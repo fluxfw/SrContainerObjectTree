@@ -6,7 +6,7 @@ use ActiveRecord;
 use arConnector;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
-use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettings;
+use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettings;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -87,7 +87,7 @@ class ObjectSettings extends ActiveRecord
     public function afterObjectLoad()/* : void*/
     {
         if (!empty($this->obj_id)) {
-            $this->user_settings = self::srContainerObjectTree()->objectSettings()->userSettings()->getUserSettings($this->obj_id, self::dic()->user()->getId());
+            $this->user_settings = self::srContainerObjectTree()->userSettings()->getUserSettings($this->obj_id, self::dic()->user()->getId());
         }
     }
 

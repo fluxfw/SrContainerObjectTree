@@ -2,7 +2,7 @@
 
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\ObjectSettings;
-use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\UserSettings;
+use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettings;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**

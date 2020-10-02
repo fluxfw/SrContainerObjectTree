@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const {current_deep, children} = result;
 
             if (children.length > 0) {
-                for (const {count_sub_children_types, description, icon, is_container, link, ref_id, title} of children) {
+                for (const {count_sub_children_types, description, icon, is_container, link, ref_id, start_deep, title} of children) {
                     const node_el = document.createElement("div");
                     node_el.classList.add("SrContainerObjectTreeNode");
 
@@ -112,12 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
                             current_deep,
                             ref_id
                         });
-                        arrow_el.addEventListener("click", clickNode);
-                        if (!this.tree_link_objects) {
-                            link_el.addEventListener("click", clickNode);
-                        }
 
-                        node_el.appendChild(arrow_el);
+                        if (start_deep) {
+                            clickNode();
+                        } else {
+                            arrow_el.addEventListener("click", clickNode);
+                            if (!this.tree_link_objects) {
+                                link_el.addEventListener("click", clickNode);
+                            }
+
+                            node_el.appendChild(arrow_el);
+                        }
                     }
 
                     node_el.appendChild(link_el);
@@ -241,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.initEditUserSettingsForm({html, parent_el});
 
             if (ok) {
-                this.initTree();
+                await this.initTree();
             }
         }
     }

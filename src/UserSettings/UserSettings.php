@@ -1,18 +1,17 @@
 <?php
 
-namespace srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings;
+namespace srag\Plugins\SrContainerObjectTree\UserSettings;
 
 use ActiveRecord;
 use arConnector;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
-use srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings\Method\DisabledMethod;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
  * Class UserSettings
  *
- * @package srag\Plugins\SrContainerObjectTree\ObjectSettings\UserSettings
+ * @package srag\Plugins\SrContainerObjectTree\UserSettings
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -97,11 +96,19 @@ class UserSettings extends ActiveRecord
 
 
     /**
+     * @param int $tree_end_deep
+     *
      * @return int
      */
-    public function getMaxDeep() : int
+    public function getMaxDeep(int $tree_end_deep) : int
     {
-        return $this->max_deep;
+        $max_deep = intval($this->max_deep);
+
+        if ($max_deep === 0 || $max_deep > $tree_end_deep) {
+            $max_deep = $tree_end_deep;
+        }
+
+        return $max_deep;
     }
 
 
