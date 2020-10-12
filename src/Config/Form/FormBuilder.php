@@ -23,11 +23,12 @@ class FormBuilder extends AbstractFormBuilder
 
     use SrContainerObjectTreeTrait;
 
-    const KEY_LINK_OBJECTS = "link_objects";
+    const KEY_LINK_CONTAINER_OBJECTS = "link_objects";
     const KEY_MAX_DEEP_METHOD = "max_deep_method";
     const KEY_MAX_DEEP_METHOD_START_HIDE = self::KEY_MAX_DEEP_METHOD . "_start_hide";
     const KEY_OBJECT_TYPES = "object_types";
     const KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY = "only_show_container_objects_if_not_empty";
+    const KEY_OPEN_LINKS_IN_NEW_TAB = "open_links_in_new_tab";
     const KEY_RECURSIVE_COUNT = "recursive_count";
     const MAX_DEEP_METHODS
         = [
@@ -70,7 +71,8 @@ class FormBuilder extends AbstractFormBuilder
             self::KEY_OBJECT_TYPES                             => self::srContainerObjectTree()->config()->getValue(self::KEY_OBJECT_TYPES),
             self::KEY_MAX_DEEP_METHOD                          => self::srContainerObjectTree()->config()->getValue(self::KEY_MAX_DEEP_METHOD),
             self::KEY_MAX_DEEP_METHOD_START_HIDE               => self::srContainerObjectTree()->config()->getValue(self::KEY_MAX_DEEP_METHOD_START_HIDE),
-            self::KEY_LINK_OBJECTS                             => self::srContainerObjectTree()->config()->getValue(self::KEY_LINK_OBJECTS),
+            self::KEY_LINK_CONTAINER_OBJECTS                   => self::srContainerObjectTree()->config()->getValue(self::KEY_LINK_CONTAINER_OBJECTS),
+            self::KEY_OPEN_LINKS_IN_NEW_TAB                    => self::srContainerObjectTree()->config()->getValue(self::KEY_OPEN_LINKS_IN_NEW_TAB),
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::srContainerObjectTree()->config()->getValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
             self::KEY_RECURSIVE_COUNT                          => self::srContainerObjectTree()->config()->getValue(self::KEY_RECURSIVE_COUNT)
         ];
@@ -93,8 +95,10 @@ class FormBuilder extends AbstractFormBuilder
             }, self::dic()->ui()->factory()->input()->field()->radio(self::plugin()->translate(self::KEY_MAX_DEEP_METHOD, ConfigCtrl::LANG_MODULE))),
             self::KEY_MAX_DEEP_METHOD_START_HIDE               => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_MAX_DEEP_METHOD_START_HIDE, ConfigCtrl::LANG_MODULE)),
-            self::KEY_LINK_OBJECTS                             => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
-                ->translate(self::KEY_LINK_OBJECTS, ConfigCtrl::LANG_MODULE)),
+            self::KEY_LINK_CONTAINER_OBJECTS                   => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
+                ->translate(self::KEY_LINK_CONTAINER_OBJECTS, ConfigCtrl::LANG_MODULE)),
+            self::KEY_OPEN_LINKS_IN_NEW_TAB                    => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
+                ->translate(self::KEY_OPEN_LINKS_IN_NEW_TAB, ConfigCtrl::LANG_MODULE)),
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, ConfigCtrl::LANG_MODULE)),
             self::KEY_RECURSIVE_COUNT                          => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
@@ -124,7 +128,8 @@ class FormBuilder extends AbstractFormBuilder
         self::srContainerObjectTree()->config()->setValue(self::KEY_OBJECT_TYPES, MultiSelectSearchNewInputGUI::cleanValues((array) $data[self::KEY_OBJECT_TYPES]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_MAX_DEEP_METHOD, intval($data[self::KEY_MAX_DEEP_METHOD]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_MAX_DEEP_METHOD_START_HIDE, boolval($data[self::KEY_MAX_DEEP_METHOD_START_HIDE]));
-        self::srContainerObjectTree()->config()->setValue(self::KEY_LINK_OBJECTS, boolval($data[self::KEY_LINK_OBJECTS]));
+        self::srContainerObjectTree()->config()->setValue(self::KEY_LINK_CONTAINER_OBJECTS, boolval($data[self::KEY_LINK_CONTAINER_OBJECTS]));
+        self::srContainerObjectTree()->config()->setValue(self::KEY_OPEN_LINKS_IN_NEW_TAB, boolval($data[self::KEY_OPEN_LINKS_IN_NEW_TAB]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, boolval($data[self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_RECURSIVE_COUNT, boolval($data[self::KEY_RECURSIVE_COUNT]));
     }

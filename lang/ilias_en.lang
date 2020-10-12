@@ -13,13 +13,14 @@ xcot_visible#:#visible
 xcot_write#:#Edit
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
-config_link_objects#:#Link objects
+config_link_objects#:#Link container objects
 config_max_deep_method#:#Max deep method
 config_max_deep_method_end#:#End node
 config_max_deep_method_start#:#Start node
 config_max_deep_method_start_hide#:#Hide description and count (Start node method)
 config_object_types#:#Object types
 config_only_show_container_objects_if_not_empty#:#Only show container objects if not empty
+config_open_links_in_new_tab#:#Open links in new tab
 config_recursive_count#:#Recursive count
 config_save#:#Save
 object_offline#:#Offline

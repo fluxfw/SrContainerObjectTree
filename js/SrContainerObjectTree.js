@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     class SrContainerObjectTree {
-        constructor({edit_user_settings_el, edit_user_settings_error_text, edit_user_settings_fetch_url, tree_container_ref_id, tree_el, tree_empty_text, tree_error_text, tree_fetch_url, tree_link_objects}) {
+        constructor({edit_user_settings_el, edit_user_settings_error_text, edit_user_settings_fetch_url, tree_container_ref_id, tree_el, tree_empty_text, tree_error_text, tree_fetch_url}) {
             this.edit_user_settings_el = edit_user_settings_el;
             this.edit_user_settings_error_text = edit_user_settings_error_text;
             this.edit_user_settings_fetch_url = edit_user_settings_fetch_url;
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
             this.tree_empty_text = tree_empty_text;
             this.tree_error_text = tree_error_text;
             this.tree_fetch_url = tree_fetch_url;
-            this.tree_link_objects = tree_link_objects;
         }
 
         clearElement({el}) {
@@ -78,18 +77,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const {current_deep, children} = result;
 
             if (children.length > 0) {
-                for (const {count_sub_children_types, description, icon, is_container, link, ref_id, start_deep, title} of children) {
+                for (const {count_sub_children_types, description, icon, is_container, link, link_new_tab, ref_id, start_deep, title} of children) {
                     const node_el = document.createElement("div");
                     node_el.classList.add("SrContainerObjectTreeNode");
 
                     const children_el = document.createElement("div");
                     children_el.classList.add("SrContainerObjectTreeChildren");
 
-                    const link_el = document.createElement(this.tree_link_objects ? "a" : "div");
+                    const link_el = document.createElement(link ? "a" : "div");
                     link_el.classList.add("SrContainerObjectTreeLink");
-                    if (this.tree_link_objects) {
+                    if (link) {
                         link_el.href = link;
-                        link_el.target = "_blank";
+                        if (link_new_tab) {
+                            link_el.target = "_blank";
+                        }
                     }
 
                     const icon_el = document.createElement("img");
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             clickNode();
                         } else {
                             arrow_el.addEventListener("click", clickNode);
-                            if (!this.tree_link_objects) {
+                            if (!link) {
                                 link_el.addEventListener("click", clickNode);
                             }
 

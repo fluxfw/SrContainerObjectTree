@@ -40,7 +40,7 @@ class TreeCtrl
     /**
      * @var bool
      */
-    protected $link_objects;
+    protected $link_container_objects;
     /**
      * @var int
      */
@@ -64,6 +64,10 @@ class TreeCtrl
     /**
      * @var bool
      */
+    protected $open_links_in_new_tab;
+    /**
+     * @var bool
+     */
     protected $recursive_count;
 
 
@@ -73,35 +77,38 @@ class TreeCtrl
      * @param int    $container_ref_id
      * @param string $edit_user_settings_url
      * @param string $edit_user_settings_error_text
-     * @param bool   $link_objects
+     * @param bool   $link_container_objects
      * @param int    $max_deep
      * @param int    $max_deep_method
      * @param bool   $max_deep_method_start_hide
      * @param array  $object_types
      * @param bool   $only_show_container_objects_if_not_empty
+     * @param bool   $open_links_in_new_tab
      * @param bool   $recursive_count
      */
     public function __construct(
         int $container_ref_id,
         string $edit_user_settings_url,
         string $edit_user_settings_error_text,
-        bool $link_objects,
+        bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
         bool $max_deep_method_start_hide,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
+        bool $open_links_in_new_tab,
         bool $recursive_count
     ) {
         $this->container_ref_id = $container_ref_id;
         $this->edit_user_settings_url = $edit_user_settings_url;
         $this->edit_user_settings_error_text = $edit_user_settings_error_text;
-        $this->link_objects = $link_objects;
+        $this->link_container_objects = $link_container_objects;
         $this->max_deep = $max_deep;
         $this->max_deep_method = $max_deep_method;
         $this->max_deep_method_start_hide = $max_deep_method_start_hide;
         $this->object_types = $object_types;
         $this->only_show_container_objects_if_not_empty = $only_show_container_objects_if_not_empty;
+        $this->open_links_in_new_tab = $open_links_in_new_tab;
         $this->recursive_count = $recursive_count;
     }
 
@@ -144,11 +151,13 @@ class TreeCtrl
         $children = self::srContainerObjectTree()->tree()->getChildren(
             $parent_ref_id,
             $parent_deep,
+            $this->link_container_objects,
             $this->max_deep,
             $this->max_deep_method,
             $this->max_deep_method_start_hide,
             $this->object_types,
             $this->only_show_container_objects_if_not_empty,
+            $this->open_links_in_new_tab,
             $this->recursive_count
         );
 
@@ -166,7 +175,6 @@ class TreeCtrl
 
         $html = self::srContainerObjectTree()->tree()->getHtml(
             $this->container_ref_id,
-            $this->link_objects,
             self::dic()->ctrl()->getLinkTarget($this, self::CMD_GET_CHILDREN, "", true),
             self::plugin()->translate("empty", self::LANG_MODULE),
             self::plugin()->translate("error", self::LANG_MODULE),
