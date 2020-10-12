@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.5.0]
+- Show metadata user config
+
 ## [2.4.0]
 - Fix link container objects
 - Open links in new tab config

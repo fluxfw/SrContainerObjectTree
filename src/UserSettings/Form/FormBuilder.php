@@ -58,13 +58,17 @@ class FormBuilder extends AbstractFormBuilder
      */
     public function render() : string
     {
+        $html = parent::render();
+
+        $html = str_replace('type="checkbox"', 'type="checkbox" title="' . htmlspecialchars(self::plugin()->translate("show_metadata", UserSettingsCtrl::LANG_MODULE)) . '"', $html);
+
         if (self::version()->is6()) {
             $glyph_factory = self::dic()->ui()->factory()->symbol()->glyph();
         } else {
             $glyph_factory = self::dic()->ui()->factory()->glyph();
         }
 
-        return self::output()->getHTML([$glyph_factory->settings(), parent::render()]);
+        return self::output()->getHTML([$glyph_factory->settings(), $html]);
     }
 
 
@@ -96,9 +100,10 @@ class FormBuilder extends AbstractFormBuilder
     protected function getData() : array
     {
         $data = [
-            "max_deep" => $this->user_settings->getMaxDeep(
+            "max_deep"      => $this->user_settings->getMaxDeep(
                 $this->tree_end_deep
-            )
+            ),
+            "show_metadata" => $this->user_settings->isShowDescription()
         ];
 
         return $data;
@@ -111,12 +116,13 @@ class FormBuilder extends AbstractFormBuilder
     protected function getFields() : array
     {
         $fields = [
-            "max_deep" => self::dic()->ui()->factory()->input()->field()->select("",
+            "max_deep"      => self::dic()->ui()->factory()->input()->field()->select("",
                 array_reduce(range($this->tree_start_deep, $this->tree_end_deep), function (array $max_deep, int $deep) : array {
                     $max_deep[$deep] = self::plugin()->translate("deep_x", UserSettingsCtrl::LANG_MODULE, [$deep]);
 
                     return $max_deep;
-                }, []))->withRequired(true)
+                }, []))->withRequired(true),
+            "show_metadata" => self::dic()->ui()->factory()->input()->field()->checkbox("")
         ];
 
         return $fields;
@@ -138,6 +144,7 @@ class FormBuilder extends AbstractFormBuilder
     protected function storeData(array $data)/* : void*/
     {
         $this->user_settings->setMaxDeep(intval($data["max_deep"]));
+        $this->user_settings->setShowMetadata(boolval($data["show_metadata"]));
 
         self::srContainerObjectTree()->userSettings()->storeUserSettings($this->user_settings);
     }

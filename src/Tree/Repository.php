@@ -87,6 +87,7 @@ final class Repository
      * @param bool  $only_show_container_objects_if_not_empty
      * @param bool  $open_links_in_new_tab
      * @param bool  $recursive_count
+     * @param bool  $show_metadata
      * @param bool  $count_sub_children_types
      *
      * @return array
@@ -102,6 +103,7 @@ final class Repository
         bool $only_show_container_objects_if_not_empty,
         bool $open_links_in_new_tab,
         bool $recursive_count,
+        bool $show_metadata,
         bool $count_sub_children_types = true
     ) : array {
         $children = [];
@@ -159,7 +161,8 @@ final class Repository
                     $object_types,
                     false,
                     $open_links_in_new_tab,
-                    $recursive_count
+                    $recursive_count,
+                    $show_metadata
                 ) : []);
 
                 if ($only_show_container_objects_if_not_empty
@@ -167,6 +170,17 @@ final class Repository
                     && empty($count_sub_children_types_count)
                 ) {
                     continue;
+                }
+
+                if ($show_metadata) {
+                    if ($max_deep_method_start_hide ? !$start_deep : true) {
+                        $description = $sub_item["description"];
+                    } else {
+                        $description = null;
+                    }
+                } else {
+                    $description = null;
+                    $count_sub_children_types_count = [];
                 }
 
                 if ($link_container_objects || !$is_container) {
@@ -177,7 +191,7 @@ final class Repository
 
                 $children[] = [
                     "count_sub_children_types" => $count_sub_children_types_count,
-                    "description"              => (($max_deep_method_start_hide ? !$start_deep : true) ? $sub_item["description"] : ""),
+                    "description"              => $description,
                     "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
                     "is_container"             => $is_container,
                     "link"                     => $link,
@@ -349,6 +363,7 @@ final class Repository
      * @param bool  $only_show_container_objects_if_not_empty
      * @param bool  $open_links_in_new_tab
      * @param bool  $recursive_count
+     * @param bool  $show_metadata
      *
      * @return array
      */
@@ -362,7 +377,8 @@ final class Repository
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $open_links_in_new_tab,
-        bool $recursive_count
+        bool $recursive_count,
+        bool $show_metadata
     ) : array {
         return array_values(array_map(function (array $count_sub_children_type) : array {
             $count_sub_children_type["type_title"] = $this->getObjectTypeTitle($count_sub_children_type["type"], ($count_sub_children_type["count"] !== 1));
@@ -379,7 +395,8 @@ final class Repository
             $only_show_container_objects_if_not_empty,
             $open_links_in_new_tab,
             $recursive_count,
-            $recursive_count
+            $recursive_count,
+            $show_metadata
         )["children"],
             function (array $count_sub_children_types, array $children) use ($recursive_count) : array {
                 $count_sub_children_types = $this->getCountSubChildrenTypesCount($count_sub_children_types, $children["type"]);

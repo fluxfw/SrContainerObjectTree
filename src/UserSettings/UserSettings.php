@@ -48,6 +48,15 @@ class UserSettings extends ActiveRecord
      * @con_fieldtype    integer
      * @con_length       8
      * @con_is_notnull   true
+     */
+    protected $show_metadata = 0;
+    /**
+     * @var int
+     *
+     * @con_has_field    true
+     * @con_fieldtype    integer
+     * @con_length       8
+     * @con_is_notnull   true
      * @con_is_primary   true
      * @con_sequence     true
      */
@@ -102,7 +111,7 @@ class UserSettings extends ActiveRecord
      */
     public function getMaxDeep(int $tree_end_deep) : int
     {
-        $max_deep = intval($this->max_deep);
+        $max_deep = $this->max_deep;
 
         if ($max_deep === 0 || $max_deep > $tree_end_deep) {
             $max_deep = $tree_end_deep;
@@ -176,6 +185,30 @@ class UserSettings extends ActiveRecord
 
 
     /**
+     * @return bool
+     */
+    public function isShowDescription() : bool
+    {
+        $show_metadata = $this->show_metadata;
+
+        if ($show_metadata === 0) {
+            $show_metadata = 2;
+        }
+
+        return ($show_metadata === 2);
+    }
+
+
+    /**
+     * @param bool $show_metadata
+     */
+    public function setShowMetadata(bool $show_metadata)/* : void*/
+    {
+        $this->show_metadata = ($show_metadata ? 2 : 1);
+    }
+
+
+    /**
      * @inheritDoc
      */
     public function sleep(/*string*/ $field_name)
@@ -195,6 +228,10 @@ class UserSettings extends ActiveRecord
     public function wakeUp(/*string*/ $field_name, $field_value)
     {
         switch ($field_name) {
+            case "max_deep":
+            case "show_metadata":
+                return intval($field_value);
+
             default:
                 return parent::wakeUp($field_name, $field_value);
         }

@@ -69,6 +69,10 @@ class TreeCtrl
      * @var bool
      */
     protected $recursive_count;
+    /**
+     * @var bool
+     */
+    protected $show_metadata;
 
 
     /**
@@ -85,6 +89,7 @@ class TreeCtrl
      * @param bool   $only_show_container_objects_if_not_empty
      * @param bool   $open_links_in_new_tab
      * @param bool   $recursive_count
+     * @param bool   $show_metadata
      */
     public function __construct(
         int $container_ref_id,
@@ -97,7 +102,8 @@ class TreeCtrl
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $open_links_in_new_tab,
-        bool $recursive_count
+        bool $recursive_count,
+        bool $show_metadata
     ) {
         $this->container_ref_id = $container_ref_id;
         $this->edit_user_settings_url = $edit_user_settings_url;
@@ -110,6 +116,7 @@ class TreeCtrl
         $this->only_show_container_objects_if_not_empty = $only_show_container_objects_if_not_empty;
         $this->open_links_in_new_tab = $open_links_in_new_tab;
         $this->recursive_count = $recursive_count;
+        $this->show_metadata = $show_metadata;
     }
 
 
@@ -158,7 +165,8 @@ class TreeCtrl
             $this->object_types,
             $this->only_show_container_objects_if_not_empty,
             $this->open_links_in_new_tab,
-            $this->recursive_count
+            $this->recursive_count,
+            $this->show_metadata
         );
 
         self::output()->outputJSON($children);

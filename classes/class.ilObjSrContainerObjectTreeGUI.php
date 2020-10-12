@@ -135,7 +135,8 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OPEN_LINKS_IN_NEW_TAB),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_RECURSIVE_COUNT)
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_RECURSIVE_COUNT),
+                    $this->object->getUserSettings()->isShowDescription()
                 ));
                 break;
 
