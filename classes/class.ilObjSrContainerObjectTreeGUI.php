@@ -124,7 +124,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
                     $this->object->getContainerRefId(),
                     self::dic()->ctrl()->getLinkTargetByClass(UserSettingsCtrl::class, UserSettingsCtrl::CMD_EDIT_USER_SETTINGS, "", true),
                     self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_LINK_OBJECTS),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_LINK_CONTAINER_OBJECTS),
                     $this->object->getUserSettings()->getMaxDeep(
                         self::srContainerObjectTree()->tree()->getTreeEndDeep(
                             $this->object->getContainerRefId()
@@ -134,6 +134,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD_START_HIDE),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OPEN_LINKS_IN_NEW_TAB),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_RECURSIVE_COUNT)
                 ));
                 break;

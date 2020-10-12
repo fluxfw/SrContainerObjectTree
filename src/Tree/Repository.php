@@ -79,11 +79,13 @@ final class Repository
     /**
      * @param int   $parent_ref_id
      * @param int   $parent_deep
+     * @param bool  $link_container_objects
      * @param int   $max_deep
      * @param int   $max_deep_method
      * @param bool  $max_deep_method_start_hide
      * @param array $object_types
      * @param bool  $only_show_container_objects_if_not_empty
+     * @param bool  $open_links_in_new_tab
      * @param bool  $recursive_count
      * @param bool  $count_sub_children_types
      *
@@ -92,11 +94,13 @@ final class Repository
     public function getChildren(
         int $parent_ref_id,
         int $parent_deep,
+        bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
         bool $max_deep_method_start_hide,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
+        bool $open_links_in_new_tab,
         bool $recursive_count,
         bool $count_sub_children_types = true
     ) : array {
@@ -148,11 +152,13 @@ final class Repository
                 && $count_sub_children_types ? $this->getCountSubChildrenTypes(
                     $ref_id,
                     $current_deep,
+                    $link_container_objects,
                     $max_deep,
                     $max_deep_method,
                     $max_deep_method_start_hide,
                     $object_types,
-                    $only_show_container_objects_if_not_empty,
+                    false,
+                    $open_links_in_new_tab,
                     $recursive_count
                 ) : []);
 
@@ -163,12 +169,19 @@ final class Repository
                     continue;
                 }
 
+                if ($link_container_objects || !$is_container) {
+                    $link = ilLink::_getLink($ref_id);
+                } else {
+                    $link = null;
+                }
+
                 $children[] = [
                     "count_sub_children_types" => $count_sub_children_types_count,
                     "description"              => (($max_deep_method_start_hide ? !$start_deep : true) ? $sub_item["description"] : ""),
                     "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
                     "is_container"             => $is_container,
-                    "link"                     => ilLink::_getLink($ref_id),
+                    "link"                     => $link,
+                    "link_new_tab"             => $open_links_in_new_tab,
                     "ref_id"                   => $ref_id,
                     "start_deep"               => $start_deep,
                     "title"                    => $sub_item["title"],
@@ -204,7 +217,6 @@ final class Repository
 
     /**
      * @param int    $tree_container_ref_id
-     * @param bool   $tree_link_objects
      * @param string $tree_fetch_url
      * @param string $tree_empty_text
      * @param string $tree_error_text
@@ -215,7 +227,6 @@ final class Repository
      */
     public function getHtml(
         int $tree_container_ref_id,
-        bool $tree_link_objects,
         string $tree_fetch_url,
         string $tree_empty_text,
         string $tree_error_text,
@@ -233,8 +244,7 @@ final class Repository
             "tree_container_ref_id"         => $tree_container_ref_id,
             "tree_empty_text"               => $tree_empty_text,
             "tree_error_text"               => $tree_error_text,
-            "tree_fetch_url"                => $tree_fetch_url,
-            "tree_link_objects"             => $tree_link_objects
+            "tree_fetch_url"                => $tree_fetch_url
         ];
 
         $tpl->setVariableEscaped("CONFIG", base64_encode(json_encode($config)));
@@ -331,11 +341,13 @@ final class Repository
     /**
      * @param int   $parent_ref_id
      * @param int   $parent_deep
+     * @param bool  $link_container_objects
      * @param int   $max_deep
      * @param int   $max_deep_method
      * @param bool  $max_deep_method_start_hide
      * @param array $object_types
      * @param bool  $only_show_container_objects_if_not_empty
+     * @param bool  $open_links_in_new_tab
      * @param bool  $recursive_count
      *
      * @return array
@@ -343,11 +355,13 @@ final class Repository
     protected function getCountSubChildrenTypes(
         int $parent_ref_id,
         int $parent_deep,
+        bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
         bool $max_deep_method_start_hide,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
+        bool $open_links_in_new_tab,
         bool $recursive_count
     ) : array {
         return array_values(array_map(function (array $count_sub_children_type) : array {
@@ -357,11 +371,13 @@ final class Repository
         }, array_reduce($this->getChildren(
             $parent_ref_id,
             $parent_deep,
+            $link_container_objects,
             $max_deep,
             $max_deep_method,
             $max_deep_method_start_hide,
             $object_types,
             $only_show_container_objects_if_not_empty,
+            $open_links_in_new_tab,
             $recursive_count,
             $recursive_count
         )["children"],

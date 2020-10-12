@@ -13,13 +13,14 @@ xcot_visible#:#Sichtbar
 xcot_write#:#Bearbeiten
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
-config_link_objects#:#Objekte verlinken
+config_link_objects#:#Container-Objekte verlinken
 config_max_deep_method#:#Maximale Tiefe Methode
 config_max_deep_method_end#:#Endpunk
 config_max_deep_method_start#:#Startpunkt
 config_max_deep_method_start_hide#:#Beschreibung und Anzahl ausblenden (Startpunkt-Methode)
 config_object_types#:#Objekt-Typen
 config_only_show_container_objects_if_not_empty#:#Container-Objekte nur anzeigen wenn sie nicht leer sind
+config_open_links_in_new_tab#:#Links in neuen Tab öffnen
 config_recursive_count#:#Rekursives Zählen
 config_save#:#Speichern
 object_offline#:#Offline

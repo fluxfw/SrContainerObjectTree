@@ -1,7 +1,7 @@
 {
   "name": "srag/plugins/srcontainerobjecttree",
   "description": "",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "ilias_plugin": {
     "id": "xcot",
     "name": "SrContainerObjectTree",

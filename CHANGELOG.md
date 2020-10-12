@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.4.0]
+- Fix link container objects
+- Open links in new tab config
+
 ## [2.3.0]
 - Max deep available levels
 - Max deep start point method
