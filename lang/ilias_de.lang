@@ -11,6 +11,7 @@ xcot_new#:#SrContainerObjectTree anlegen
 xcot_read#:#Lesen
 xcot_visible#:#Sichtbar
 xcot_write#:#Bearbeiten
+config_allowed_empty_container_object_types#:#Erlaubte leere Container-Objekt-Typen
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
 config_link_objects#:#Container-Objekte verlinken

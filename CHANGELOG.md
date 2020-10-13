@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.6.0]
+- Allowed empty container object types
+
 ## [2.5.0]
 - Show metadata user config
 
