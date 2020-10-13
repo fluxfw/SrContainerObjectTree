@@ -104,7 +104,7 @@ class FormBuilder extends AbstractFormBuilder
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, ConfigCtrl::LANG_MODULE)),
             self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES     => (new InputGUIWrapperUIInputComponent(new MultiSelectSearchNewInputGUI(self::plugin()
-                ->translate(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES, ConfigCtrl::LANG_MODULE))))->withRequired(true),
+                ->translate(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES, ConfigCtrl::LANG_MODULE)))),
             self::KEY_RECURSIVE_COUNT                          => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_RECURSIVE_COUNT, ConfigCtrl::LANG_MODULE))
         ];
