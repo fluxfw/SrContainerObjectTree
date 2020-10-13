@@ -24,6 +24,8 @@ config_only_show_container_objects_if_not_empty#:#Only show container objects if
 config_open_links_in_new_tab#:#Open links in new tab
 config_recursive_count#:#Recursive count
 config_save#:#Save
+config_user_settings_per_object#:#User settings per object
+config_user_settings_per_object_reset#:#Due changing "%s" has reset user settings
 object_offline#:#Offline
 object_permission_denied#:#Permission denied
 object_show_contents#:#Contents
@@ -40,4 +42,4 @@ tree_empty#:#Empty
 tree_error#:#Tree could not be loaded
 user_settings_deep_x#:#%s. level
 user_settings_error#:#Form could not be loaded
-user_settings_show_metadata#:#Metadaten anzeigen
+user_settings_show_metadata#:#Show metadata

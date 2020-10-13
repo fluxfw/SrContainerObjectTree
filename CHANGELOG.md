@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.7.0]
+- User settings per object
+
 ## [2.6.0]
 - Allowed empty container object types
 

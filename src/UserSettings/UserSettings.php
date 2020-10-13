@@ -33,14 +33,14 @@ class UserSettings extends ActiveRecord
      */
     protected $max_deep = 0;
     /**
-     * @var int
+     * @var int|null
      *
      * @con_has_field    true
      * @con_fieldtype    integer
      * @con_length       8
-     * @con_is_notnull   true
+     * @con_is_notnull   false
      */
-    protected $obj_id;
+    protected $obj_id = null;
     /**
      * @var int
      *
@@ -131,18 +131,18 @@ class UserSettings extends ActiveRecord
 
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getObjId() : int
+    public function getObjId()/* : ?int*/
     {
         return $this->obj_id;
     }
 
 
     /**
-     * @param int $obj_id
+     * @param int|null $obj_id
      */
-    public function setObjId(int $obj_id)/* : void*/
+    public function setObjId(/*?*/ int $obj_id = null)/* : void*/
     {
         $this->obj_id = $obj_id;
     }

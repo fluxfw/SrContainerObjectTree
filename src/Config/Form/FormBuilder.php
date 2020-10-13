@@ -4,6 +4,7 @@ namespace srag\Plugins\SrContainerObjectTree\Config\Form;
 
 use ILIAS\UI\Component\Input\Field\Radio;
 use ilSrContainerObjectTreePlugin;
+use ilUtil;
 use srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder\AbstractFormBuilder;
 use srag\CustomInputGUIs\SrContainerObjectTree\InputGUIWrapperUIInputComponent\InputGUIWrapperUIInputComponent;
 use srag\CustomInputGUIs\SrContainerObjectTree\MultiSelectSearchNewInputGUI\MultiSelectSearchNewInputGUI;
@@ -31,6 +32,7 @@ class FormBuilder extends AbstractFormBuilder
     const KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY = "only_show_container_objects_if_not_empty";
     const KEY_OPEN_LINKS_IN_NEW_TAB = "open_links_in_new_tab";
     const KEY_RECURSIVE_COUNT = "recursive_count";
+    const KEY_USER_SETTINGS_PER_OBJECT = "user_settings_per_object";
     const MAX_DEEP_METHODS
         = [
             Repository::MAX_DEEP_METHOD_END   => "end",
@@ -76,7 +78,8 @@ class FormBuilder extends AbstractFormBuilder
             self::KEY_OPEN_LINKS_IN_NEW_TAB                    => self::srContainerObjectTree()->config()->getValue(self::KEY_OPEN_LINKS_IN_NEW_TAB),
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::srContainerObjectTree()->config()->getValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
             self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES     => self::srContainerObjectTree()->config()->getValue(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES),
-            self::KEY_RECURSIVE_COUNT                          => self::srContainerObjectTree()->config()->getValue(self::KEY_RECURSIVE_COUNT)
+            self::KEY_RECURSIVE_COUNT                          => self::srContainerObjectTree()->config()->getValue(self::KEY_RECURSIVE_COUNT),
+            self::KEY_USER_SETTINGS_PER_OBJECT                 => self::srContainerObjectTree()->config()->getValue(self::KEY_USER_SETTINGS_PER_OBJECT)
         ];
 
         return $data;
@@ -106,7 +109,9 @@ class FormBuilder extends AbstractFormBuilder
             self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES     => (new InputGUIWrapperUIInputComponent(new MultiSelectSearchNewInputGUI(self::plugin()
                 ->translate(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES, ConfigCtrl::LANG_MODULE)))),
             self::KEY_RECURSIVE_COUNT                          => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
-                ->translate(self::KEY_RECURSIVE_COUNT, ConfigCtrl::LANG_MODULE))
+                ->translate(self::KEY_RECURSIVE_COUNT, ConfigCtrl::LANG_MODULE)),
+            self::KEY_USER_SETTINGS_PER_OBJECT                 => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
+                ->translate(self::KEY_USER_SETTINGS_PER_OBJECT, ConfigCtrl::LANG_MODULE))
         ];
 
         $fields[self::KEY_OBJECT_TYPES]->getInput()->setOptions(self::srContainerObjectTree()->tree()->getObjectTypes(null, false));
@@ -140,5 +145,13 @@ class FormBuilder extends AbstractFormBuilder
             ->config()
             ->setValue(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES, MultiSelectSearchNewInputGUI::cleanValues((array) $data[self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_RECURSIVE_COUNT, boolval($data[self::KEY_RECURSIVE_COUNT]));
+
+        $user_settings_per_object = boolval($data[self::KEY_USER_SETTINGS_PER_OBJECT]);
+        if ($user_settings_per_object !== self::srContainerObjectTree()->config()->getValue(self::KEY_USER_SETTINGS_PER_OBJECT)) {
+            self::srContainerObjectTree()->userSettings()->resetUserSettings();
+            ilUtil::sendInfo(self::plugin()->translate(self::KEY_USER_SETTINGS_PER_OBJECT . "_reset", ConfigCtrl::LANG_MODULE,
+                [self::plugin()->translate(self::KEY_USER_SETTINGS_PER_OBJECT, ConfigCtrl::LANG_MODULE)]), true);
+        }
+        self::srContainerObjectTree()->config()->setValue(self::KEY_USER_SETTINGS_PER_OBJECT, $user_settings_per_object);
     }
 }
