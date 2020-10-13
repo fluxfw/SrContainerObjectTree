@@ -24,6 +24,8 @@ config_only_show_container_objects_if_not_empty#:#Container-Objekte nur anzeigen
 config_open_links_in_new_tab#:#Links in neuen Tab öffnen
 config_recursive_count#:#Rekursives Zählen
 config_save#:#Speichern
+config_user_settings_per_object#:#Benutzer-Einstellungen pro Objekt
+config_user_settings_per_object_reset#:#Durch die Änderung "%s" wurden Benutzer-Einstellungen zurückgesetzt
 object_offline#:#Offline
 object_permission_denied#:#Zugriff verweigert
 object_show_contents#:#Inhalte
@@ -40,4 +42,4 @@ tree_empty#:#Leer
 tree_error#:#Baum konnte nicht geladen werden
 user_settings_deep_x#:#%s. Ebene
 user_settings_error#:#Formular konnte nicht geladen werden
-user_settings_show_metadata#:#Show metadata
+user_settings_show_metadata#:#Metadaten anzeigen
