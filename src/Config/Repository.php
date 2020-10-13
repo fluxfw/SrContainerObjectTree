@@ -68,6 +68,7 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
+            FormBuilder::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES     => [Config::TYPE_JSON, [], true],
             FormBuilder::KEY_LINK_CONTAINER_OBJECTS                   => [Config::TYPE_BOOLEAN, true],
             FormBuilder::KEY_MAX_DEEP_METHOD                          => [Config::TYPE_INTEGER, TreeRepository::MAX_DEEP_METHOD_END],
             FormBuilder::KEY_MAX_DEEP_METHOD_START_HIDE               => [Config::TYPE_BOOLEAN, false],

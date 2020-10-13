@@ -11,6 +11,7 @@ xcot_new#:#Create SrContainerObjectTree
 xcot_read#:#Read
 xcot_visible#:#visible
 xcot_write#:#Edit
+config_allowed_empty_container_object_types#:#Allowed empty container object types
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
 config_link_objects#:#Link container objects

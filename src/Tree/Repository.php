@@ -32,9 +32,9 @@ final class Repository
      */
     protected static $instance = null;
     /**
-     * @var array|null
+     * @var array
      */
-    protected $container_object_types = null;
+    protected $container_object_types = [];
     /**
      * @var array
      */
@@ -79,6 +79,7 @@ final class Repository
     /**
      * @param int   $parent_ref_id
      * @param int   $parent_deep
+     * @param array $allowed_empty_container_object_types
      * @param bool  $link_container_objects
      * @param int   $max_deep
      * @param int   $max_deep_method
@@ -95,6 +96,7 @@ final class Repository
     public function getChildren(
         int $parent_ref_id,
         int $parent_deep,
+        array $allowed_empty_container_object_types,
         bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
@@ -154,12 +156,13 @@ final class Repository
                 && $count_sub_children_types ? $this->getCountSubChildrenTypes(
                     $ref_id,
                     $current_deep,
+                    $allowed_empty_container_object_types,
                     $link_container_objects,
                     $max_deep,
                     $max_deep_method,
                     $max_deep_method_start_hide,
                     $object_types,
-                    false,
+                    $only_show_container_objects_if_not_empty,
                     $open_links_in_new_tab,
                     $recursive_count,
                     $show_metadata
@@ -169,7 +172,11 @@ final class Repository
                     && $is_container
                     && empty($count_sub_children_types_count)
                 ) {
-                    continue;
+                    if (in_array($type, $allowed_empty_container_object_types)) {
+                        $is_container = false;
+                    } else {
+                        continue;
+                    }
                 }
 
                 if ($show_metadata) {
@@ -213,19 +220,22 @@ final class Repository
 
     /**
      * @param array|null $selected_object_types
+     * @param bool       $only_types
      *
      * @return array
      */
-    public function getContainerObjectTypes( /*?*/ array $selected_object_types = null) : array
+    public function getContainerObjectTypes( /*?*/ array $selected_object_types = null, bool $only_types = true) : array
     {
-        if ($this->container_object_types === null) {
-            $this->container_object_types = array_filter($this->getObjectTypes($selected_object_types), [
+        $cache_key = intval($only_types) . "_" . intval($selected_object_types !== null);
+
+        if ($this->container_object_types[$cache_key] === null) {
+            $this->container_object_types[$cache_key] = array_filter($this->getObjectTypes($selected_object_types, $only_types), [
                 self::dic()->objDefinition(),
                 "isContainer"
-            ]);
+            ], (!$only_types ? ARRAY_FILTER_USE_KEY : 0));
         }
 
-        return $this->container_object_types;
+        return $this->container_object_types[$cache_key];
     }
 
 
@@ -355,6 +365,7 @@ final class Repository
     /**
      * @param int   $parent_ref_id
      * @param int   $parent_deep
+     * @param array $allowed_empty_container_object_types
      * @param bool  $link_container_objects
      * @param int   $max_deep
      * @param int   $max_deep_method
@@ -370,6 +381,7 @@ final class Repository
     protected function getCountSubChildrenTypes(
         int $parent_ref_id,
         int $parent_deep,
+        array $allowed_empty_container_object_types,
         bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
@@ -387,6 +399,7 @@ final class Repository
         }, array_reduce($this->getChildren(
             $parent_ref_id,
             $parent_deep,
+            $allowed_empty_container_object_types,
             $link_container_objects,
             $max_deep,
             $max_deep_method,

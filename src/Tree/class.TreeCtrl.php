@@ -26,6 +26,10 @@ class TreeCtrl
     const LANG_MODULE = "tree";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
+     * @var array
+     */
+    protected $allowed_empty_container_object_types;
+    /**
      * @var int
      */
     protected $container_ref_id;
@@ -78,6 +82,7 @@ class TreeCtrl
     /**
      * TreeCtrl constructor
      *
+     * @param array  $allowed_empty_container_object_types
      * @param int    $container_ref_id
      * @param string $edit_user_settings_url
      * @param string $edit_user_settings_error_text
@@ -92,6 +97,7 @@ class TreeCtrl
      * @param bool   $show_metadata
      */
     public function __construct(
+        array $allowed_empty_container_object_types,
         int $container_ref_id,
         string $edit_user_settings_url,
         string $edit_user_settings_error_text,
@@ -105,6 +111,7 @@ class TreeCtrl
         bool $recursive_count,
         bool $show_metadata
     ) {
+        $this->allowed_empty_container_object_types = $allowed_empty_container_object_types;
         $this->container_ref_id = $container_ref_id;
         $this->edit_user_settings_url = $edit_user_settings_url;
         $this->edit_user_settings_error_text = $edit_user_settings_error_text;
@@ -158,6 +165,7 @@ class TreeCtrl
         $children = self::srContainerObjectTree()->tree()->getChildren(
             $parent_ref_id,
             $parent_deep,
+            $this->allowed_empty_container_object_types,
             $this->link_container_objects,
             $this->max_deep,
             $this->max_deep_method,

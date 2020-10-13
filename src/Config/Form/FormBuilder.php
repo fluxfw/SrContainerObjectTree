@@ -23,6 +23,7 @@ class FormBuilder extends AbstractFormBuilder
 
     use SrContainerObjectTreeTrait;
 
+    const KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES = "allowed_empty_container_object_types";
     const KEY_LINK_CONTAINER_OBJECTS = "link_objects";
     const KEY_MAX_DEEP_METHOD = "max_deep_method";
     const KEY_MAX_DEEP_METHOD_START_HIDE = self::KEY_MAX_DEEP_METHOD . "_start_hide";
@@ -74,6 +75,7 @@ class FormBuilder extends AbstractFormBuilder
             self::KEY_LINK_CONTAINER_OBJECTS                   => self::srContainerObjectTree()->config()->getValue(self::KEY_LINK_CONTAINER_OBJECTS),
             self::KEY_OPEN_LINKS_IN_NEW_TAB                    => self::srContainerObjectTree()->config()->getValue(self::KEY_OPEN_LINKS_IN_NEW_TAB),
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::srContainerObjectTree()->config()->getValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
+            self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES     => self::srContainerObjectTree()->config()->getValue(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES),
             self::KEY_RECURSIVE_COUNT                          => self::srContainerObjectTree()->config()->getValue(self::KEY_RECURSIVE_COUNT)
         ];
 
@@ -101,11 +103,14 @@ class FormBuilder extends AbstractFormBuilder
                 ->translate(self::KEY_OPEN_LINKS_IN_NEW_TAB, ConfigCtrl::LANG_MODULE)),
             self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, ConfigCtrl::LANG_MODULE)),
+            self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES     => (new InputGUIWrapperUIInputComponent(new MultiSelectSearchNewInputGUI(self::plugin()
+                ->translate(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES, ConfigCtrl::LANG_MODULE))))->withRequired(true),
             self::KEY_RECURSIVE_COUNT                          => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
                 ->translate(self::KEY_RECURSIVE_COUNT, ConfigCtrl::LANG_MODULE))
         ];
 
         $fields[self::KEY_OBJECT_TYPES]->getInput()->setOptions(self::srContainerObjectTree()->tree()->getObjectTypes(null, false));
+        $fields[self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES]->getInput()->setOptions(self::srContainerObjectTree()->tree()->getContainerObjectTypes(null, false));
 
         return $fields;
     }
@@ -131,6 +136,9 @@ class FormBuilder extends AbstractFormBuilder
         self::srContainerObjectTree()->config()->setValue(self::KEY_LINK_CONTAINER_OBJECTS, boolval($data[self::KEY_LINK_CONTAINER_OBJECTS]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_OPEN_LINKS_IN_NEW_TAB, boolval($data[self::KEY_OPEN_LINKS_IN_NEW_TAB]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY, boolval($data[self::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY]));
+        self::srContainerObjectTree()
+            ->config()
+            ->setValue(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES, MultiSelectSearchNewInputGUI::cleanValues((array) $data[self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES]));
         self::srContainerObjectTree()->config()->setValue(self::KEY_RECURSIVE_COUNT, boolval($data[self::KEY_RECURSIVE_COUNT]));
     }
 }
