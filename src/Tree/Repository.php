@@ -152,7 +152,7 @@ final class Repository
                 $start_deep = ($is_container && ($max_deep_method === self::MAX_DEEP_METHOD_START && ($max_deep === 0 || $current_deep < $max_deep)));
 
                 $count_sub_children_types_count = ($is_container
-                && ($max_deep_method_start_hide ? !$start_deep : true)
+                && ($max_deep_method === self::MAX_DEEP_METHOD_START && $max_deep_method_start_hide ? $start_deep : true)
                 && $count_sub_children_types ? $this->getCountSubChildrenTypes(
                     $ref_id,
                     $current_deep,
@@ -180,7 +180,7 @@ final class Repository
                 }
 
                 if ($show_metadata) {
-                    if ($max_deep_method_start_hide ? !$start_deep : true) {
+                    if (($max_deep_method === self::MAX_DEEP_METHOD_START && $max_deep_method_start_hide) ? $start_deep : true) {
                         $description = $sub_item["description"];
                     } else {
                         $description = null;

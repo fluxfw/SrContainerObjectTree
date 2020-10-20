@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.7.1]
+- Fix hide description and count (Start node method)
+
 ## [2.7.0]
 - User settings per object
 
