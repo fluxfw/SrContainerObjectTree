@@ -19,6 +19,7 @@ class ilSrContainerObjectTreePlugin extends ilRepositoryObjectPlugin
     use RepositoryObjectPluginUninstallTrait;
     use SrContainerObjectTreeTrait;
 
+    const EVENT_CHANGE_CHILD_BEFORE_OUTPUT = "change_child_before_output";
     const PLUGIN_CLASS_NAME = self::class;
     const PLUGIN_ID = "xcot";
     const PLUGIN_NAME = "SrContainerObjectTree";
