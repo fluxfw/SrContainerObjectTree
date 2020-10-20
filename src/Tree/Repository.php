@@ -196,7 +196,7 @@ final class Repository
                     $link = null;
                 }
 
-                $children[] = [
+                $child = [
                     "count_sub_children_types" => $count_sub_children_types_count,
                     "description"              => $description,
                     "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
@@ -208,6 +208,12 @@ final class Repository
                     "title"                    => $sub_item["title"],
                     "type"                     => $type
                 ];
+
+                self::dic()->appEventHandler()->raise(IL_COMP_PLUGIN . "/" . ilSrContainerObjectTreePlugin::PLUGIN_NAME, ilSrContainerObjectTreePlugin::EVENT_CHANGE_CHILD_BEFORE_OUTPUT, [
+                    "child" => &$child // Unfortunately ILIAS Raise Event System not supports return results so use a referenced variable
+                ]);
+
+                $children[] = $child;
             }
         }
 

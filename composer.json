@@ -1,14 +1,20 @@
 {
   "name": "srag/plugins/srcontainerobjecttree",
   "description": "",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "ilias_plugin": {
     "id": "xcot",
     "name": "SrContainerObjectTree",
     "ilias_min_version": "5.4.0",
     "ilias_max_version": "6.999",
     "lucene_search": true,
-    "slot": "Services/Repository/RepositoryObject"
+    "slot": "Services/Repository/RepositoryObject",
+    "events": [
+      {
+        "id": "change_child_before_output",
+        "type": "raise"
+      }
+    ]
   },
   "type": "project",
   "keywords": [
