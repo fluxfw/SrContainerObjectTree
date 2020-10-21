@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.7.3]
+- Fix hide description and count (Start node method)
+
 ## [2.7.2]
 - Event for change child before output
 
