@@ -2,19 +2,21 @@
   "name": "srag/plugins/srcontainerobjecttree",
   "description": "",
   "version": "2.7.3",
-  "ilias_plugin": {
-    "id": "xcot",
-    "name": "SrContainerObjectTree",
-    "ilias_min_version": "5.4.0",
-    "ilias_max_version": "6.999",
-    "lucene_search": true,
-    "slot": "Services/Repository/RepositoryObject",
-    "events": [
-      {
-        "id": "change_child_before_output",
-        "type": "raise"
-      }
-    ]
+  "extra": {
+    "ilias_plugin": {
+      "id": "xcot",
+      "name": "SrContainerObjectTree",
+      "ilias_min_version": "5.4.0",
+      "ilias_max_version": "6.999",
+      "lucene_search": true,
+      "slot": "Services/Repository/RepositoryObject",
+      "events": [
+        {
+          "id": "change_child_before_output",
+          "type": "raise"
+        }
+      ]
+    }
   },
   "type": "project",
   "keywords": [
@@ -65,7 +67,7 @@
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
       "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport",
       "srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
-      "srag\\LibrariesNamespaceChanger\\UpdatePluginReadme::updatePluginReadme"
+      "srag\\LibrariesNamespaceChanger\\GeneratePluginReadme::generatePluginReadme"
     ]
   }
 }
