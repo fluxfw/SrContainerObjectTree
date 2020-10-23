@@ -123,7 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             node_el.appendChild(arrow_el);
                         }
 
-                        clickNode();
+                        if (start_deep) {
+                            clickNode();
+                        }
                     }
 
                     node_el.appendChild(link_el);
