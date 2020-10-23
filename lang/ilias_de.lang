@@ -18,7 +18,8 @@ config_link_objects#:#Container-Objekte verlinken
 config_max_deep_method#:#Maximale Tiefe Methode
 config_max_deep_method_end#:#Endpunk
 config_max_deep_method_start#:#Startpunkt
-config_max_deep_method_start_hide#:#Beschreibung und Anzahl ausblenden (Startpunkt-Methode)
+config_max_deep_method_start_hide#:#Metadaten immer ausblenden (Startpunkt-Methode)
+config_max_deep_method_start_show_arrow#:#Pfeil auch anzeigen (Startpunkt-Methode)
 config_object_types#:#Objekt-Typen
 config_only_show_container_objects_if_not_empty#:#Container-Objekte nur anzeigen wenn sie nicht leer sind
 config_open_links_in_new_tab#:#Links in neuen Tab öffnen

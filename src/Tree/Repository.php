@@ -83,7 +83,8 @@ final class Repository
      * @param bool  $link_container_objects
      * @param int   $max_deep
      * @param int   $max_deep_method
-     * @param bool  $max_deep_method_start_hide
+     * @param bool  $max_deep_method_start_hide_metadata
+     * @param bool  $max_deep_method_start_show_arrow
      * @param array $object_types
      * @param bool  $only_show_container_objects_if_not_empty
      * @param bool  $open_links_in_new_tab
@@ -100,7 +101,8 @@ final class Repository
         bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
-        bool $max_deep_method_start_hide,
+        bool $max_deep_method_start_hide_metadata,
+        bool $max_deep_method_start_show_arrow,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $open_links_in_new_tab,
@@ -159,12 +161,12 @@ final class Repository
                     $link_container_objects,
                     $max_deep,
                     $max_deep_method,
-                    $max_deep_method_start_hide,
+                    $max_deep_method_start_hide_metadata,
+                    $max_deep_method_start_show_arrow,
                     $object_types,
                     $only_show_container_objects_if_not_empty,
                     $open_links_in_new_tab,
-                    $recursive_count,
-                    $show_metadata
+                    $recursive_count
                 ) : []);
 
                 if ($only_show_container_objects_if_not_empty
@@ -179,7 +181,7 @@ final class Repository
                 }
 
                 if ($show_metadata) {
-                    if (($max_deep_method === self::MAX_DEEP_METHOD_START && $max_deep_method_start_hide) ? !$start_deep : true) {
+                    if (($max_deep_method === self::MAX_DEEP_METHOD_START && $max_deep_method_start_hide_metadata) ? !$start_deep : true) {
                         $description = $sub_item["description"];
                     } else {
                         $description = null;
@@ -196,6 +198,8 @@ final class Repository
                     $link = null;
                 }
 
+                $show_arrow = ($is_container ? ($start_deep ? $max_deep_method_start_show_arrow : true) : false);
+
                 $child = [
                     "count_sub_children_types" => $count_sub_children_types_count,
                     "description"              => $description,
@@ -204,6 +208,7 @@ final class Repository
                     "link"                     => $link,
                     "link_new_tab"             => $open_links_in_new_tab,
                     "ref_id"                   => $ref_id,
+                    "show_arrow"               => $show_arrow,
                     "start_deep"               => $start_deep,
                     "title"                    => $sub_item["title"],
                     "type"                     => $type
@@ -375,12 +380,12 @@ final class Repository
      * @param bool  $link_container_objects
      * @param int   $max_deep
      * @param int   $max_deep_method
-     * @param bool  $max_deep_method_start_hide
+     * @param bool  $max_deep_method_start_hide_metadata
+     * @param bool  $max_deep_method_start_show_arrow
      * @param array $object_types
      * @param bool  $only_show_container_objects_if_not_empty
      * @param bool  $open_links_in_new_tab
      * @param bool  $recursive_count
-     * @param bool  $show_metadata
      *
      * @return array
      */
@@ -391,12 +396,12 @@ final class Repository
         bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
-        bool $max_deep_method_start_hide,
+        bool $max_deep_method_start_hide_metadata,
+        bool $max_deep_method_start_show_arrow,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $open_links_in_new_tab,
-        bool $recursive_count,
-        bool $show_metadata
+        bool $recursive_count
     ) : array {
         return array_values(array_map(function (array $count_sub_children_type) : array {
             $count_sub_children_type["type_title"] = $this->getObjectTypeTitle($count_sub_children_type["type"], ($count_sub_children_type["count"] !== 1));
@@ -409,13 +414,14 @@ final class Repository
             $link_container_objects,
             $max_deep,
             $max_deep_method,
-            $max_deep_method_start_hide,
+            $max_deep_method_start_hide_metadata,
+            $max_deep_method_start_show_arrow,
             $object_types,
             $only_show_container_objects_if_not_empty,
             $open_links_in_new_tab,
             $recursive_count,
             $recursive_count,
-            $show_metadata
+            true
         )["children"],
             function (array $count_sub_children_types, array $children) use ($recursive_count) : array {
                 $count_sub_children_types = $this->getCountSubChildrenTypesCount($count_sub_children_types, $children["type"]);

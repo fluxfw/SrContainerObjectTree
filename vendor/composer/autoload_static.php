@@ -17,8 +17,8 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
             'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 51,
             'srag\\Plugins\\SrContainerObjectTree\\' => 35,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\DIC\\SrContainerObjectTree\\' => 31,
+            'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 43,
             'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 46,
         ),
     );
@@ -36,11 +36,11 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),

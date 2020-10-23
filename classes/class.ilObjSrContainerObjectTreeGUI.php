@@ -133,7 +133,8 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
                         )
                     ),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD_START_HIDE),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD_START_HIDE_METADATA),
+                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD_START_SHOW_ARROW),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
                     self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OPEN_LINKS_IN_NEW_TAB),
