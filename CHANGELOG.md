@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.8.0]
+- Also show arrow (Start node method)
+- Fix hide metadata
+
 ## [2.7.3]
 - Fix hide description and count (Start node method)
 

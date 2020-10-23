@@ -56,7 +56,11 @@ class TreeCtrl
     /**
      * @var bool
      */
-    protected $max_deep_method_start_hide;
+    protected $max_deep_method_start_hide_metadata;
+    /**
+     * @var bool
+     */
+    protected $max_deep_method_start_show_arrow;
     /**
      * @var array
      */
@@ -89,7 +93,8 @@ class TreeCtrl
      * @param bool   $link_container_objects
      * @param int    $max_deep
      * @param int    $max_deep_method
-     * @param bool   $max_deep_method_start_hide
+     * @param bool   $max_deep_method_start_hide_metadata
+     * @param bool   $max_deep_method_start_show_arrow
      * @param array  $object_types
      * @param bool   $only_show_container_objects_if_not_empty
      * @param bool   $open_links_in_new_tab
@@ -104,7 +109,8 @@ class TreeCtrl
         bool $link_container_objects,
         int $max_deep,
         int $max_deep_method,
-        bool $max_deep_method_start_hide,
+        bool $max_deep_method_start_hide_metadata,
+        bool $max_deep_method_start_show_arrow,
         array $object_types,
         bool $only_show_container_objects_if_not_empty,
         bool $open_links_in_new_tab,
@@ -118,7 +124,8 @@ class TreeCtrl
         $this->link_container_objects = $link_container_objects;
         $this->max_deep = $max_deep;
         $this->max_deep_method = $max_deep_method;
-        $this->max_deep_method_start_hide = $max_deep_method_start_hide;
+        $this->max_deep_method_start_show_arrow = $max_deep_method_start_show_arrow;
+        $this->max_deep_method_start_hide_metadata = $max_deep_method_start_hide_metadata;
         $this->object_types = $object_types;
         $this->only_show_container_objects_if_not_empty = $only_show_container_objects_if_not_empty;
         $this->open_links_in_new_tab = $open_links_in_new_tab;
@@ -169,7 +176,8 @@ class TreeCtrl
             $this->link_container_objects,
             $this->max_deep,
             $this->max_deep_method,
-            $this->max_deep_method_start_hide,
+            $this->max_deep_method_start_hide_metadata,
+            $this->max_deep_method_start_show_arrow,
             $this->object_types,
             $this->only_show_container_objects_if_not_empty,
             $this->open_links_in_new_tab,
