@@ -124,8 +124,8 @@ class TreeCtrl
         $this->link_container_objects = $link_container_objects;
         $this->max_deep = $max_deep;
         $this->max_deep_method = $max_deep_method;
-        $this->max_deep_method_start_show_arrow = $max_deep_method_start_show_arrow;
         $this->max_deep_method_start_hide_metadata = $max_deep_method_start_hide_metadata;
+        $this->max_deep_method_start_show_arrow = $max_deep_method_start_show_arrow;
         $this->object_types = $object_types;
         $this->only_show_container_objects_if_not_empty = $only_show_container_objects_if_not_empty;
         $this->open_links_in_new_tab = $open_links_in_new_tab;
