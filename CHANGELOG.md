@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.9.0]
+- User settings popover
+
 ## [2.8.0]
 - Also show arrow (Start node method)
 - Fix hide metadata

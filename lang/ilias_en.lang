@@ -43,4 +43,5 @@ tree_empty#:#Empty
 tree_error#:#Tree could not be loaded
 user_settings_deep_x#:#%s. level
 user_settings_error#:#Form could not be loaded
+user_settings_hide_metadata#:#Hide metadata
 user_settings_show_metadata#:#Show metadata

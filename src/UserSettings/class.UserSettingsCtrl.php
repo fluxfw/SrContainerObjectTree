@@ -91,7 +91,9 @@ class UserSettingsCtrl
             $this->tree_end_deep
         );
 
-        self::output()->output($form);
+        self::output()->outputJSON([
+            "html" => self::output()->getHTML($form)
+        ]);
     }
 
 

@@ -124,13 +124,65 @@
 	padding: 5px;
 	width: auto;
 
+	.SrContainerObjectTreeEditUserSettingsIcon {
+	  ~ .SrContainerObjectTreeEditUserSettingsForm {
+		background-color: #EEEEEE;
+		margin-top: 3px;
+		position: relative;
+
+		&:before {
+		  background-color: #EEEEEE;
+		  content: "";
+		  display: block;
+		  height: 10px;
+		  position: absolute;
+		  right: 2px;
+		  top: -5px;
+		  transform: rotate(-45deg);
+		  width: 10px;
+		}
+	  }
+
+	  &.SrContainerObjectTreeEditUserSettingsIconOpen {
+		a {
+		  color: #000000;
+		}
+	  }
+
+	  &:not(.SrContainerObjectTreeEditUserSettingsIconOpen) {
+		~ .SrContainerObjectTreeEditUserSettingsForm {
+		  display: none;
+		}
+	  }
+	}
+  }
+
+  .SrContainerObjectTreeEditUserSettingsForm {
 	.il-standard-form {
-	  &, .il-section-input {
-		margin: 0;
+	  &, * {
+		background-color: transparent;
+		margin: 0 !important;
+		padding: 0;
 	  }
 
 	  .il-standard-form-header, .il-standard-form-footer, .control-label {
 		display: none;
+	  }
+
+	  select {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		appearance: none;
+		border: none;
+		border-radius: 0;
+		outline: none;
+		overflow: auto;
+
+		option {
+		  height: 20px;
+		  padding: 0 5px;
+		  width: 170px;
+		}
 	  }
 	}
   }

@@ -268,10 +268,18 @@ final class Repository
         string $edit_user_settings_url,
         string $edit_user_settings_error_text
     ) : string {
+        if (self::version()->is6()) {
+            $glyph_factory = self::dic()->ui()->factory()->symbol()->glyph();
+        } else {
+            $glyph_factory = self::dic()->ui()->factory()->glyph();
+        }
+
         self::dic()->ui()->mainTemplate()->addCss(substr(self::plugin()->directory(), 2) . "/css/SrContainerObjectTree.css");
         self::dic()->ui()->mainTemplate()->addJavaScript(substr(self::plugin()->directory(), 2) . "/js/SrContainerObjectTree.min.js");
 
         $tpl = self::plugin()->template("SrContainerObjectTree.html");
+        $tpl_tree = self::plugin()->template("SrContainerObjectTreeTree.html", true, false);
+        $tpl_user_settings = self::plugin()->template("SrContainerObjectTreeEditUserSettings.html", true, false);
 
         $config = [
             "edit_user_settings_error_text" => $edit_user_settings_error_text,
@@ -283,6 +291,13 @@ final class Repository
         ];
 
         $tpl->setVariableEscaped("CONFIG", base64_encode(json_encode($config)));
+
+        $tpl->setVariable("TREE", self::output()->getHTML($tpl_tree));
+
+        $tpl_user_settings_icon = self::plugin()->template("SrContainerObjectTreeEditUserSettingsIcon.html");
+        $tpl_user_settings_icon->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($glyph_factory->settings()));
+        $tpl_user_settings->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($tpl_user_settings_icon));
+        $tpl->setVariable("USER_SETTINGS", self::output()->getHTML($tpl_user_settings));
 
         return self::output()->getHTML($tpl);
     }
