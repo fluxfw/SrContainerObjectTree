@@ -1,14 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
     class SrContainerObjectTree {
-        constructor({edit_user_settings_el, edit_user_settings_error_text, edit_user_settings_fetch_url, tree_container_ref_id, tree_el, tree_empty_text, tree_error_text, tree_fetch_url}) {
-            this.edit_user_settings_el = edit_user_settings_el;
+        constructor({edit_user_settings_error_text, edit_user_settings_fetch_url, edit_user_settings_form_el, edit_user_settings_icon_el, tree_container_ref_id, tree_el, tree_empty_text, tree_error_text, tree_fetch_url}) {
             this.edit_user_settings_error_text = edit_user_settings_error_text;
             this.edit_user_settings_fetch_url = edit_user_settings_fetch_url;
+            this.edit_user_settings_form_el = edit_user_settings_form_el;
+            this.edit_user_settings_icon_el = edit_user_settings_icon_el;
             this.tree_container_ref_id = tree_container_ref_id;
             this.tree_el = tree_el;
             this.tree_empty_text = tree_empty_text;
             this.tree_error_text = tree_error_text;
             this.tree_fetch_url = tree_fetch_url;
+            this._handleCloseUserSettingsIconClose = null;
+            this._handleEscCloseUserSettingsIcon = null;
         }
 
         clearElement({el}) {
@@ -27,16 +30,50 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
+        async handleOpenCloseUserSettingsIcon({forceOpenStatus}) {
+            this.edit_user_settings_icon_el.classList.toggle("SrContainerObjectTreeEditUserSettingsIconOpen", forceOpenStatus);
+
+            if (this.edit_user_settings_icon_el.classList.contains("SrContainerObjectTreeEditUserSettingsIconOpen")) {
+                document.addEventListener("keydown", this.handleEscCloseUserSettingsIcon);
+                document.body.addEventListener("click", this.handleCloseUserSettingsIconClose);
+            } else {
+                document.removeEventListener("keydown", this.handleEscCloseUserSettingsIcon);
+                document.body.removeEventListener("click", this.handleCloseUserSettingsIconClose);
+            }
+        }
+
+        get handleCloseUserSettingsIconClose() {
+            if (!this._handleCloseUserSettingsIconClose) {
+                this._handleCloseUserSettingsIconClose = this.handleOpenCloseUserSettingsIcon.bind(this, {
+                    forceOpenStatus: false
+                });
+            }
+
+            return this._handleCloseUserSettingsIconClose;
+        }
+
+        get handleEscCloseUserSettingsIcon() {
+            if (!this._handleEscCloseUserSettingsIcon) {
+                this._handleEscCloseUserSettingsIcon = (e) => {
+                    if (e.key === "Escape") {
+                        this.handleCloseUserSettingsIconClose();
+                    }
+                };
+            }
+
+            return this._handleEscCloseUserSettingsIcon;
+        }
+
         async fetchEditUserSettings({parent_el}) {
             const loading_el = this.insertLoading({parent_el});
 
-            let html;
+            let result;
             try {
-                html = await (await fetch(this.edit_user_settings_fetch_url, {
+                result = await (await fetch(this.edit_user_settings_fetch_url, {
                     headers: {
-                        "accept": "text/html"
+                        "accept": "application/json"
                     }
-                })).text();
+                })).json();
             } catch (err) {
                 this.insertError({
                     err,
@@ -48,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
             } finally {
                 this.removeLoading({loading_el, parent_el});
             }
+
+            const {html} = result;
 
             this.initEditUserSettingsForm({html, parent_el});
         }
@@ -175,8 +214,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         async initEditUserSettings() {
+            this.edit_user_settings_icon_el.addEventListener("click", this.handleOpenCloseUserSettingsIcon.bind(this, {}));
+
+            for (const el of [this.edit_user_settings_form_el, this.edit_user_settings_icon_el]) {
+                el.addEventListener("click", e => {
+                    e.stopPropagation();
+                });
+            }
+
             await this.fetchEditUserSettings({
-                parent_el: this.edit_user_settings_el
+                parent_el: this.edit_user_settings_form_el
             });
         }
 
@@ -256,7 +303,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const el of document.querySelectorAll(".SrContainerObjectTree")) {
         const config = JSON.parse(atob(el.dataset.config));
-        config.edit_user_settings_el = el.querySelector(".SrContainerObjectTreeEditUserSettings");
+
+        const user_settings_container = el.querySelector(".SrContainerObjectTreeEditUserSettings");
+        config.edit_user_settings_form_el = user_settings_container.querySelector(".SrContainerObjectTreeEditUserSettingsForm");
+        config.edit_user_settings_icon_el = user_settings_container.querySelector(".SrContainerObjectTreeEditUserSettingsIcon");
+
         config.tree_el = el.querySelector(".SrContainerObjectTreeTree");
 
         const tree = new SrContainerObjectTree(config);

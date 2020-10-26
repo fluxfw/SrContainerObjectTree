@@ -22,6 +22,10 @@ class FormBuilder extends AbstractFormBuilder
 
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
+     * @var array
+     */
+    protected $max_deep_options = [];
+    /**
      * @var int
      */
     protected $tree_end_deep;
@@ -60,15 +64,10 @@ class FormBuilder extends AbstractFormBuilder
     {
         $html = parent::render();
 
-        $html = str_replace('type="checkbox"', 'type="checkbox" title="' . htmlspecialchars(self::plugin()->translate("show_metadata", UserSettingsCtrl::LANG_MODULE)) . '"', $html);
+        $html = str_replace('<select name="form_input_2"', '<select name="form_input_2" size="2"', $html);
+        $html = str_replace('<select name="form_input_3"', '<select name="form_input_3" size="' . count($this->max_deep_options) . '"', $html);
 
-        if (self::version()->is6()) {
-            $glyph_factory = self::dic()->ui()->factory()->symbol()->glyph();
-        } else {
-            $glyph_factory = self::dic()->ui()->factory()->glyph();
-        }
-
-        return self::output()->getHTML([$glyph_factory->settings(), $html]);
+        return $html;
     }
 
 
@@ -100,10 +99,10 @@ class FormBuilder extends AbstractFormBuilder
     protected function getData() : array
     {
         $data = [
+            "show_metadata" => ($this->user_settings->isShowDescription() ? "show" : "hide"),
             "max_deep"      => $this->user_settings->getMaxDeep(
                 $this->tree_end_deep
-            ),
-            "show_metadata" => $this->user_settings->isShowDescription()
+            )
         ];
 
         return $data;
@@ -115,14 +114,18 @@ class FormBuilder extends AbstractFormBuilder
      */
     protected function getFields() : array
     {
-        $fields = [
-            "max_deep"      => self::dic()->ui()->factory()->input()->field()->select("",
-                array_reduce(range($this->tree_start_deep, $this->tree_end_deep), function (array $max_deep, int $deep) : array {
-                    $max_deep[$deep] = self::plugin()->translate("deep_x", UserSettingsCtrl::LANG_MODULE, [$deep]);
+        $this->max_deep_options = array_reduce(range($this->tree_start_deep, $this->tree_end_deep), function (array $max_deep, int $deep) : array {
+            $max_deep[$deep] = self::plugin()->translate("deep_x", UserSettingsCtrl::LANG_MODULE, [$deep]);
 
-                    return $max_deep;
-                }, []))->withRequired(true),
-            "show_metadata" => self::dic()->ui()->factory()->input()->field()->checkbox("")
+            return $max_deep;
+        }, []);
+
+        $fields = [
+            "show_metadata" => self::dic()->ui()->factory()->input()->field()->select("", [
+                "show" => self::plugin()->translate("show_metadata", UserSettingsCtrl::LANG_MODULE),
+                "hide" => self::plugin()->translate("hide_metadata", UserSettingsCtrl::LANG_MODULE)
+            ])->withRequired(true),
+            "max_deep"      => self::dic()->ui()->factory()->input()->field()->select("", $this->max_deep_options)->withRequired(true)
         ];
 
         return $fields;
@@ -143,8 +146,8 @@ class FormBuilder extends AbstractFormBuilder
      */
     protected function storeData(array $data)/* : void*/
     {
+        $this->user_settings->setShowMetadata($data["show_metadata"] === "show");
         $this->user_settings->setMaxDeep(intval($data["max_deep"]));
-        $this->user_settings->setShowMetadata(boolval($data["show_metadata"]));
 
         self::srContainerObjectTree()->userSettings()->storeUserSettings($this->user_settings);
     }
