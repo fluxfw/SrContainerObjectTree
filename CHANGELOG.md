@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.9.1]
+- Footer permanent link
+
 ## [2.9.0]
 - User settings popover
 

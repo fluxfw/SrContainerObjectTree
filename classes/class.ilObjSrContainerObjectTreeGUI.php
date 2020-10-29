@@ -111,6 +111,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     public function performCommand(string $cmd)/* : void*/
     {
         self::dic()->help()->setScreenIdComponent(ilSrContainerObjectTreePlugin::PLUGIN_ID);
+        self::dic()->ui()->mainTemplate()->setPermanentLink(ilSrContainerObjectTreePlugin::PLUGIN_ID, $this->object->getRefId());
 
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
