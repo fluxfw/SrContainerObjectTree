@@ -17,7 +17,8 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
             'srag\\RemovePluginDataConfirm\\SrContainerObjectTree\\' => 51,
             'srag\\Plugins\\SrContainerObjectTree\\' => 35,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DevTools\\' => 14,
+            'srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\' => 53,
+            'srag\\DevTools\\SrContainerObjectTree\\' => 36,
             'srag\\DIC\\SrContainerObjectTree\\' => 31,
             'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 43,
             'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 46,
@@ -37,7 +38,11 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DevTools\\' => 
+        'srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src',
+        ),
+        'srag\\DevTools\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/devtools/src',
         ),
@@ -148,6 +153,9 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
         'srag\\DIC\\SrContainerObjectTree\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
         'srag\\DIC\\SrContainerObjectTree\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
         'srag\\DevTools\\SrContainerObjectTree\\DevToolsCtrl' => __DIR__ . '/..' . '/srag/devtools/src/class.DevToolsCtrl.php',
+        'srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\GeneratePluginPhpAndXml' => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src/GeneratePluginPhpAndXml.php',
+        'srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\GeneratePluginReadme' => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src/GeneratePluginReadme.php',
+        'srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\UpdatePluginReadme' => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src/UpdatePluginReadme.php',
         'srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/GeneratePluginPhpAndXml.php',
         'srag\\LibrariesNamespaceChanger\\GeneratePluginReadme' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/GeneratePluginReadme.php',
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
