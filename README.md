@@ -2,34 +2,89 @@
 
 # SrContainerObjectTree ILIAS Plugin
 
+
+
 This is an OpenSource project by studer + raimann ag, CH-Burgdorf (https://studer-raimann.ch)
 
-## Description
-See in [doc/DESCRIPTION.md](./doc/DESCRIPTION.md)
-
-## Documentation
-See in [doc/DOCUMENTATION.md](./doc/DOCUMENTATION.md)
+This project is licensed under the GPL-3.0-only license
 
 ## Installation
+
 Start at your ILIAS root directory
+
 ```bash
 mkdir -p Customizing/global/plugins/Services/Repository/RepositoryObject
 cd Customizing/global/plugins/Services/Repository/RepositoryObject
 git clone https://github.com/studer-raimann/SrContainerObjectTree.git SrContainerObjectTree
 ```
+
 Update, activate and config the plugin in the ILIAS Plugin Administration
 
+## Description
+
+## Custom event plugins
+If you need to adapt some custom SrContainerObjectTree changes which can not be configured to your needs, SrContainerObjectTree will trigger some events, you can listen and react to this in an other custom plugin (plugin type is no matter)
+
+First create or extend a `plugin.xml` in your custom plugin (You need to adapt `PLUGIN_ID` with your own plugin id) to tell ILIAS, your plugins wants to listen to SrContainerObjectTree events (You need also to increase your plugin version for take effect)
+
+```xml
+<?php xml version = "1.0" encoding = "UTF-8"?>
+<plugin id="PLUGIN_ID">
+	<events>
+		<event id="Plugins/SrContainerObjectTree" type="listen" />
+	</events>
+</plugin>
+```
+
+In your plugin class implement or extend the `handleEvent` method
+
+```php
+...
+require_once __DIR__ . "/../doc/../doc/SrContainerObjectTree/vendor/autoload.php";
+...
+class ilXPlugin extends ...
+...
+	/**
+	 * @inheritDoc
+	 */
+	public function handleEvent(/*string*/ $a_component, /*string*/ $a_event, /*array*/ $a_parameter)/*: void*/ {
+		switch ($a_component) {
+			case IL_COMP_PLUGIN . "/" . ilSrContainerObjectTreePlugin::PLUGIN_NAME:
+				switch ($a_event) {
+					case ilSrContainerObjectTreePlugin::EVENT_...;
+						...
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
+...
+```
+
+| Event | Parameters | Purpose |
+|-------|------------|---------|
+| `ilSrContainerObjectTreePlugin::EVENT_CHANGE_CHILD_BEFORE_OUTPUT` | `child => &array` | Change some child properties before it will be output (Please note `child` is a reference variable, if it should not works) |
+
 ## Requirements
+
 * ILIAS 5.4.0 - 6.999
 * PHP >=7.0
 
 ## Adjustment suggestions
+
 * External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLCOT
 * Adjustment suggestions by pull requests via github
 
 ## ILIAS Plugin SLA
-Wir lieben und leben die Philosophie von Open Source Software! Die meisten unserer Entwicklungen, welche wir im Kundenauftrag oder in Eigenleistung entwickeln, stellen wir öffentlich allen Interessierten kostenlos unter https://github.com/studer-raimann zur Verfügung.
 
-Setzen Sie eines unserer Plugins professionell ein? Sichern Sie sich mittels SLA die termingerechte Verfügbarkeit dieses Plugins auch für die kommenden ILIAS Versionen. Informieren Sie sich hierzu unter https://studer-raimann.ch/produkte/ilias-plugins/plugin-sla.
+We love and live the philosophy of Open Source Software! Most of our developments, which we develop on behalf of customers or on our own account, are publicly available free of charge to all interested parties at https://github.com/studer-raimann.
 
-Bitte beachten Sie, dass wir nur Institutionen, welche ein SLA abschliessen Unterstützung und Release-Pflege garantieren.
+Do you use one of our plugins professionally? Secure the timely availability of this plugin for the upcoming ILIAS versions via SLA. Please inform yourself under https://studer-raimann.ch/produkte/ilias-plugins/plugin-sla.
+
+Please note that we only guarantee support and release maintenance for institutions that sign a SLA.
