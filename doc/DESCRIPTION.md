@@ -1,5 +1,3 @@
-# SrContainerObjectTree ILIAS Plugin Description
-
 ## Custom event plugins
 If you need to adapt some custom SrContainerObjectTree changes which can not be configured to your needs, SrContainerObjectTree will trigger some events, you can listen and react to this in an other custom plugin (plugin type is no matter)
 
