@@ -20,7 +20,7 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\' => 53,
             'srag\\DevTools\\SrContainerObjectTree\\' => 36,
-            'srag\\DIC\\' => 9,
+            'srag\\DIC\\SrContainerObjectTree\\' => 31,
             'srag\\CustomInputGUIs\\SrContainerObjectTree\\' => 43,
             'srag\\ActiveRecordConfig\\SrContainerObjectTree\\' => 46,
         ),
@@ -51,7 +51,7 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
         array (
             0 => __DIR__ . '/..' . '/srag/devtools/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrContainerObjectTree\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
