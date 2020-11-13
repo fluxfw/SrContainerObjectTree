@@ -8,6 +8,11 @@ This is an OpenSource project by studer + raimann ag, CH-Burgdorf (https://stude
 
 This project is licensed under the GPL-3.0-only license
 
+## Requirements
+
+* ILIAS 5.4.0 - 6.999
+* PHP >=7.0
+
 ## Installation
 
 Start at your ILIAS root directory
@@ -70,11 +75,6 @@ class ilXPlugin extends ...
 | Event | Parameters | Purpose |
 |-------|------------|---------|
 | `ilSrContainerObjectTreePlugin::EVENT_CHANGE_CHILD_BEFORE_OUTPUT` | `child => &array` | Change some child properties before it will be output (Please note `child` is a reference variable, if it should not works) |
-
-## Requirements
-
-* ILIAS 5.4.0 - 6.999
-* PHP >=7.0
 
 ## Adjustment suggestions
 

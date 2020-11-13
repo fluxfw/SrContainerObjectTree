@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrContainerObjectTree\CheckboxInputGUI;
+namespace srag\CustomInputGUIs\SrContainerObjectTree\AjaxCheckbox;
 
 use srag\CustomInputGUIs\SrContainerObjectTree\Template\Template;
 use srag\CustomInputGUIs\SrContainerObjectTree\Waiter\Waiter;
@@ -9,7 +9,7 @@ use srag\DIC\SrContainerObjectTree\DICTrait;
 /**
  * Class AjaxCheckbox
  *
- * @package srag\CustomInputGUIs\SrContainerObjectTree\CheckboxInputGUI
+ * @package srag\CustomInputGUIs\SrContainerObjectTree\AjaxCheckbox
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

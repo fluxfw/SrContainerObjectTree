@@ -1,5 +1,5 @@
 {
-  "name": "srag/plugins/srcontainerobjecttree",
+  "name": "srag/srcontainerobjecttree",
   "description": "",
   "version": "2.9.1",
   "extra": {
@@ -53,7 +53,11 @@
       "srag\\Plugins\\SrContainerObjectTree\\": "src/"
     },
     "classmap": [
-      "classes/"
+      "classes/",
+      "src/Config/class.ConfigCtrl.php",
+      "src/ObjectSettings/Form/class.FormBuilder.php",
+      "src/Tree/class.TreeCtrl.php",
+      "src/UserSettings/class.UserSettingsCtrl.php"
     ],
     "files": [
       "vendor/srag/dic/src/PHPVersionChecker.php",
