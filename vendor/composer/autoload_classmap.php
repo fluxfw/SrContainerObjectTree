@@ -72,6 +72,7 @@ return array(
     'srag\\CustomInputGUIs\\SrContainerObjectTree\\ViewControlModeUI\\ViewControlModeUI' => $vendorDir . '/srag/custominputguis/src/ViewControlModeUI/ViewControlModeUI.php',
     'srag\\CustomInputGUIs\\SrContainerObjectTree\\Waiter\\Waiter' => $vendorDir . '/srag/custominputguis/src/Waiter/Waiter.php',
     'srag\\CustomInputGUIs\\SrContainerObjectTree\\WeekdayInputGUI\\WeekdayInputGUI' => $vendorDir . '/srag/custominputguis/src/WeekdayInputGUI/WeekdayInputGUI.php',
+    'srag\\DIC\\SrContainerObjectTree\\Cron\\FixUITemplateInCronContext' => $vendorDir . '/srag/dic/src/Cron/FixUITemplateInCronContext.php',
     'srag\\DIC\\SrContainerObjectTree\\DICStatic' => $vendorDir . '/srag/dic/src/DICStatic.php',
     'srag\\DIC\\SrContainerObjectTree\\DICStaticInterface' => $vendorDir . '/srag/dic/src/DICStaticInterface.php',
     'srag\\DIC\\SrContainerObjectTree\\DICTrait' => $vendorDir . '/srag/dic/src/DICTrait.php',
