@@ -162,6 +162,7 @@ class ObjectSettings extends ActiveRecord
     public function wakeUp(/*string*/ $field_name, $field_value)
     {
         switch ($field_name) {
+            case "container_ref_id":
             case "obj_id":
                 return intval($field_value);
 

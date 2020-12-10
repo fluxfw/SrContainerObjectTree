@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrContainerObjectTree\Tree;
 
+use ilObjSrContainerObjectTree;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
@@ -21,18 +22,9 @@ class TreeCtrl
 
     const CMD_GET_CHILDREN = "getChildren";
     const CMD_GET_HTML = "getHtml";
-    const GET_PARAM_PARENT_DEEP = "parent_deep";
     const GET_PARAM_PARENT_REF_ID = "parent_ref_id";
     const LANG_MODULE = "tree";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
-    /**
-     * @var array
-     */
-    protected $allowed_empty_container_object_types;
-    /**
-     * @var int
-     */
-    protected $container_ref_id;
     /**
      * @var string
      */
@@ -42,102 +34,30 @@ class TreeCtrl
      */
     protected $edit_user_settings_url;
     /**
-     * @var bool
+     * @var ilObjSrContainerObjectTree
      */
-    protected $link_container_objects;
-    /**
-     * @var int
-     */
-    protected $max_deep;
-    /**
-     * @var int
-     */
-    protected $max_deep_method;
-    /**
-     * @var bool
-     */
-    protected $max_deep_method_start_hide_metadata;
-    /**
-     * @var bool
-     */
-    protected $max_deep_method_start_show_arrow;
-    /**
-     * @var array
-     */
-    protected $object_types;
-    /**
-     * @var bool
-     */
-    protected $only_show_container_objects_if_not_empty;
-    /**
-     * @var bool
-     */
-    protected $open_links_in_new_tab;
-    /**
-     * @var bool
-     */
-    protected $recursive_count;
-    /**
-     * @var bool
-     */
-    protected $show_metadata;
+    protected $object;
 
 
     /**
      * TreeCtrl constructor
      *
-     * @param array  $allowed_empty_container_object_types
-     * @param int    $container_ref_id
-     * @param string $edit_user_settings_url
-     * @param string $edit_user_settings_error_text
-     * @param bool   $link_container_objects
-     * @param int    $max_deep
-     * @param int    $max_deep_method
-     * @param bool   $max_deep_method_start_hide_metadata
-     * @param bool   $max_deep_method_start_show_arrow
-     * @param array  $object_types
-     * @param bool   $only_show_container_objects_if_not_empty
-     * @param bool   $open_links_in_new_tab
-     * @param bool   $recursive_count
-     * @param bool   $show_metadata
+     * @param string                     $edit_user_settings_url
+     * @param string                     $edit_user_settings_error_text
+     * @param ilObjSrContainerObjectTree $object
      */
-    public function __construct(
-        array $allowed_empty_container_object_types,
-        int $container_ref_id,
-        string $edit_user_settings_url,
-        string $edit_user_settings_error_text,
-        bool $link_container_objects,
-        int $max_deep,
-        int $max_deep_method,
-        bool $max_deep_method_start_hide_metadata,
-        bool $max_deep_method_start_show_arrow,
-        array $object_types,
-        bool $only_show_container_objects_if_not_empty,
-        bool $open_links_in_new_tab,
-        bool $recursive_count,
-        bool $show_metadata
-    ) {
-        $this->allowed_empty_container_object_types = $allowed_empty_container_object_types;
-        $this->container_ref_id = $container_ref_id;
+    public function __construct(string $edit_user_settings_url, string $edit_user_settings_error_text, ilObjSrContainerObjectTree $object)
+    {
         $this->edit_user_settings_url = $edit_user_settings_url;
         $this->edit_user_settings_error_text = $edit_user_settings_error_text;
-        $this->link_container_objects = $link_container_objects;
-        $this->max_deep = $max_deep;
-        $this->max_deep_method = $max_deep_method;
-        $this->max_deep_method_start_hide_metadata = $max_deep_method_start_hide_metadata;
-        $this->max_deep_method_start_show_arrow = $max_deep_method_start_show_arrow;
-        $this->object_types = $object_types;
-        $this->only_show_container_objects_if_not_empty = $only_show_container_objects_if_not_empty;
-        $this->open_links_in_new_tab = $open_links_in_new_tab;
-        $this->recursive_count = $recursive_count;
-        $this->show_metadata = $show_metadata;
+        $this->object = $object;
     }
 
 
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand()/* : void*/
     {
         $this->setTabs();
 
@@ -167,23 +87,8 @@ class TreeCtrl
     protected function getChildren()/* : void*/
     {
         $parent_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
-        $parent_deep = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_DEEP));
 
-        $children = self::srContainerObjectTree()->tree()->getChildren(
-            $parent_ref_id,
-            $parent_deep,
-            $this->allowed_empty_container_object_types,
-            $this->link_container_objects,
-            $this->max_deep,
-            $this->max_deep_method,
-            $this->max_deep_method_start_hide_metadata,
-            $this->max_deep_method_start_show_arrow,
-            $this->object_types,
-            $this->only_show_container_objects_if_not_empty,
-            $this->open_links_in_new_tab,
-            $this->recursive_count,
-            $this->show_metadata
-        );
+        $children = self::srContainerObjectTree()->tree()->getChildren($parent_ref_id, $this->object);
 
         self::output()->outputJSON($children);
     }
@@ -195,16 +100,11 @@ class TreeCtrl
     protected function getHtml()/* : void*/
     {
         self::dic()->ctrl()->setParameter($this, self::GET_PARAM_PARENT_REF_ID, ":parent_ref_id");
-        self::dic()->ctrl()->setParameter($this, self::GET_PARAM_PARENT_DEEP, ":parent_deep");
 
-        $html = self::srContainerObjectTree()->tree()->getHtml(
-            $this->container_ref_id,
-            self::dic()->ctrl()->getLinkTarget($this, self::CMD_GET_CHILDREN, "", true),
-            self::plugin()->translate("empty", self::LANG_MODULE),
-            self::plugin()->translate("error", self::LANG_MODULE),
-            $this->edit_user_settings_url,
-            $this->edit_user_settings_error_text
-        );
+        $html = self::srContainerObjectTree()
+            ->tree()
+            ->getHtml($this->object, self::dic()->ctrl()->getLinkTarget($this, self::CMD_GET_CHILDREN, "", true), self::plugin()->translate("empty", self::LANG_MODULE),
+                self::plugin()->translate("error", self::LANG_MODULE), $this->edit_user_settings_url, $this->edit_user_settings_error_text);
 
         self::output()->output($html);
     }
@@ -213,7 +113,7 @@ class TreeCtrl
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs()/* : void*/
     {
 
     }

@@ -1,6 +1,6 @@
 {
   "name": "srag/srcontainerobjecttree",
-  "description": "",
+  "description": "Add container objects tree view in repository objects",
   "version": "2.9.1",
   "extra": {
     "ilias_plugin": {

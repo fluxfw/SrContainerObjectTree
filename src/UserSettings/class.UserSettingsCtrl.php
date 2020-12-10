@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrContainerObjectTree\UserSettings;
 
+use ilObjSrContainerObjectTree;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
@@ -24,31 +25,19 @@ class UserSettingsCtrl
     const LANG_MODULE = "user_settings";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
-     * @var int
+     * @var ilObjSrContainerObjectTree
      */
-    protected $tree_end_deep;
-    /**
-     * @var int
-     */
-    protected $tree_start_deep;
-    /**
-     * @var UserSettings
-     */
-    protected $user_settings;
+    protected $object;
 
 
     /**
      * UserSettingsCtrl constructor
      *
-     * @param UserSettings $user_settings
-     * @param int          $tree_start_deep
-     * @param int          $tree_end_deep
+     * @param ilObjSrContainerObjectTree $object
      */
-    public function __construct(UserSettings $user_settings, int $tree_start_deep, int $tree_end_deep)
+    public function __construct(ilObjSrContainerObjectTree $object)
     {
-        $this->user_settings = $user_settings;
-        $this->tree_start_deep = $tree_start_deep;
-        $this->tree_end_deep = $tree_end_deep;
+        $this->object = $object;
     }
 
 
@@ -84,12 +73,7 @@ class UserSettingsCtrl
      */
     protected function editUserSettings()/* : void*/
     {
-        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance(
-            $this,
-            $this->user_settings,
-            $this->tree_start_deep,
-            $this->tree_end_deep
-        );
+        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance($this, $this->object);
 
         self::output()->outputJSON([
             "html" => self::output()->getHTML($form)
@@ -111,12 +95,7 @@ class UserSettingsCtrl
      */
     protected function updateUserSettings()/* : void*/
     {
-        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance(
-            $this,
-            $this->user_settings,
-            $this->tree_start_deep,
-            $this->tree_end_deep
-        );
+        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance($this, $this->object);
 
         $ok = $form->storeForm();
 

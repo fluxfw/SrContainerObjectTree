@@ -1,17 +1,15 @@
 <?php
 
-namespace srag\Plugins\SrContainerObjectTree\UserSettings;
+namespace srag\Plugins\SrContainerObjectTree\Tree;
 
-use ilObjSrContainerObjectTree;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
-use srag\Plugins\SrContainerObjectTree\UserSettings\Form\FormBuilder;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
  * Class Factory
  *
- * @package srag\Plugins\SrContainerObjectTree\UserSettings
+ * @package srag\Plugins\SrContainerObjectTree\Tree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -47,30 +45,5 @@ final class Factory
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * @param UserSettingsCtrl           $parent
-     * @param ilObjSrContainerObjectTree $object
-     *
-     * @return FormBuilder
-     */
-    public function newFormBuilderInstance(UserSettingsCtrl $parent, ilObjSrContainerObjectTree $object) : FormBuilder
-    {
-        $form = new FormBuilder($parent, $object);
-
-        return $form;
-    }
-
-
-    /**
-     * @return UserSettings
-     */
-    public function newInstance() : UserSettings
-    {
-        $settings = new UserSettings();
-
-        return $settings;
     }
 }

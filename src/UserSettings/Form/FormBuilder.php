@@ -2,9 +2,9 @@
 
 namespace srag\Plugins\SrContainerObjectTree\UserSettings\Form;
 
+use ilObjSrContainerObjectTree;
 use ilSrContainerObjectTreePlugin;
 use srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder\AbstractFormBuilder;
-use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettings;
 use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
@@ -22,36 +22,24 @@ class FormBuilder extends AbstractFormBuilder
 
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
-     * @var array
+     * @var ilObjSrContainerObjectTree
      */
-    protected $max_deep_options = [];
+    protected $object;
     /**
-     * @var int
+     * @var string[]
      */
-    protected $tree_end_deep;
-    /**
-     * @var int
-     */
-    protected $tree_start_deep;
-    /**
-     * @var UserSettings
-     */
-    protected $user_settings;
+    protected $start_deep_options = [];
 
 
     /**
      * @inheritDoc
      *
-     * @param UserSettingsCtrl $parent
-     * @param UserSettings     $user_settings
-     * @param int              $tree_start_deep
-     * @param int              $tree_end_deep
+     * @param UserSettingsCtrl           $parent
+     * @param ilObjSrContainerObjectTree $object
      */
-    public function __construct(UserSettingsCtrl $parent, UserSettings $user_settings, int $tree_start_deep, int $tree_end_deep)
+    public function __construct(UserSettingsCtrl $parent, ilObjSrContainerObjectTree $object)
     {
-        $this->user_settings = $user_settings;
-        $this->tree_start_deep = $tree_start_deep;
-        $this->tree_end_deep = $tree_end_deep;
+        $this->object = $object;
 
         parent::__construct($parent);
     }
@@ -65,7 +53,7 @@ class FormBuilder extends AbstractFormBuilder
         $html = parent::render();
 
         $html = str_replace('<select name="form_input_2"', '<select name="form_input_2" size="2"', $html);
-        $html = str_replace('<select name="form_input_3"', '<select name="form_input_3" size="' . count($this->max_deep_options) . '"', $html);
+        $html = str_replace('<select name="form_input_3"', '<select name="form_input_3" size="' . count($this->start_deep_options) . '"', $html);
 
         return $html;
     }
@@ -99,10 +87,8 @@ class FormBuilder extends AbstractFormBuilder
     protected function getData() : array
     {
         $data = [
-            "show_metadata" => ($this->user_settings->isShowDescription() ? "show" : "hide"),
-            "max_deep"      => $this->user_settings->getMaxDeep(
-                $this->tree_end_deep
-            )
+            "show_metadata" => ($this->object->isShowMetadata() ? "show" : "hide"),
+            "start_deep"    => self::srContainerObjectTree()->tree()->getStartDeep($this->object)
         ];
 
         return $data;
@@ -114,18 +100,19 @@ class FormBuilder extends AbstractFormBuilder
      */
     protected function getFields() : array
     {
-        $this->max_deep_options = array_reduce(range($this->tree_start_deep, $this->tree_end_deep), function (array $max_deep, int $deep) : array {
-            $max_deep[$deep] = self::plugin()->translate("deep_x", UserSettingsCtrl::LANG_MODULE, [$deep]);
+        $this->start_deep_options = array_reduce(range(self::srContainerObjectTree()->tree()->getMinDeep($this->object), self::srContainerObjectTree()->tree()->getMaxDeep($this->object)),
+            function (array $start_deep_options, int $deep) : array {
+                $start_deep_options[$deep] = self::plugin()->translate("deep_x", UserSettingsCtrl::LANG_MODULE, [$deep]);
 
-            return $max_deep;
-        }, []);
+                return $start_deep_options;
+            }, []);
 
         $fields = [
             "show_metadata" => self::dic()->ui()->factory()->input()->field()->select("", [
                 "show" => self::plugin()->translate("show_metadata", UserSettingsCtrl::LANG_MODULE),
                 "hide" => self::plugin()->translate("hide_metadata", UserSettingsCtrl::LANG_MODULE)
             ])->withRequired(true),
-            "max_deep"      => self::dic()->ui()->factory()->input()->field()->select("", $this->max_deep_options)->withRequired(true)
+            "start_deep"    => self::dic()->ui()->factory()->input()->field()->select("", $this->start_deep_options)->withRequired(true)
         ];
 
         return $fields;
@@ -146,9 +133,9 @@ class FormBuilder extends AbstractFormBuilder
      */
     protected function storeData(array $data)/* : void*/
     {
-        $this->user_settings->setShowMetadata($data["show_metadata"] === "show");
-        $this->user_settings->setMaxDeep(intval($data["max_deep"]));
+        $this->object->setShowMetadata($data["show_metadata"] === "show");
+        $this->object->setMaxDeep(intval($data["start_deep"]));
 
-        self::srContainerObjectTree()->userSettings()->storeUserSettings($this->user_settings);
+        self::srContainerObjectTree()->userSettings()->storeUserSettings($this->object->getUserSettings());
     }
 }

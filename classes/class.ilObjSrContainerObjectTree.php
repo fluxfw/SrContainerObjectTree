@@ -2,6 +2,7 @@
 
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\ObjectSettings;
+use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettings;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -17,9 +18,9 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
 
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
     /**
-     * @var ObjectSettings
+     * @var ObjectSettings|null
      */
-    protected $object_settings;
+    protected $object_settings = null;
 
 
     /**
@@ -85,6 +86,24 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
 
 
     /**
+     * @return int
+     */
+    public function getStartDeep() : int
+    {
+        return $this->getUserSettings()->getStartDeep();
+    }
+
+
+    /**
+     * @return UserSettings
+     */
+    public function getUserSettings() : UserSettings
+    {
+        return self::srContainerObjectTree()->userSettings()->getUserSettingsByUserIdAndObjId(self::dic()->user()->getId(), $this->id);
+    }
+
+
+    /**
      * @inheritDoc
      */
     public final function initType()/* : void*/
@@ -103,6 +122,15 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
 
 
     /**
+     * @return bool
+     */
+    public function isShowMetadata() : bool
+    {
+        return $this->getUserSettings()->isShowMetadata();
+    }
+
+
+    /**
      * @param int $container_ref_id
      */
     public function setContainerRefId(int $container_ref_id)/* : void*/
@@ -112,11 +140,29 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
 
 
     /**
+     * @param int $max_deep
+     */
+    public function setMaxDeep(int $max_deep)/* : void*/
+    {
+        $this->getUserSettings()->setStartDeep($max_deep);
+    }
+
+
+    /**
      * @param bool $is_online
      */
     public function setOnline(bool $is_online = true)/* : void*/
     {
         $this->object_settings->setOnline($is_online);
+    }
+
+
+    /**
+     * @param bool $show_metadata
+     */
+    public function setShowMetadata(bool $show_metadata)/* : void*/
+    {
+        $this->getUserSettings()->setShowMetadata($show_metadata);
     }
 
 

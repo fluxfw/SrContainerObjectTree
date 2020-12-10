@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
             el.innerHTML = "";
         }
 
-        async clickNode({arrow_el, children_el, current_deep, ref_id}) {
+        async clickNode({arrow_el, children_el, ref_id, start_deep_children}) {
             arrow_el.classList.toggle("SrContainerObjectTreeArrowOpen");
 
             if (children_el.children.length === 0) {
                 await this.fetchTree({
-                    parent_deep: current_deep,
                     parent_el: children_el,
-                    parent_ref_id: ref_id
+                    parent_ref_id: ref_id,
+                    start_deep_children
                 });
             }
         }
@@ -91,32 +91,36 @@ document.addEventListener("DOMContentLoaded", () => {
             this.initEditUserSettingsForm({html, parent_el});
         }
 
-        async fetchTree({parent_deep, parent_el, parent_ref_id}) {
-            const loading_el = this.insertLoading({parent_el});
-
+        async fetchTree({parent_el, parent_ref_id, start_deep_children}) {
             let result;
-            try {
-                result = await (await fetch(this.tree_fetch_url.replace(":parent_ref_id", parent_ref_id).replace(":parent_deep", parent_deep), {
-                    headers: {
-                        "accept": "application/json"
-                    }
-                })).json();
-            } catch (err) {
-                this.insertError({
-                    err,
-                    error_text: this.tree_error_text,
-                    parent_el
-                });
 
-                return;
-            } finally {
-                this.removeLoading({loading_el, parent_el});
+            if (start_deep_children) {
+                result = start_deep_children;
+            } else {
+                const loading_el = this.insertLoading({parent_el});
+                try {
+                    result = await (await fetch(this.tree_fetch_url.replace(":parent_ref_id", parent_ref_id), {
+                        headers: {
+                            "accept": "application/json"
+                        }
+                    })).json();
+                } catch (err) {
+                    this.insertError({
+                        err,
+                        error_text: this.tree_error_text,
+                        parent_el
+                    });
+
+                    return;
+                } finally {
+                    this.removeLoading({loading_el, parent_el});
+                }
             }
 
-            const {current_deep, children} = result;
+            const {children} = result;
 
             if (children.length > 0) {
-                for (const {count_sub_children_types, description, icon, is_container, link, link_new_tab, ref_id, show_arrow, start_deep, title} of children) {
+                for (const {count_sub_children_types, description, icon, is_container, link, link_new_tab, ref_id, start_deep_children, title} of children) {
                     const node_el = document.createElement("div");
                     node_el.classList.add("SrContainerObjectTreeNode");
 
@@ -149,20 +153,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         const clickNode = this.clickNode.bind(this, {
                             arrow_el,
                             children_el,
-                            current_deep,
-                            ref_id
+                            ref_id,
+                            start_deep_children
                         });
 
-                        if (show_arrow) {
-                            arrow_el.addEventListener("click", clickNode);
-                            if (!link) {
-                                link_el.addEventListener("click", clickNode);
-                            }
-
-                            node_el.appendChild(arrow_el);
+                        arrow_el.addEventListener("click", clickNode);
+                        if (!link) {
+                            link_el.addEventListener("click", clickNode);
                         }
 
-                        if (start_deep) {
+                        node_el.appendChild(arrow_el);
+
+                        if (start_deep_children) {
                             clickNode();
                         }
                     }
@@ -207,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
             this.clearElement({el: this.tree_el});
 
             await this.fetchTree({
-                parent_deep: 0,
                 parent_el: this.tree_el,
                 parent_ref_id: this.tree_container_ref_id
             });

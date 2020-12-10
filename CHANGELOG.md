@@ -1,5 +1,17 @@
 # Changelog
 
+## [x]
+- Change default and maximum deep in user settings form
+- Remove "Max deep method" (Apply "Start node")
+- Remove "Hide always metadata (Start node method)" (Apply deactivated)
+- Remove "Also show arrow (Start node method)" (Apply activated)
+- Remove "Only show container objects if not empty" (Apply activated)
+- Remove "Recursive count" (Apply activated)
+- Remove "User settings per object" (Apply activated)
+- Sort objects by title, independently the manually config
+- Performance
+- Update readme
+
 ## [2.9.1]
 - Footer permanent link
 

@@ -22,6 +22,8 @@ class UserSettings extends ActiveRecord
     use SrContainerObjectTreeTrait;
 
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
+    const SHOW_METADATA_HIDE = 1;
+    const SHOW_METADATA_SHOW = 2;
     const TABLE_NAME = ilSrContainerObjectTreePlugin::PLUGIN_ID . "_obj_usr";
     /**
      * @var int
@@ -33,14 +35,14 @@ class UserSettings extends ActiveRecord
      */
     protected $max_deep = 0;
     /**
-     * @var int|null
+     * @var int
      *
      * @con_has_field    true
      * @con_fieldtype    integer
      * @con_length       8
-     * @con_is_notnull   false
+     * @con_is_notnull   true
      */
-    protected $obj_id = null;
+    protected $obj_id = 0;
     /**
      * @var int
      *
@@ -49,7 +51,7 @@ class UserSettings extends ActiveRecord
      * @con_length       8
      * @con_is_notnull   true
      */
-    protected $show_metadata = 0;
+    protected $show_metadata = self::SHOW_METADATA_SHOW;
     /**
      * @var int
      *
@@ -69,7 +71,7 @@ class UserSettings extends ActiveRecord
      * @con_length       8
      * @con_is_notnull   true
      */
-    protected $usr_id;
+    protected $usr_id = 0;
 
 
     /**
@@ -105,46 +107,29 @@ class UserSettings extends ActiveRecord
 
 
     /**
-     * @param int $tree_end_deep
-     *
      * @return int
      */
-    public function getMaxDeep(int $tree_end_deep) : int
-    {
-        $max_deep = $this->max_deep;
-
-        if ($max_deep === 0 || $max_deep > $tree_end_deep) {
-            $max_deep = $tree_end_deep;
-        }
-
-        return $max_deep;
-    }
-
-
-    /**
-     * @param int $max_deep
-     */
-    public function setMaxDeep(int $max_deep)/* : void*/
-    {
-        $this->max_deep = $max_deep;
-    }
-
-
-    /**
-     * @return int|null
-     */
-    public function getObjId()/* : ?int*/
+    public function getObjId() : int
     {
         return $this->obj_id;
     }
 
 
     /**
-     * @param int|null $obj_id
+     * @param int $obj_id
      */
-    public function setObjId(/*?*/ int $obj_id = null)/* : void*/
+    public function setObjId(int $obj_id)/* : void*/
     {
         $this->obj_id = $obj_id;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getStartDeep() : int
+    {
+        return $this->max_deep;
     }
 
 
@@ -187,15 +172,15 @@ class UserSettings extends ActiveRecord
     /**
      * @return bool
      */
-    public function isShowDescription() : bool
+    public function isShowMetadata() : bool
     {
         $show_metadata = $this->show_metadata;
 
-        if ($show_metadata === 0) {
-            $show_metadata = 2;
+        if (empty($show_metadata)) {
+            $show_metadata = self::SHOW_METADATA_SHOW;
         }
 
-        return ($show_metadata === 2);
+        return ($show_metadata === self::SHOW_METADATA_SHOW);
     }
 
 
@@ -204,7 +189,16 @@ class UserSettings extends ActiveRecord
      */
     public function setShowMetadata(bool $show_metadata)/* : void*/
     {
-        $this->show_metadata = ($show_metadata ? 2 : 1);
+        $this->show_metadata = ($show_metadata ? self::SHOW_METADATA_SHOW : self::SHOW_METADATA_HIDE);
+    }
+
+
+    /**
+     * @param int $start_deep
+     */
+    public function setStartDeep(int $start_deep)/* : void*/
+    {
+        $this->max_deep = $start_deep;
     }
 
 
@@ -229,7 +223,10 @@ class UserSettings extends ActiveRecord
     {
         switch ($field_name) {
             case "max_deep":
+            case "obj_id":
             case "show_metadata":
+            case "user_settings_id":
+            case "usr_id":
                 return intval($field_value);
 
             default:

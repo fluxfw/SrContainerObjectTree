@@ -15,18 +15,9 @@ config_allowed_empty_container_object_types#:#Erlaubte leere Container-Objekt-Ty
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
 config_link_objects#:#Container-Objekte verlinken
-config_max_deep_method#:#Maximale Tiefe Methode
-config_max_deep_method_end#:#Endpunk
-config_max_deep_method_start#:#Startpunkt
-config_max_deep_method_start_hide#:#Metadaten immer ausblenden (Startpunkt-Methode)
-config_max_deep_method_start_show_arrow#:#Pfeil auch anzeigen (Startpunkt-Methode)
 config_object_types#:#Objekt-Typen
-config_only_show_container_objects_if_not_empty#:#Container-Objekte nur anzeigen wenn sie nicht leer sind
 config_open_links_in_new_tab#:#Links in neuen Tab öffnen
-config_recursive_count#:#Rekursives Zählen
 config_save#:#Speichern
-config_user_settings_per_object#:#Benutzer-Einstellungen pro Objekt
-config_user_settings_per_object_reset#:#Durch die Änderung "%s" wurden Benutzer-Einstellungen zurückgesetzt
 object_offline#:#Offline
 object_permission_denied#:#Zugriff verweigert
 object_show_contents#:#Inhalte
