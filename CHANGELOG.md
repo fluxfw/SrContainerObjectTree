@@ -1,6 +1,6 @@
 # Changelog
 
-## [x]
+## [2.10.0]
 - Change default and maximum deep in user settings form
 - Remove "Max deep method" (Apply "Start node")
 - Remove "Hide always metadata (Start node method)" (Apply deactivated)
