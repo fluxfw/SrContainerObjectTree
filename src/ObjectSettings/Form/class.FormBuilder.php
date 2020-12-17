@@ -9,7 +9,6 @@ use ilSrContainerObjectTreePlugin;
 use srag\CustomInputGUIs\SrContainerObjectTree\FormBuilder\AbstractFormBuilder;
 use srag\CustomInputGUIs\SrContainerObjectTree\InputGUIWrapperUIInputComponent\InputGUIWrapperUIInputComponent;
 use srag\CustomInputGUIs\SrContainerObjectTree\MultiSelectSearchNewInputGUI\MultiSelectSearchNewInputGUI;
-use srag\Plugins\SrContainerObjectTree\Config\Form\FormBuilder as ConfigFormBuilder;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -90,9 +89,7 @@ class FormBuilder extends AbstractFormBuilder
                 ->translate("container_object", ilObjSrContainerObjectTreeGUI::LANG_MODULE_SETTINGS), "container_ref_id", null, self::class)))->withRequired(true)
         ];
         $fields["container_ref_id"]->getInput()->getExplorerGUI()->setSelectableTypes(array_merge([MultiSelectSearchNewInputGUI::EMPTY_PLACEHOLDER],
-            self::srContainerObjectTree()->tree()->getContainerObjectTypes(self::srContainerObjectTree()
-                ->config()
-                ->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES))));
+            self::srContainerObjectTree()->objects()->getContainerObjectTypes(self::srContainerObjectTree()->config()->getObjectTypes())));
 
         return $fields;
     }

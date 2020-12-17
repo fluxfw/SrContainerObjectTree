@@ -1,6 +1,19 @@
-# SrContainerObjectTree ILIAS Plugin Description
+### Container objects
 
-## Custom event plugins
+You can select repository container objects in the plugin repository object settings
+
+Its tree will be displayed in the contents tab
+
+The objects are sorted by title, independently the manually config
+
+This plugin is an alternative view for the ILIAS core left sidebar view
+
+### Config
+
+TODO
+
+### Custom event plugins
+
 If you need to adapt some custom SrContainerObjectTree changes which can not be configured to your needs, SrContainerObjectTree will trigger some events, you can listen and react to this in an other custom plugin (plugin type is no matter)
 
 First create or extend a `plugin.xml` in your custom plugin (You need to adapt `PLUGIN_ID` with your own plugin id) to tell ILIAS, your plugins wants to listen to SrContainerObjectTree events (You need also to increase your plugin version for take effect)
@@ -25,11 +38,11 @@ class ilXPlugin extends ...
 	/**
 	 * @inheritDoc
 	 */
-	public function handleEvent(/*string*/ $a_component, /*string*/ $a_event, /*array*/ $a_parameter)/*: void*/ {
+	public function handleEvent(/*string*/ $a_component, /*string*/ $a_event, /*array*/ $a_parameter)/* : void*/ {
 		switch ($a_component) {
 			case IL_COMP_PLUGIN . "/" . ilSrContainerObjectTreePlugin::PLUGIN_NAME:
 				switch ($a_event) {
-					case ilSrContainerObjectTreePlugin::EVENT_...;
+					case ilSrContainerObjectTreePlugin::EVENT_...:
 						...
 						break;
 

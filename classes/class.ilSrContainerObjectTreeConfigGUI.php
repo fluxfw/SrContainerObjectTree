@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use srag\DIC\SrContainerObjectTree\DevTools\DevToolsCtrl;
+use srag\DevTools\SrContainerObjectTree\DevToolsCtrl;
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\Config\ConfigCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
@@ -12,7 +12,7 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  *
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
- * @ilCtrl_isCalledBy srag\DIC\SrContainerObjectTree\DevTools\DevToolsCtrl: ilSrContainerObjectTreeConfigGUI
+ * @ilCtrl_isCalledBy srag\DevTools\SrContainerObjectTree\DevToolsCtrl: ilSrContainerObjectTreeConfigGUI
  */
 class ilSrContainerObjectTreeConfigGUI extends ilPluginConfigGUI
 {
@@ -36,7 +36,7 @@ class ilSrContainerObjectTreeConfigGUI extends ilPluginConfigGUI
     /**
      * @inheritDoc
      */
-    public function performCommand(/*string*/ $cmd)/*:void*/
+    public function performCommand(/*string*/ $cmd)/* : void*/
     {
         $this->setTabs();
 
@@ -70,7 +70,7 @@ class ilSrContainerObjectTreeConfigGUI extends ilPluginConfigGUI
     /**
      *
      */
-    protected function configure()/*: void*/
+    protected function configure()/* : void*/
     {
         self::dic()->ctrl()->redirectByClass(ConfigCtrl::class, ConfigCtrl::CMD_CONFIGURE);
     }
@@ -79,7 +79,7 @@ class ilSrContainerObjectTreeConfigGUI extends ilPluginConfigGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs()/* : void*/
     {
         ConfigCtrl::addTabs();
 

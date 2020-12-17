@@ -1,1 +1,0 @@
-# SrContainerObjectTree ILIAS Plugin Documentation

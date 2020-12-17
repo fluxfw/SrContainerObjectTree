@@ -1,10 +1,8 @@
 <?php
 
 use srag\DIC\SrContainerObjectTree\DICTrait;
-use srag\Plugins\SrContainerObjectTree\Config\Form\FormBuilder as ConfigFormBuilder;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
 use srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl;
-use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettings;
 use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
@@ -122,36 +120,12 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 
             case strtolower(TreeCtrl::class):
                 self::dic()->tabs()->activateTab(self::TAB_SHOW_CONTENTS);
-                self::dic()->ctrl()->forwardCommand(new TreeCtrl(
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES),
-                    $this->object->getContainerRefId(),
-                    self::dic()->ctrl()->getLinkTargetByClass(UserSettingsCtrl::class, UserSettingsCtrl::CMD_EDIT_USER_SETTINGS, "", true),
-                    self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_LINK_CONTAINER_OBJECTS),
-                    $this->getUserSettings()->getMaxDeep(
-                        self::srContainerObjectTree()->tree()->getTreeEndDeep(
-                            $this->object->getContainerRefId()
-                        )
-                    ),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD_START_HIDE_METADATA),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_MAX_DEEP_METHOD_START_SHOW_ARROW),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OBJECT_TYPES),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_ONLY_SHOW_CONTAINER_OBJECTS_IF_NOT_EMPTY),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_OPEN_LINKS_IN_NEW_TAB),
-                    self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_RECURSIVE_COUNT),
-                    $this->getUserSettings()->isShowDescription()
-                ));
+                self::dic()->ctrl()->forwardCommand(new TreeCtrl(self::dic()->ctrl()->getLinkTargetByClass(UserSettingsCtrl::class, UserSettingsCtrl::CMD_EDIT_USER_SETTINGS, "", true),
+                    self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE), $this->object));
                 break;
 
             case strtolower(UserSettingsCtrl::class):
-                self::dic()->ctrl()->forwardCommand(new UserSettingsCtrl(
-                    $this->getUserSettings(),
-                    self::srContainerObjectTree()->tree()->getTreeStartDeep(),
-                    self::srContainerObjectTree()->tree()->getTreeEndDeep(
-                        $this->object->getContainerRefId()
-                    )
-                ));
+                self::dic()->ctrl()->forwardCommand(new UserSettingsCtrl($this->object));
                 break;
 
             default:
@@ -191,16 +165,6 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     protected function afterConstructor()/* : void*/
     {
 
-    }
-
-
-    /**
-     * @return UserSettings
-     */
-    protected function getUserSettings() : UserSettings
-    {
-        return self::srContainerObjectTree()->userSettings()->getUserSettings(self::dic()->user()->getId(),
-            (self::srContainerObjectTree()->config()->getValue(ConfigFormBuilder::KEY_USER_SETTINGS_PER_OBJECT) ? $this->obj_id : null));
     }
 
 

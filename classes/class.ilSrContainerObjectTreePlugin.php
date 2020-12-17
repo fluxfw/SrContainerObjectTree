@@ -4,7 +4,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use ILIAS\DI\Container;
 use srag\CustomInputGUIs\SrContainerObjectTree\Loader\CustomInputGUIsLoaderDetector;
-use srag\DIC\SrContainerObjectTree\DevTools\DevToolsCtrl;
+use srag\DevTools\SrContainerObjectTree\DevToolsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 use srag\RemovePluginDataConfirm\SrContainerObjectTree\RepositoryObjectPluginUninstallTrait;
 

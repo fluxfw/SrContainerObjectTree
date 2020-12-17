@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrContainerObjectTree\UserSettings;
 
-use ilDBConstants;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
@@ -26,9 +25,13 @@ final class Repository
      */
     protected static $instance = null;
     /**
-     * @var array
+     * @var UserSettings[][]
      */
-    protected $user_settings = [];
+    protected $user_settings_by_obj_id = [];
+    /**
+     * @var UserSettings[]
+     */
+    protected $user_settings_by_user_id_and_obj_id = [];
 
 
     /**
@@ -54,6 +57,18 @@ final class Repository
 
 
     /**
+     * @param UserSettings $user_settings
+     */
+    public function deleteUserSettings(UserSettings $user_settings)/* : void*/
+    {
+        $user_settings->delete();
+
+        unset($this->user_settings_by_user_id_and_obj_id[$user_settings->getUsrId() . "_" . $user_settings->getObjId()]);
+        $this->user_settings_by_obj_id = [];
+    }
+
+
+    /**
      * @internal
      */
     public function dropTables()/* : void*/
@@ -72,28 +87,47 @@ final class Repository
 
 
     /**
-     * @param int      $user_id
-     * @param int|null $obj_id
+     * @param int $obj_id
      *
-     * @return UserSettings
+     * @return UserSettings[]
      */
-    public function getUserSettings(int $user_id, /*?*/ int $obj_id = null) : UserSettings
+    public function getUserSettingsByObjId(int $obj_id) : array
     {
-        $cache_key = $user_id . "_" . $obj_id;
+        if ($this->user_settings_by_obj_id[$obj_id] === null) {
+            $this->user_settings_by_obj_id[$obj_id] = array_values(UserSettings::where(["obj_id" => $obj_id])->get());
 
-        if ($this->user_settings[$cache_key] === null) {
-            $this->user_settings[$cache_key] = UserSettings::where(["usr_id" => $user_id, "obj_id" => $obj_id])->first();
-
-            if ($this->user_settings[$cache_key] === null) {
-                $this->user_settings[$cache_key] = $this->factory()->newInstance();
-
-                $this->user_settings[$cache_key]->setUsrId($user_id);
-
-                $this->user_settings[$cache_key]->setObjId($obj_id);
+            foreach ($this->user_settings_by_obj_id[$obj_id] as $user_settings) {
+                $this->user_settings_by_user_id_and_obj_id[$user_settings->getUsrId() . "_" . $user_settings->getObjId()] = $user_settings;
             }
         }
 
-        return $this->user_settings[$cache_key];
+        return $this->user_settings_by_obj_id[$obj_id];
+    }
+
+
+    /**
+     * @param int $user_id
+     * @param int $obj_id
+     *
+     * @return UserSettings
+     */
+    public function getUserSettingsByUserIdAndObjId(int $user_id, int $obj_id) : UserSettings
+    {
+        $cache_key = $user_id . "_" . $obj_id;
+
+        if ($this->user_settings_by_user_id_and_obj_id[$cache_key] === null) {
+            $this->user_settings_by_user_id_and_obj_id[$cache_key] = UserSettings::where(["usr_id" => $user_id, "obj_id" => $obj_id])->first();
+
+            if ($this->user_settings_by_user_id_and_obj_id[$cache_key] === null) {
+                $this->user_settings_by_user_id_and_obj_id[$cache_key] = $this->factory()->newInstance();
+
+                $this->user_settings_by_user_id_and_obj_id[$cache_key]->setUsrId($user_id);
+
+                $this->user_settings_by_user_id_and_obj_id[$cache_key]->setObjId($obj_id);
+            }
+        }
+
+        return $this->user_settings_by_user_id_and_obj_id[$cache_key];
     }
 
 
@@ -103,23 +137,6 @@ final class Repository
     public function installTables()/* : void*/
     {
         UserSettings::updateDB();
-
-        self::dic()->database()->modifyTableColumn(UserSettings::TABLE_NAME, "obj_id", [
-            "type"    => ilDBConstants::T_INTEGER,
-            "length"  => 8,
-            "notnull" => false
-        ]);
-    }
-
-
-    /**
-     *
-     */
-    public function resetUserSettings()/* : void*/
-    {
-        UserSettings::truncateDB();
-
-        $this->user_settings = null;
     }
 
 
@@ -129,5 +146,8 @@ final class Repository
     public function storeUserSettings(UserSettings $user_settings)/* : void*/
     {
         $user_settings->store();
+
+        $this->user_settings_by_user_id_and_obj_id[$user_settings->getUsrId() . "_" . $user_settings->getObjId()] = $user_settings;
+        $this->user_settings_by_obj_id = [];
     }
 }

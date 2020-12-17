@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\DIC\SrContainerObjectTree\Util;
+namespace srag\LibraryLanguageInstaller\SrContainerObjectTree;
 
 use ilDBConstants;
 use ilGlobalCache;
@@ -12,7 +12,7 @@ use srag\DIC\SrContainerObjectTree\Plugin\PluginInterface;
 /**
  * Class LibraryLanguageInstaller
  *
- * @package srag\DIC\SrContainerObjectTree\Util
+ * @package srag\LibraryLanguageInstaller\SrContainerObjectTree
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
