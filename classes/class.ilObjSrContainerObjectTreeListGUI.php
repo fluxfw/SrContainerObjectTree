@@ -31,6 +31,25 @@ class ilObjSrContainerObjectTreeListGUI extends ilObjectPluginListGUI
     /**
      * @inheritDoc
      */
+    public function getCommandFrame(/*string*/ $a_cmd) : string
+    {
+        switch ($a_cmd) {
+            case ilObjSrContainerObjectTreeGUI::getStartCmd():
+                if (self::srContainerObjectTree()->config()->isOpenLinksInNewTab()) {
+                    return "_blank";
+                } else {
+                    return parent::getCommandFrame($a_cmd);
+                }
+
+            default:
+                return parent::getCommandFrame($a_cmd);
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function getGuiClass() : string
     {
         return ilObjSrContainerObjectTreeGUI::class;

@@ -1,5 +1,8 @@
 # Changelog
 
+## [x]
+- Open in new tab from object list
+
 ## [2.10.0]
 - Change default and maximum deep in user settings form
 - Remove "Max deep method" (Apply "Start node")
