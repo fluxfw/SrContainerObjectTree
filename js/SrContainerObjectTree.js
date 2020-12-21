@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
             el.innerHTML = "";
         }
 
-        async clickNode({arrow_el, children_el, ref_id, start_deep_children}) {
+        async clickNode({arrow_el, children_el, preloaded_children, ref_id}) {
             arrow_el.classList.toggle("SrContainerObjectTreeArrowOpen");
 
             if (children_el.children.length === 0) {
                 await this.fetchTree({
                     parent_el: children_el,
                     parent_ref_id: ref_id,
-                    start_deep_children
+                    preloaded_children
                 });
             }
         }
@@ -91,11 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
             this.initEditUserSettingsForm({html, parent_el});
         }
 
-        async fetchTree({parent_el, parent_ref_id, start_deep_children}) {
+        async fetchTree({parent_el, parent_ref_id, preloaded_children}) {
             let result;
 
-            if (start_deep_children) {
-                result = start_deep_children;
+            if (preloaded_children) {
+                result = preloaded_children;
             } else {
                 const loading_el = this.insertLoading({parent_el});
                 try {
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const {children} = result;
 
             if (children.length > 0) {
-                for (const {count_sub_children_types, description, icon, is_container, link, link_new_tab, ref_id, start_deep_children, title} of children) {
+                for (const {count_sub_children_types, description, icon, is_container, link, link_new_tab, preloaded_children, pre_open, ref_id, title} of children) {
                     const node_el = document.createElement("div");
                     node_el.classList.add("SrContainerObjectTreeNode");
 
@@ -153,8 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         const clickNode = this.clickNode.bind(this, {
                             arrow_el,
                             children_el,
-                            ref_id,
-                            start_deep_children
+                            preloaded_children,
+                            ref_id
                         });
 
                         arrow_el.addEventListener("click", clickNode);
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         node_el.appendChild(arrow_el);
 
-                        if (start_deep_children) {
+                        if (pre_open) {
                             clickNode();
                         }
                     }

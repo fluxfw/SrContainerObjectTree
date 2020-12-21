@@ -151,8 +151,9 @@ final class Repository
                     $link = null;
                 }
 
-                $start_deep = ($is_container && $current_deep < $this->getStartDeep($object));
-                $start_deep_children = ($start_deep ? $this->getChildren($ref_id, $object) : null);
+                $preloaded_children = $this->getChildren($ref_id, $object);
+
+                $pre_open = ($is_container && $current_deep < $this->getStartDeep($object));
 
                 $child = [
                     "count_sub_children_types" => $count_sub_children_types_count,
@@ -161,8 +162,9 @@ final class Repository
                     "is_container"             => $is_container,
                     "link"                     => $link,
                     "link_new_tab"             => self::srContainerObjectTree()->config()->isOpenLinksInNewTab(),
+                    "preloaded_children"       => $preloaded_children,
+                    "pre_open"                 => $pre_open,
                     "ref_id"                   => $ref_id,
-                    "start_deep_children"      => $start_deep_children,
                     "title"                    => $sub_item["title"],
                     "type"                     => $type
                 ];

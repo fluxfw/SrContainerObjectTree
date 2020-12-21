@@ -2,6 +2,7 @@
 
 ## [x]
 - Open in new tab from object list
+- Preload children always
 
 ## [2.10.0]
 - Change default and maximum deep in user settings form
