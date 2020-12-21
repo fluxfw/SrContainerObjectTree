@@ -1,6 +1,6 @@
 # Changelog
 
-## [x]
+## [2.11.0]
 - Open in new tab from object list
 - Preload children always
 
