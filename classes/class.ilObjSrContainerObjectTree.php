@@ -140,15 +140,6 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
 
 
     /**
-     * @param int $max_deep
-     */
-    public function setMaxDeep(int $max_deep)/* : void*/
-    {
-        $this->getUserSettings()->setStartDeep($max_deep);
-    }
-
-
-    /**
      * @param bool $is_online
      */
     public function setOnline(bool $is_online = true)/* : void*/
@@ -163,6 +154,15 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     public function setShowMetadata(bool $show_metadata)/* : void*/
     {
         $this->getUserSettings()->setShowMetadata($show_metadata);
+    }
+
+
+    /**
+     * @param int $max_deep
+     */
+    public function setStartDeep(int $max_deep)/* : void*/
+    {
+        $this->getUserSettings()->setStartDeep($max_deep);
     }
 
 

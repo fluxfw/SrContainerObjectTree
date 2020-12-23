@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.12.0]
+- Use first child with at least one child as parent and default start deep is 1
+- Direct use preload after update user settings
+- Optimize load and store user settings form
+- Remove async load children complete
+
 ## [2.11.0]
 - Open in new tab from object list
 - Preload children always
