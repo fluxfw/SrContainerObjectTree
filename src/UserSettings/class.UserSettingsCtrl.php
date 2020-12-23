@@ -20,7 +20,6 @@ class UserSettingsCtrl
     use DICTrait;
     use SrContainerObjectTreeTrait;
 
-    const CMD_EDIT_USER_SETTINGS = "editUserSettings";
     const CMD_UPDATE_USER_SETTINGS = "updateUserSettings";
     const LANG_MODULE = "user_settings";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
@@ -42,6 +41,17 @@ class UserSettingsCtrl
 
 
     /**
+     * @return string
+     */
+    public function editUserSettings() : string
+    {
+        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance($this, $this->object);
+
+        return self::output()->getHTML($form);
+    }
+
+
+    /**
      *
      */
     public function executeCommand()/* : void*/
@@ -55,7 +65,6 @@ class UserSettingsCtrl
                 $cmd = self::dic()->ctrl()->getCmd();
 
                 switch ($cmd) {
-                    case self::CMD_EDIT_USER_SETTINGS:
                     case self::CMD_UPDATE_USER_SETTINGS:
                         $this->{$cmd}();
                         break;
@@ -65,19 +74,6 @@ class UserSettingsCtrl
                 }
                 break;
         }
-    }
-
-
-    /**
-     *
-     */
-    protected function editUserSettings()/* : void*/
-    {
-        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance($this, $this->object);
-
-        self::output()->outputJSON([
-            "html" => self::output()->getHTML($form)
-        ]);
     }
 
 
@@ -97,11 +93,11 @@ class UserSettingsCtrl
     {
         $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance($this, $this->object);
 
-        $ok = $form->storeForm();
+        $form->storeData();
 
         self::output()->outputJSON([
-            "html" => self::output()->getHTML($form),
-            "ok"   => $ok
+            "show_metadata" => $this->object->isShowMetadata(),
+            "start_deep"    => $this->object->getStartDeep()
         ]);
     }
 }

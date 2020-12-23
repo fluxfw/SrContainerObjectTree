@@ -3,7 +3,6 @@
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
 use srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl;
-use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -20,7 +19,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilCommonActionDispatcherGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder
  * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl: ilObjSrContainerObjectTreeGUI
- * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl: ilObjSrContainerObjectTreeGUI
  */
 class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 {
@@ -120,12 +118,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 
             case strtolower(TreeCtrl::class):
                 self::dic()->tabs()->activateTab(self::TAB_SHOW_CONTENTS);
-                self::dic()->ctrl()->forwardCommand(new TreeCtrl(self::dic()->ctrl()->getLinkTargetByClass(UserSettingsCtrl::class, UserSettingsCtrl::CMD_EDIT_USER_SETTINGS, "", true),
-                    self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE), $this->object));
-                break;
-
-            case strtolower(UserSettingsCtrl::class):
-                self::dic()->ctrl()->forwardCommand(new UserSettingsCtrl($this->object));
+                self::dic()->ctrl()->forwardCommand(new TreeCtrl($this->object));
                 break;
 
             default:

@@ -31,10 +31,6 @@ final class Repository
      */
     protected $container_object_types = [];
     /**
-     * @var int[]
-     */
-    protected $deep = [];
-    /**
      * @var bool[]
      */
     protected $has_read_access = [];
@@ -122,21 +118,6 @@ final class Repository
 
 
     /**
-     * @param int $ref_id
-     *
-     * @return int
-     */
-    public function getDeep(int $ref_id) : int
-    {
-        if ($this->deep[$ref_id] === null) {
-            $this->deep[$ref_id] = self::dic()->repositoryTree()->getDepth($ref_id);
-        }
-
-        return $this->deep[$ref_id];
-    }
-
-
-    /**
      * @param int $obj_ref_id
      *
      * @return ilObject|null
@@ -220,8 +201,6 @@ final class Repository
             $this->sub_tree[$ref_id] = array_reduce(self::dic()->repositoryTree()->getSubTree(self::dic()->repositoryTree()->getNodeData($ref_id), true),
                 function (array $sub_tree, array $child) : array {
                     $sub_tree[$child["child"]] = $child;
-
-                    $this->deep[$child["child"]] = $child["depth"];
 
                     return $sub_tree;
                 }, []);

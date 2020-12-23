@@ -31,7 +31,6 @@ settings_saved#:#Einstellungen gespeichert
 settings_settings#:#Einstellungen
 settings_title#:#Titel
 tree_empty#:#Leer
-tree_error#:#Baum konnte nicht geladen werden
 user_settings_deep_x#:#%s. Ebene
 user_settings_error#:#Formular konnte nicht geladen werden
 user_settings_hide_metadata#:#Metadaten ausblenden

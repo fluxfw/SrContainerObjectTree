@@ -8,6 +8,7 @@ use ilObject;
 use ilObjSrContainerObjectTree;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
 /**
@@ -44,6 +45,14 @@ final class Repository
      * @var int[]
      */
     protected $min_deep = [];
+    /**
+     * @var int[]
+     */
+    protected $parent_deep = [];
+    /**
+     * @var int[]
+     */
+    protected $parent_ref_id = [];
     /**
      * @var int[]
      */
@@ -102,7 +111,6 @@ final class Repository
 
         if ($this->children[$cache_key] === null) {
             $children = [];
-            $current_deep = (self::srContainerObjectTree()->objects()->getDeep($parent_ref_id) - self::srContainerObjectTree()->objects()->getDeep($object->getContainerRefId()) + 1);
 
             $parent_object = self::srContainerObjectTree()->objects()->getObjectByRefId($parent_ref_id);
 
@@ -111,9 +119,7 @@ final class Repository
                 || !($parent_object instanceof ilContainer)
                 || !self::srContainerObjectTree()->objects()->hasReadAccess($parent_ref_id)
             ) {
-                return [
-                    "children" => $children
-                ];
+                return $children;
             }
 
             foreach (self::srContainerObjectTree()->objects()->getSubTreeChildren($parent_object->getRefId(), $parent_ref_id) as $sub_item) {
@@ -138,32 +144,13 @@ final class Repository
                     }
                 }
 
-                if ($object->isShowMetadata()) {
-                    $description = $sub_item["description"];
-                } else {
-                    $description = null;
-                    $count_sub_children_types_count = [];
-                }
-
-                if (self::srContainerObjectTree()->config()->isLinkContainerObjects() || !$is_container) {
-                    $link = ilLink::_getLink($ref_id);
-                } else {
-                    $link = null;
-                }
-
-                $preloaded_children = $this->getChildren($ref_id, $object);
-
-                $pre_open = ($is_container && $current_deep < $this->getStartDeep($object));
-
                 $child = [
                     "count_sub_children_types" => $count_sub_children_types_count,
-                    "description"              => $description,
+                    "description"              => $sub_item["description"],
                     "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
                     "is_container"             => $is_container,
-                    "link"                     => $link,
-                    "link_new_tab"             => self::srContainerObjectTree()->config()->isOpenLinksInNewTab(),
-                    "preloaded_children"       => $preloaded_children,
-                    "pre_open"                 => $pre_open,
+                    "link"                     => ilLink::_getLink($ref_id),
+                    "preloaded_children"       => $this->getChildren($ref_id, $object),
                     "ref_id"                   => $ref_id,
                     "title"                    => $sub_item["title"],
                     "type"                     => $type
@@ -176,9 +163,7 @@ final class Repository
                 $children[] = $child;
             }
 
-            $this->children[$cache_key] = [
-                "children" => $children
-            ];
+            $this->children[$cache_key] = $children;
         }
 
         return $this->children[$cache_key];
@@ -193,18 +178,7 @@ final class Repository
     public function getDefaultDeep(ilObjSrContainerObjectTree $object) : int
     {
         if ($this->default_deep[$object->getId()] === null) {
-            $children = self::srContainerObjectTree()->objects()->getSubTree($object->getContainerRefId());
-
-            $ref_id_deep = $default_deep = $children[$object->getContainerRefId()]["depth"];
-
-            foreach ($children as $child) {
-                if (count($this->getChildren($child["child"], $object)["children"]) > 1) {
-                    $default_deep = $child["depth"];
-                    break;
-                }
-            }
-
-            $this->default_deep[$object->getId()] = ($default_deep - $ref_id_deep + 1);
+            $this->default_deep[$object->getId()] = 1;
         }
 
         return $this->default_deep[$object->getId()];
@@ -213,22 +187,11 @@ final class Repository
 
     /**
      * @param ilObjSrContainerObjectTree $object
-     * @param string                     $tree_fetch_url
-     * @param string                     $tree_empty_text
-     * @param string                     $tree_error_text
-     * @param string                     $edit_user_settings_url
-     * @param string                     $edit_user_settings_error_text
      *
      * @return string
      */
-    public function getHtml(
-        ilObjSrContainerObjectTree $object,
-        string $tree_fetch_url,
-        string $tree_empty_text,
-        string $tree_error_text,
-        string $edit_user_settings_url,
-        string $edit_user_settings_error_text
-    ) : string {
+    public function getHtml(ilObjSrContainerObjectTree $object) : string
+    {
         if (self::version()->is6()) {
             $glyph_factory = self::dic()->ui()->factory()->symbol()->glyph();
         } else {
@@ -239,25 +202,28 @@ final class Repository
         self::dic()->ui()->mainTemplate()->addJavaScript(substr(self::plugin()->directory(), 2) . "/js/SrContainerObjectTree.min.js");
 
         $tpl = self::plugin()->template("SrContainerObjectTree.html");
-        $tpl_tree = self::plugin()->template("SrContainerObjectTreeTree.html", true, false);
-        $tpl_user_settings = self::plugin()->template("SrContainerObjectTreeEditUserSettings.html", true, false);
-
         $config = [
-            "edit_user_settings_error_text" => $edit_user_settings_error_text,
-            "edit_user_settings_fetch_url"  => $edit_user_settings_url,
-            "tree_container_ref_id"         => $object->getContainerRefId(),
-            "tree_empty_text"               => $tree_empty_text,
-            "tree_error_text"               => $tree_error_text,
-            "tree_fetch_url"                => $tree_fetch_url
+            "edit_user_settings_error_text" => self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE),
+            "tree_children"                 => $this->getChildren($this->getParentRefId($object), $object),
+            "tree_empty_text"               => self::plugin()->translate("empty", TreeCtrl::LANG_MODULE),
+            "tree_link_container_objects"   => self::srContainerObjectTree()->config()->isLinkContainerObjects(),
+            "tree_link_new_tab"             => self::srContainerObjectTree()->config()->isOpenLinksInNewTab(),
+            "tree_show_metadata"            => $object->isShowMetadata(),
+            "tree_start_deep"               => $this->getStartDeep($object)
         ];
-
         $tpl->setVariableEscaped("CONFIG", base64_encode(json_encode($config)));
 
-        $tpl->setVariable("TREE", self::output()->getHTML($tpl_tree));
+        $tpl_tree = self::plugin()->template("SrContainerObjectTreeTree.html", true, false);
+
+        $tpl_user_settings = self::plugin()->template("SrContainerObjectTreeEditUserSettings.html", true, false);
 
         $tpl_user_settings_icon = self::plugin()->template("SrContainerObjectTreeEditUserSettingsIcon.html");
         $tpl_user_settings_icon->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($glyph_factory->settings()));
         $tpl_user_settings->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($tpl_user_settings_icon));
+
+        $tpl_user_settings->setVariable("USER_SETTINGS_FORM", (new UserSettingsCtrl($object))->editUserSettings());
+
+        $tpl->setVariable("TREE", self::output()->getHTML($tpl_tree));
         $tpl->setVariable("USER_SETTINGS", self::output()->getHTML($tpl_user_settings));
 
         return self::output()->getHTML($tpl);
@@ -272,16 +238,16 @@ final class Repository
     public function getMaxDeep(ilObjSrContainerObjectTree $object) : int
     {
         if ($this->max_deep[$object->getId()] === null) {
-            $children = self::srContainerObjectTree()->objects()->getSubTree($object->getContainerRefId());
+            $children = self::srContainerObjectTree()->objects()->getSubTree($this->getParentRefId($object));
 
-            $ref_id_deep = $max_deep = $children[$object->getContainerRefId()]["depth"];
+            $ref_id_deep = $max_deep = $children[$this->getParentRefId($object)]["depth"];
 
             foreach ($children as $child) {
                 if ($child["depth"] <= $max_deep) {
                     continue;
                 }
 
-                if (!empty($this->getChildren($child["child"], $object)["children"])) {
+                if (!empty($this->getChildren($child["child"], $object))) {
                     $max_deep = max($max_deep, $child["depth"]);
                 }
             }
@@ -305,6 +271,56 @@ final class Repository
         }
 
         return $this->min_deep[$object->getId()];
+    }
+
+
+    /**
+     * @param ilObjSrContainerObjectTree $object
+     *
+     * @return int
+     */
+    public function getParentDeep(ilObjSrContainerObjectTree $object) : int
+    {
+        if ($this->parent_deep[$object->getId()] === null) {
+            $parent_ref_id = $object->getContainerRefId();
+
+            if (!empty($parent_ref_id)) {
+                $children = self::srContainerObjectTree()->objects()->getSubTree($parent_ref_id);
+
+                $ref_id_deep = $parent_deep = $children[$parent_ref_id]["depth"];
+
+                foreach ($children as $child) {
+                    if (count($this->getChildren($child["child"], $object)) > 1) {
+                        $parent_deep = $child["depth"];
+                        $parent_ref_id = $child["child"];
+                        break;
+                    }
+                }
+
+                $this->parent_deep[$object->getId()] = ($parent_deep - $ref_id_deep + 1);
+            } else {
+                $this->parent_deep[$object->getId()] = 1;
+            }
+
+            $this->parent_ref_id[$object->getId()] = $parent_ref_id;
+        }
+
+        return $this->parent_deep[$object->getId()];
+    }
+
+
+    /**
+     * @param ilObjSrContainerObjectTree $object
+     *
+     * @return int
+     */
+    public function getParentRefId(ilObjSrContainerObjectTree $object) : int
+    {
+        if ($this->parent_ref_id[$object->getId()] === null) {
+            $this->getParentDeep($object);
+        }
+
+        return $this->parent_ref_id[$object->getId()];
     }
 
 
@@ -350,7 +366,7 @@ final class Repository
             $count_sub_children_type["type_title"] = self::srContainerObjectTree()->objects()->getObjectTypeTitle($count_sub_children_type["type"], ($count_sub_children_type["count"] !== 1));
 
             return $count_sub_children_type;
-        }, array_reduce($this->getChildren($parent_ref_id, $object)["children"],
+        }, array_reduce($this->getChildren($parent_ref_id, $object),
             function (array $count_sub_children_types, array $children) : array {
                 $count_sub_children_types = $this->getCountSubChildrenTypesCount($count_sub_children_types, $children["type"]);
 
