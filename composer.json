@@ -21,9 +21,10 @@
   },
   "type": "project",
   "keywords": [
-    "ILIAS",
-    "Plugin",
-    "SrContainerObjectTree"
+    "ilias",
+    "object",
+    "plugin",
+    "repository"
   ],
   "homepage": "https://github.com/studer-raimann/SrContainerObjectTree",
   "license": "GPL-3.0-only",
