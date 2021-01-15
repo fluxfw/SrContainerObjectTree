@@ -21,10 +21,12 @@
   },
   "type": "project",
   "keywords": [
+    "container",
     "ilias",
     "object",
     "plugin",
-    "repository"
+    "repository",
+    "tree"
   ],
   "homepage": "https://github.com/studer-raimann/SrContainerObjectTree",
   "license": "GPL-3.0-only",
