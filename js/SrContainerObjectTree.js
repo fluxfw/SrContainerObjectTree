@@ -1,23 +1,91 @@
 document.addEventListener("DOMContentLoaded", () => {
     class SrContainerObjectTree {
-        constructor({edit_user_settings_error_text, edit_user_settings_form_el, edit_user_settings_icon_el, tree_children, tree_el, tree_empty_text, tree_fetch_url, tree_link_container_objects, tree_link_new_tab, tree_show_metadata, tree_start_deep}) {
-            this.edit_user_settings_error_text = edit_user_settings_error_text;
-            this.edit_user_settings_form_el = edit_user_settings_form_el;
+        static get STORAGE() {
+            return sessionStorage;
+        }
+
+        static get STORAGE_CACHE_KEY() {
+            return "SrContainerObjectTreeCache";
+        }
+
+        constructor({edit_user_settings_el, edit_user_settings_form_container_el, edit_user_settings_icon_el, edit_user_settings_update_url, plugin_version, texts: {edit_user_settings_deep_x, edit_user_settings_hide_metadata, edit_user_settings_save_error, edit_user_settings_show_metadata, tree_apply, tree_empty, tree_fetch_error, tree_loaded_from_cache, tree_has_changed_meanwhile}, tree_el, tree_fetch_url, tree_link_container_objects, tree_link_new_tab, tree_show_metadata}) {
+            this.edit_user_settings_el = edit_user_settings_el;
+            this.edit_user_settings_form_container_el = edit_user_settings_form_container_el;
             this.edit_user_settings_icon_el = edit_user_settings_icon_el;
-            this.tree_children = tree_children;
+            this.edit_user_settings_update_url = edit_user_settings_update_url;
+            this.plugin_version = plugin_version;
+            this.texts = {
+                edit_user_settings_deep_x,
+                edit_user_settings_hide_metadata,
+                edit_user_settings_save_error,
+                edit_user_settings_show_metadata,
+                tree_apply,
+                tree_empty,
+                tree_fetch_error,
+                tree_loaded_from_cache,
+                tree_has_changed_meanwhile
+            };
             this.tree_el = tree_el;
-            this.tree_empty_text = tree_empty_text;
             this.tree_fetch_url = tree_fetch_url;
             this.tree_link_container_objects = tree_link_container_objects;
             this.tree_link_new_tab = tree_link_new_tab;
             this.tree_show_metadata = tree_show_metadata;
-            this.tree_start_deep = tree_start_deep;
+            this._cache_el = null;
+            this._edit_user_settings_form_el = null;
+            this._edit_user_settings_show_metadata_el = null;
+            this._edit_user_settings_start_deep_el = null;
             this._handleCloseUserSettingsIconClose = null;
             this._handleEscCloseUserSettingsIcon = null;
+            this._is_load_from_cache = false;
+            this._tree_data = {
+                fetched_data: {
+                    tree_children: null,
+                    tree_min_deep: null,
+                    tree_max_deep: null,
+                    tree_start_deep: null
+                },
+                fetched_time: null,
+                fetched_with_plugin_version: null
+            };
         }
 
-        clearElement({el}) {
-            el.innerHTML = "";
+        applyTreeData({tree_data}) {
+            this._tree_data = tree_data;
+
+            this._edit_user_settings_start_deep_el.innerHTML = "";
+            for (let deep = this._tree_data.fetched_data.tree_min_deep; deep <= this._tree_data.fetched_data.tree_max_deep; deep++) {
+                const deep_option = document.createElement("option");
+                deep_option.value = deep;
+                deep_option.text = this.texts.edit_user_settings_deep_x.replace("_deep_", deep);
+                this._edit_user_settings_start_deep_el.appendChild(deep_option);
+            }
+            this._edit_user_settings_start_deep_el.size = this._edit_user_settings_start_deep_el.options.length;
+            this._edit_user_settings_start_deep_el.value = this._tree_data.fetched_data.tree_start_deep;
+        }
+
+        async backgroundFetchTree() {
+            const tree_data = await this.fetchTree({parent_el: null});
+
+            if (!tree_data) {
+                return;
+            }
+
+            if (JSON.stringify(tree_data.fetched_data) !== JSON.stringify(this._tree_data.fetched_data)) {
+                this._cache_el.innerText += `\n\n${this.texts.tree_has_changed_meanwhile}\n`;
+
+                const apply_button = document.createElement("button");
+                apply_button.type = "button";
+                apply_button.classList.add("btn", "btn-default");
+                apply_button.innerText = this.texts.tree_apply;
+                apply_button.addEventListener("click", this.clickBackgroundFetchTreeApply.bind(this, {tree_data}));
+                this._cache_el.appendChild(apply_button);
+            }
+        }
+
+        async clickBackgroundFetchTreeApply({tree_data}) {
+            this.applyTreeData({tree_data});
+
+            await this.initTree();
         }
 
         async clickNode({arrow_el, children, children_el, parent_deep}) {
@@ -30,6 +98,41 @@ document.addEventListener("DOMContentLoaded", () => {
                     parent_el: children_el
                 });
             }
+        }
+
+        async fetchTree({parent_el}) {
+            let fetched_data;
+
+            const loading_el = this.insertLoading({parent_el});
+            try {
+                fetched_data = await (await fetch(this.tree_fetch_url, {
+                    headers: {
+                        "accept": "application/json"
+                    }
+                })).json();
+            } catch (err) {
+                this.insertError({
+                    err,
+                    error_text: this.texts.tree_fetch_error,
+                    parent_el
+                });
+
+                return;
+            } finally {
+                if (parent_el) {
+                    parent_el.removeChild(loading_el);
+                }
+            }
+
+            const tree_data = {
+                fetched_data,
+                fetched_time: Date.now(),
+                fetched_with_plugin_version: this.plugin_version
+            }
+
+            this.constructor.STORAGE[this.constructor.STORAGE_CACHE_KEY] = JSON.stringify(tree_data);
+
+            return tree_data;
         }
 
         async handleOpenCloseUserSettingsIcon({forceOpenStatus}) {
@@ -56,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         get handleEscCloseUserSettingsIcon() {
             if (!this._handleEscCloseUserSettingsIcon) {
-                this._handleEscCloseUserSettingsIcon = (e) => {
+                this._handleEscCloseUserSettingsIcon = e => {
                     if (e.key === "Escape") {
                         this.handleCloseUserSettingsIconClose();
                     }
@@ -66,14 +169,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return this._handleEscCloseUserSettingsIcon;
         }
 
-        init() {
-            this.initTree();
+        async init() {
+            await this.initEditUserSettings();
 
-            this.initEditUserSettings();
+            await this.initTree();
         }
 
         async initNode({children, parent_deep, parent_el}) {
-            for (const {count_sub_children_types, description, icon, is_container, link, preloaded_children, title} of children) {
+            for (const {children: children_children, count_sub_children_types, description, icon, is_container, link, title} of children) {
                 const node_el = document.createElement("div");
                 node_el.classList.add("SrContainerObjectTreeNode");
 
@@ -105,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const clickNode = this.clickNode.bind(this, {
                         arrow_el,
-                        children: preloaded_children,
+                        children: children_children,
                         children_el,
                         parent_deep: parent_deep + 1
                     });
@@ -117,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     node_el.appendChild(arrow_el);
 
-                    if (parent_deep < this.tree_start_deep) {
+                    if (parent_deep < this._tree_data.fetched_data.tree_start_deep) {
                         clickNode();
                     }
                 }
@@ -148,97 +251,172 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        async initTree() {
-            this.clearElement({el: this.tree_el});
 
-            if (this.tree_children.length > 0) {
+        async initTree() {
+            this.edit_user_settings_el.classList.remove("SrContainerObjectTreeEditUserSettingsShow");
+
+            this.tree_el.innerHTML = "";
+
+            let background_fetch_tree = false;
+            if (!this._tree_data.fetched_data.tree_children) {
+                let cache = this.constructor.STORAGE[this.constructor.STORAGE_CACHE_KEY];
+                if (cache) {
+                    try {
+                        cache = JSON.parse(cache);
+                    } catch (err) {
+                        this.insertError({err});
+                        cache = null;
+                    }
+                }
+                if (cache) {
+                    if (cache.fetched_with_plugin_version !== this.plugin_version) {
+                        cache = null;
+                    }
+                }
+
+                let tree_data;
+                if (cache) {
+                    tree_data = cache;
+
+                    this._is_load_from_cache = true;
+                    background_fetch_tree = true;
+                } else {
+                    tree_data = await this.fetchTree({parent_el: this.tree_el});
+
+                    if (!tree_data) {
+                        return;
+                    }
+
+                    this._is_load_from_cache = false;
+                }
+
+                this.applyTreeData({tree_data});
+            }
+
+            if (this._tree_data.fetched_data.tree_children.length > 0) {
                 await this.initNode({
-                    children: this.tree_children,
+                    children: this._tree_data.fetched_data.tree_children,
                     parent_deep: 1,
                     parent_el: this.tree_el
                 });
             } else {
                 const empty_el = document.createElement("div");
                 empty_el.classList.add("SrContainerObjectTreeEmpty");
-                empty_el.innerText = this.tree_empty_text;
+                empty_el.innerText = this.texts.tree_empty;
                 this.tree_el.appendChild(empty_el);
             }
+
+            if (this._is_load_from_cache) {
+                if (!this._cache_el) {
+                    this._cache_el = document.createElement("div");
+                    this._cache_el.classList.add("SrContainerObjectTreeCache");
+                    this.edit_user_settings_el.appendChild(this._cache_el);
+                }
+                this._cache_el.innerText = this.texts.tree_loaded_from_cache.replace("_date_", new Date(this._tree_data.fetched_time).toLocaleString());
+
+                if (background_fetch_tree) {
+                    this.backgroundFetchTree();
+                }
+            }
+
+            this.edit_user_settings_el.classList.add("SrContainerObjectTreeEditUserSettingsShow");
         }
 
         async initEditUserSettings() {
+            this._edit_user_settings_form_el = document.createElement("form");
+
+            const edit_user_settings_show_metadata_show_el = document.createElement("option");
+            edit_user_settings_show_metadata_show_el.value = "show";
+            edit_user_settings_show_metadata_show_el.text = this.texts.edit_user_settings_show_metadata;
+
+            const edit_user_settings_show_metadata_hide_el = document.createElement("option");
+            edit_user_settings_show_metadata_hide_el.value = "hide";
+            edit_user_settings_show_metadata_hide_el.text = this.texts.edit_user_settings_hide_metadata;
+
+            this._edit_user_settings_show_metadata_el = document.createElement("select");
+            this._edit_user_settings_show_metadata_el.appendChild(edit_user_settings_show_metadata_show_el);
+            this._edit_user_settings_show_metadata_el.appendChild(edit_user_settings_show_metadata_hide_el);
+            this._edit_user_settings_show_metadata_el.size = this._edit_user_settings_show_metadata_el.options.length;
+            this._edit_user_settings_show_metadata_el.value = (this.tree_show_metadata ? "show" : "hide");
+            this._edit_user_settings_form_el.appendChild(this._edit_user_settings_show_metadata_el);
+
+            this._edit_user_settings_start_deep_el = document.createElement("select");
+            this._edit_user_settings_form_el.appendChild(this._edit_user_settings_start_deep_el);
+
+            this.edit_user_settings_form_container_el.appendChild(this._edit_user_settings_form_el);
+
             this.edit_user_settings_icon_el.addEventListener("click", this.handleOpenCloseUserSettingsIcon.bind(this, {}));
 
-            for (const el of [this.edit_user_settings_form_el, this.edit_user_settings_icon_el]) {
+            for (const el of [this.edit_user_settings_form_container_el, this.edit_user_settings_icon_el]) {
                 el.addEventListener("click", e => {
                     e.stopPropagation();
                 });
             }
 
-            const form = this.edit_user_settings_form_el.querySelector("form");
-
-            form.addEventListener("change", this.updateEditUserSettings.bind(this, {
-                form
-            }));
+            this._edit_user_settings_form_el.addEventListener("change", this.updateEditUserSettings.bind(this));
         }
 
         insertError({err, error_text, parent_el}) {
             console.error(err);
 
-            const error_el = document.createElement("div");
-            error_el.classList.add("SrContainerObjectTreeError");
-            error_el.innerText = error_text;
-            parent_el.appendChild(error_el);
-            return error_el;
+            if (parent_el) {
+                const error_el = document.createElement("div");
+                error_el.classList.add("SrContainerObjectTreeError");
+                error_el.innerText = error_text;
+                parent_el.appendChild(error_el);
+                return error_el;
+            }
         }
 
         insertLoading({parent_el}) {
-            const loading_el = document.createElement("div");
-            loading_el.classList.add("SrContainerObjectTreeLoading");
-            parent_el.appendChild(loading_el);
-            return loading_el;
+            if (parent_el) {
+                const loading_el = document.createElement("div");
+                loading_el.classList.add("SrContainerObjectTreeLoading");
+                parent_el.appendChild(loading_el);
+                return loading_el;
+            }
         }
 
-        removeLoading({loading_el, parent_el}) {
-            parent_el.removeChild(loading_el);
-        }
-
-        async updateEditUserSettings({form}) {
-            const data = new FormData(form);
-
-            for (const el of form.elements) {
+        async updateEditUserSettings() {
+            for (const el of this._edit_user_settings_form_el.elements) {
                 el.disabled = true;
             }
 
             let result;
 
-            const loading_el = this.insertLoading({parent_el: this.edit_user_settings_form_el});
+            const loading_el = this.insertLoading({parent_el: this.edit_user_settings_form_container_el});
             try {
-                result = await (await fetch(form.action, {
-                    body: data,
+                result = await (await fetch(this.edit_user_settings_update_url, {
+                    body: JSON.stringify({
+                        "show_metadata": (this._edit_user_settings_show_metadata_el.value === "show"),
+                        "start_deep": this._edit_user_settings_start_deep_el.value
+                    }),
                     headers: {
-                        "accept": "application/json"
+                        "accept": "application/json",
+                        "content-type": "application/json"
                     },
-                    method: form.method
+                    method: "post"
                 })).json();
             } catch (err) {
                 this.insertError({
                     err,
-                    error_text: this.edit_user_settings_error_text,
-                    parent_el: this.edit_user_settings_form_el
+                    error_text: this.texts.edit_user_settings_save_error,
+                    parent_el: this.edit_user_settings_form_container_el
                 });
 
                 return;
             } finally {
-                this.removeLoading({loading_el, parent_el: this.edit_user_settings_form_el});
+                this.edit_user_settings_form_container_el.removeChild(loading_el);
             }
 
-            for (const el of form.elements) {
+            for (const el of this._edit_user_settings_form_el.elements) {
                 el.disabled = false;
             }
 
             const {show_metadata, start_deep} = result;
             this.tree_show_metadata = show_metadata;
-            this.tree_start_deep = start_deep;
+            this._edit_user_settings_show_metadata_el.value = (this.tree_show_metadata ? "show" : "hide");
+            this._tree_data.fetched_data.tree_start_deep = this._edit_user_settings_start_deep_el.value = start_deep;
 
             await this.initTree();
         }
@@ -247,9 +425,9 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const el of document.querySelectorAll(".SrContainerObjectTree")) {
         const config = JSON.parse(atob(el.dataset.config));
 
-        const user_settings_container = el.querySelector(".SrContainerObjectTreeEditUserSettings");
-        config.edit_user_settings_form_el = user_settings_container.querySelector(".SrContainerObjectTreeEditUserSettingsForm");
-        config.edit_user_settings_icon_el = user_settings_container.querySelector(".SrContainerObjectTreeEditUserSettingsIcon");
+        config.edit_user_settings_el = el.querySelector(".SrContainerObjectTreeEditUserSettings");
+        config.edit_user_settings_form_container_el = config.edit_user_settings_el.querySelector(".SrContainerObjectTreeEditUserSettingsFormContainer");
+        config.edit_user_settings_icon_el = config.edit_user_settings_el.querySelector(".SrContainerObjectTreeEditUserSettingsIcon");
 
         config.tree_el = el.querySelector(".SrContainerObjectTreeTree");
 

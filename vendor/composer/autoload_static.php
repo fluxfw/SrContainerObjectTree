@@ -179,7 +179,6 @@ class ComposerStaticInit3fe7625cc7d2cfdd962667f7fc6419b7
         'srag\\Plugins\\SrContainerObjectTree\\Tree\\Repository' => __DIR__ . '/../..' . '/src/Tree/Repository.php',
         'srag\\Plugins\\SrContainerObjectTree\\Tree\\TreeCtrl' => __DIR__ . '/../..' . '/src/Tree/class.TreeCtrl.php',
         'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\Factory' => __DIR__ . '/../..' . '/src/UserSettings/Factory.php',
-        'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/UserSettings/Form/FormBuilder.php',
         'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\Repository' => __DIR__ . '/../..' . '/src/UserSettings/Repository.php',
         'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\UserSettings' => __DIR__ . '/../..' . '/src/UserSettings/UserSettings.php',
         'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\UserSettingsCtrl' => __DIR__ . '/../..' . '/src/UserSettings/class.UserSettingsCtrl.php',

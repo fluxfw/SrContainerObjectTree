@@ -30,8 +30,12 @@ settings_save#:#Save
 settings_saved#:#Settings saved
 settings_settings#:#Settings
 settings_title#:#Title
+tree_apply#:#Apply
 tree_empty#:#Empty
-user_settings_deep_x#:#%s. level
-user_settings_error#:#Form could not be loaded
+tree_fetch_error#:#Tree could not be loaded
+tree_has_changed_meanwhile#:#Tree has changed meanwhile
+tree_loaded_from_cache#:#Loaded from local cache: _date_
+user_settings_deep_x#:#_deep_. level
+user_settings_save_error#:#Form could not be saved
 user_settings_hide_metadata#:#Hide metadata
 user_settings_show_metadata#:#Show metadata

@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.13.0]
+- Add async load again and cache its result in Browser `sessionStorage`
+
 ## [2.12.0]
 - Use first child with at least one child as parent and default start deep is 1
 - Direct use preload after update user settings

@@ -30,8 +30,12 @@ settings_save#:#Speichern
 settings_saved#:#Einstellungen gespeichert
 settings_settings#:#Einstellungen
 settings_title#:#Titel
+tree_apply#:#Übernehmen
 tree_empty#:#Leer
-user_settings_deep_x#:#%s. Ebene
-user_settings_error#:#Formular konnte nicht geladen werden
+tree_fetch_error#:#Baum konnte nicht geladen werden
+tree_has_changed_meanwhile#:#Baum hat sich inzwischen verändert
+tree_loaded_from_cache#:#Aus dem lokalen Cache geladen: _date_
+user_settings_deep_x#:#_deep_. Ebene
+user_settings_save_error#:#Formular konnte nicht gespeichert werden
 user_settings_hide_metadata#:#Metadaten ausblenden
 user_settings_show_metadata#:#Metadaten anzeigen

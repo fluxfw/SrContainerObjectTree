@@ -119,7 +119,6 @@ return array(
     'srag\\Plugins\\SrContainerObjectTree\\Tree\\Repository' => $baseDir . '/src/Tree/Repository.php',
     'srag\\Plugins\\SrContainerObjectTree\\Tree\\TreeCtrl' => $baseDir . '/src/Tree/class.TreeCtrl.php',
     'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\Factory' => $baseDir . '/src/UserSettings/Factory.php',
-    'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\Form\\FormBuilder' => $baseDir . '/src/UserSettings/Form/FormBuilder.php',
     'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\Repository' => $baseDir . '/src/UserSettings/Repository.php',
     'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\UserSettings' => $baseDir . '/src/UserSettings/UserSettings.php',
     'srag\\Plugins\\SrContainerObjectTree\\UserSettings\\UserSettingsCtrl' => $baseDir . '/src/UserSettings/class.UserSettingsCtrl.php',
