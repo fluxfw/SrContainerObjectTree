@@ -222,6 +222,7 @@ final class Repository
         $tpl = self::plugin()->template("SrContainerObjectTree.html");
         $config = [
             "edit_user_settings_update_url" => $edit_user_settings_update_url,
+            "obj_ref_id"                    => $object->getRefId(),
             "plugin_version"                => self::plugin()->getPluginObject()->getVersion(),
             "texts"                         => [
                 "edit_user_settings_deep_x"        => self::plugin()->translate("deep_x", UserSettingsCtrl::LANG_MODULE),

@@ -1,18 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
     class SrContainerObjectTree {
-        static get STORAGE() {
+        get STORAGE() {
             return sessionStorage;
         }
 
-        static get STORAGE_CACHE_KEY() {
-            return "SrContainerObjectTreeCache";
+        get STORAGE_CACHE_KEY() {
+            return `SrContainerObjectTreeCache${this.obj_ref_id}`;
         }
 
-        constructor({edit_user_settings_el, edit_user_settings_form_container_el, edit_user_settings_icon_el, edit_user_settings_update_url, plugin_version, texts: {edit_user_settings_deep_x, edit_user_settings_hide_metadata, edit_user_settings_save_error, edit_user_settings_show_metadata, tree_apply, tree_empty, tree_fetch_error, tree_loaded_from_cache, tree_has_changed_meanwhile}, tree_el, tree_fetch_url, tree_link_container_objects, tree_link_new_tab, tree_show_metadata}) {
+        constructor({edit_user_settings_el, edit_user_settings_form_container_el, edit_user_settings_icon_el, edit_user_settings_update_url, obj_ref_id, plugin_version, texts: {edit_user_settings_deep_x, edit_user_settings_hide_metadata, edit_user_settings_save_error, edit_user_settings_show_metadata, tree_apply, tree_empty, tree_fetch_error, tree_loaded_from_cache, tree_has_changed_meanwhile}, tree_el, tree_fetch_url, tree_link_container_objects, tree_link_new_tab, tree_show_metadata}) {
             this.edit_user_settings_el = edit_user_settings_el;
             this.edit_user_settings_form_container_el = edit_user_settings_form_container_el;
             this.edit_user_settings_icon_el = edit_user_settings_icon_el;
             this.edit_user_settings_update_url = edit_user_settings_update_url;
+            this.obj_ref_id = obj_ref_id;
             this.plugin_version = plugin_version;
             this.texts = {
                 edit_user_settings_deep_x,
@@ -130,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetched_with_plugin_version: this.plugin_version
             }
 
-            this.constructor.STORAGE[this.constructor.STORAGE_CACHE_KEY] = JSON.stringify(tree_data);
+            this.STORAGE[this.STORAGE_CACHE_KEY] = JSON.stringify(tree_data);
 
             return tree_data;
         }
@@ -259,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let background_fetch_tree = false;
             if (!this._tree_data.fetched_data.tree_children) {
-                let cache = this.constructor.STORAGE[this.constructor.STORAGE_CACHE_KEY];
+                let cache = this.STORAGE[this.STORAGE_CACHE_KEY];
                 if (cache) {
                     try {
                         cache = JSON.parse(cache);
