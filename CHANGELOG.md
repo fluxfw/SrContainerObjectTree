@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.13.1]
+- Fix cache is same for all objects
+
 ## [2.13.0]
 - Add async load again and cache its result in Browser `sessionStorage`
 
