@@ -23,6 +23,7 @@ class TreeCtrl
     use DICTrait;
     use SrContainerObjectTreeTrait;
 
+    const CMD_FETCH_TREE = "fetchTree";
     const CMD_GET_HTML = "getHtml";
     const LANG_MODULE = "tree";
     const PLUGIN_CLASS_NAME = ilSrContainerObjectTreePlugin::class;
@@ -61,6 +62,7 @@ class TreeCtrl
                 $cmd = self::dic()->ctrl()->getCmd(self::CMD_GET_HTML);
 
                 switch ($cmd) {
+                    case self::CMD_FETCH_TREE:
                     case self::CMD_GET_HTML:
                         $this->{$cmd}();
                         break;
@@ -76,9 +78,23 @@ class TreeCtrl
     /**
      *
      */
+    protected function fetchTree()/* : void*/
+    {
+        $tree = self::srContainerObjectTree()->tree()->fetchTree($this->object);
+
+        self::output()->outputJSON($tree);
+    }
+
+
+    /**
+     *
+     */
     protected function getHtml()/* : void*/
     {
-        $html = self::srContainerObjectTree()->tree()->getHtml($this->object);
+        $html = self::srContainerObjectTree()
+            ->tree()
+            ->getHtml($this->object, self::dic()->ctrl()->getLinkTarget($this, self::CMD_FETCH_TREE, "", true),
+                self::dic()->ctrl()->getFormActionByClass(UserSettingsCtrl::class, UserSettingsCtrl::CMD_UPDATE_USER_SETTINGS, "", true));
 
         self::output()->output($html);
     }

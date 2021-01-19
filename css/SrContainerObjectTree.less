@@ -118,17 +118,21 @@
 	align-items: flex-end;
 	display: flex;
 	flex-direction: column;
-	flex-grow: 0;
-	flex-shrink: 0;
+	flex-grow: 1;
+	flex-shrink: 1;
 	height: auto;
 	padding: 5px;
-	width: auto;
+	width: 0;
+
+	&:not(.SrContainerObjectTreeEditUserSettingsShow) {
+	  display: none;
+	}
 
 	.SrContainerObjectTreeEditUserSettingsIcon {
-	  ~ .SrContainerObjectTreeEditUserSettingsForm {
+	  ~ .SrContainerObjectTreeEditUserSettingsFormContainer {
 		background-color: #EEEEEE;
-		margin-top: 3px;
-		position: relative;
+		position: absolute;
+		top: 25px;
 	  }
 
 	  &.SrContainerObjectTreeEditUserSettingsIconOpen {
@@ -138,14 +142,14 @@
 	  }
 
 	  &:not(.SrContainerObjectTreeEditUserSettingsIconOpen) {
-		~ .SrContainerObjectTreeEditUserSettingsForm {
+		~ .SrContainerObjectTreeEditUserSettingsFormContainer {
 		  display: none;
 		}
 	  }
 	}
   }
 
-  .SrContainerObjectTreeEditUserSettingsForm {
+  .SrContainerObjectTreeEditUserSettingsFormContainer {
 	form {
 	  &, * {
 		background-color: transparent;
@@ -201,5 +205,9 @@
   .SrContainerObjectTreeError {
 	color: red;
 	font-style: italic;
+  }
+
+  .SrContainerObjectTreeCache {
+	text-align: right;
   }
 }

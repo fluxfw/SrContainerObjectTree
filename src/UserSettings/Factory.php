@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrContainerObjectTree\UserSettings;
 
-use ilObjSrContainerObjectTree;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\UserSettings\Form\FormBuilder;
@@ -47,20 +46,6 @@ final class Factory
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * @param UserSettingsCtrl           $parent
-     * @param ilObjSrContainerObjectTree $object
-     *
-     * @return FormBuilder
-     */
-    public function newFormBuilderInstance(UserSettingsCtrl $parent, ilObjSrContainerObjectTree $object) : FormBuilder
-    {
-        $form = new FormBuilder($parent, $object);
-
-        return $form;
     }
 
 

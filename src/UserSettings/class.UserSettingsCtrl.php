@@ -41,17 +41,6 @@ class UserSettingsCtrl
 
 
     /**
-     * @return string
-     */
-    public function editUserSettings() : string
-    {
-        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance($this, $this->object);
-
-        return self::output()->getHTML($form);
-    }
-
-
-    /**
      *
      */
     public function executeCommand()/* : void*/
@@ -91,9 +80,10 @@ class UserSettingsCtrl
      */
     protected function updateUserSettings()/* : void*/
     {
-        $form = self::srContainerObjectTree()->userSettings()->factory()->newFormBuilderInstance($this, $this->object);
-
-        $form->storeData();
+        $data = json_decode(file_get_contents("php://input"), true);
+        $this->object->setShowMetadata(boolval($data["show_metadata"]));
+        $this->object->setStartDeep(intval($data["start_deep"]));
+        self::srContainerObjectTree()->userSettings()->storeUserSettings($this->object->getUserSettings());
 
         self::output()->outputJSON([
             "show_metadata" => $this->object->isShowMetadata(),

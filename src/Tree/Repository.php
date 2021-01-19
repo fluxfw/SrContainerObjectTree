@@ -100,6 +100,22 @@ final class Repository
 
 
     /**
+     * @param ilObjSrContainerObjectTree $object
+     *
+     * @return array
+     */
+    public function fetchTree(ilObjSrContainerObjectTree $object) : array
+    {
+        return [
+            "tree_children"   => $this->getChildren($this->getParentRefId($object), $object),
+            "tree_max_deep"   => $this->getMaxDeep($object),
+            "tree_min_deep"   => $this->getMinDeep($object),
+            "tree_start_deep" => $this->getStartDeep($object)
+        ];
+    }
+
+
+    /**
      * @param int                        $parent_ref_id
      * @param ilObjSrContainerObjectTree $object
      *
@@ -145,12 +161,12 @@ final class Repository
                 }
 
                 $child = [
+                    "children"                 => $this->getChildren($ref_id, $object),
                     "count_sub_children_types" => $count_sub_children_types_count,
                     "description"              => $sub_item["description"],
                     "icon"                     => ilObject::_getIcon($sub_item["obj_id"]),
                     "is_container"             => $is_container,
                     "link"                     => ilLink::_getLink($ref_id),
-                    "preloaded_children"       => $this->getChildren($ref_id, $object),
                     "ref_id"                   => $ref_id,
                     "title"                    => $sub_item["title"],
                     "type"                     => $type
@@ -187,10 +203,12 @@ final class Repository
 
     /**
      * @param ilObjSrContainerObjectTree $object
+     * @param string                     $tree_fetch_url
+     * @param string                     $edit_user_settings_update_url
      *
      * @return string
      */
-    public function getHtml(ilObjSrContainerObjectTree $object) : string
+    public function getHtml(ilObjSrContainerObjectTree $object, string $tree_fetch_url, string $edit_user_settings_update_url) : string
     {
         if (self::version()->is6()) {
             $glyph_factory = self::dic()->ui()->factory()->symbol()->glyph();
@@ -203,25 +221,36 @@ final class Repository
 
         $tpl = self::plugin()->template("SrContainerObjectTree.html");
         $config = [
-            "edit_user_settings_error_text" => self::plugin()->translate("error", UserSettingsCtrl::LANG_MODULE),
-            "tree_children"                 => $this->getChildren($this->getParentRefId($object), $object),
-            "tree_empty_text"               => self::plugin()->translate("empty", TreeCtrl::LANG_MODULE),
+            "edit_user_settings_update_url" => $edit_user_settings_update_url,
+            "plugin_version"                => self::plugin()->getPluginObject()->getVersion(),
+            "texts"                         => [
+                "edit_user_settings_deep_x"        => self::plugin()->translate("deep_x", UserSettingsCtrl::LANG_MODULE),
+                "edit_user_settings_hide_metadata" => self::plugin()->translate("hide_metadata", UserSettingsCtrl::LANG_MODULE),
+                "edit_user_settings_save_error"    => self::plugin()->translate("save_error", UserSettingsCtrl::LANG_MODULE),
+                "edit_user_settings_show_metadata" => self::plugin()->translate("show_metadata", UserSettingsCtrl::LANG_MODULE),
+                "tree_apply"                       => self::plugin()->translate("apply", TreeCtrl::LANG_MODULE),
+                "tree_empty"                       => self::plugin()->translate("empty", TreeCtrl::LANG_MODULE),
+                "tree_fetch_error"                 => self::plugin()->translate("fetch_error", TreeCtrl::LANG_MODULE),
+                "tree_has_changed_meanwhile"       => self::plugin()->translate("has_changed_meanwhile", TreeCtrl::LANG_MODULE),
+                "tree_loaded_from_cache"           => self::plugin()->translate("loaded_from_cache", TreeCtrl::LANG_MODULE)
+            ],
+            "tree_fetch_url"                => $tree_fetch_url,
             "tree_link_container_objects"   => self::srContainerObjectTree()->config()->isLinkContainerObjects(),
             "tree_link_new_tab"             => self::srContainerObjectTree()->config()->isOpenLinksInNewTab(),
-            "tree_show_metadata"            => $object->isShowMetadata(),
-            "tree_start_deep"               => $this->getStartDeep($object)
+            "tree_show_metadata"            => $object->isShowMetadata()
         ];
         $tpl->setVariableEscaped("CONFIG", base64_encode(json_encode($config)));
 
         $tpl_tree = self::plugin()->template("SrContainerObjectTreeTree.html", true, false);
 
-        $tpl_user_settings = self::plugin()->template("SrContainerObjectTreeEditUserSettings.html", true, false);
+        $tpl_user_settings = self::plugin()->template("SrContainerObjectTreeEditUserSettings.html");
 
         $tpl_user_settings_icon = self::plugin()->template("SrContainerObjectTreeEditUserSettingsIcon.html");
         $tpl_user_settings_icon->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($glyph_factory->settings()));
         $tpl_user_settings->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($tpl_user_settings_icon));
 
-        $tpl_user_settings->setVariable("USER_SETTINGS_FORM", (new UserSettingsCtrl($object))->editUserSettings());
+        $tpl_user_settings_form_container = self::plugin()->template("SrContainerObjectUserSettingsFormContainer.html", true, false);
+        $tpl_user_settings->setVariable("USER_SETTINGS_FORM_CONTAINER", self::output()->getHTML($tpl_user_settings_form_container));
 
         $tpl->setVariable("TREE", self::output()->getHTML($tpl_tree));
         $tpl->setVariable("USER_SETTINGS", self::output()->getHTML($tpl_user_settings));
