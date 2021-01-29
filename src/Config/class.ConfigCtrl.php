@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrContainerObjectTree\Config;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilSrContainerObjectTreePlugin;
 use ilUtil;
 use srag\DIC\SrContainerObjectTree\DICTrait;
