@@ -10,6 +10,7 @@
       "ilias_max_version": "6.999",
       "lucene_search": true,
       "slot": "Services/Repository/RepositoryObject",
+      "supports_cli_setup": true,
       "events": [
         {
           "id": "change_child_before_output",
