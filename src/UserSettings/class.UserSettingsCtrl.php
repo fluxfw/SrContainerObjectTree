@@ -12,9 +12,11 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 /**
  * Class UserSettingsCtrl
  *
- * @package srag\Plugins\SrContainerObjectTree\UserSettings
+ * @package           srag\Plugins\SrContainerObjectTree\UserSettings
  *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ *
+ * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl: srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl
  */
 class UserSettingsCtrl
 {
