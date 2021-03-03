@@ -1,7 +1,7 @@
 {
   "name": "srag/srcontainerobjecttree",
   "description": "Add container objects tree view in repository objects",
-  "version": "2.13.1",
+  "version": "2.13.2",
   "extra": {
     "ilias_plugin": {
       "id": "xcot",
@@ -10,6 +10,7 @@
       "ilias_max_version": "6.999",
       "lucene_search": true,
       "slot": "Services/Repository/RepositoryObject",
+      "supports_cli_setup": true,
       "events": [
         {
           "id": "change_child_before_output",
@@ -17,7 +18,8 @@
         }
       ]
     },
-    "generate_plugin_readme_template": "SRAG_ILIAS_PLUGIN"
+    "generate_plugin_readme_template": "SRAG_ILIAS_PLUGIN",
+    "long_description_template": "src/LONG_DESCRIPTION.md"
   },
   "type": "project",
   "keywords": [
@@ -28,7 +30,7 @@
     "repository",
     "tree"
   ],
-  "homepage": "https://github.com/studer-raimann/SrContainerObjectTree",
+  "homepage": "https://github.com/fluxfw/SrContainerObjectTree",
   "license": "GPL-3.0-only",
   "authors": [
     {
@@ -63,8 +65,7 @@
       "src/UserSettings/class.UserSettingsCtrl.php"
     ],
     "files": [
-      "vendor/srag/dic/src/PHPVersionChecker.php",
-      "vendor/srag/dic/src/Ilias7PreWarn.php"
+      "vendor/srag/dic/src/PHPVersionChecker.php"
     ]
   },
   "config": {

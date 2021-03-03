@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../vendor/autoload.php";
+
 use srag\DIC\SrContainerObjectTree\DICTrait;
 use srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder;
 use srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl;
@@ -18,7 +20,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilObjectCopyGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: ilCommonActionDispatcherGUI
  * @ilCtrl_Calls      ilObjSrContainerObjectTreeGUI: srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder
- * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\Tree\TreeCtrl: ilObjSrContainerObjectTreeGUI
  */
 class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
 {

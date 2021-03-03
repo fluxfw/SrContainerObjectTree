@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.13.2]
+- Update project url
+
 ## [2.13.1]
 - Fix cache is same for all objects
 
