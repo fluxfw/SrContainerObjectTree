@@ -20,7 +20,7 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/Repository/RepositoryObject
 cd Customizing/global/plugins/Services/Repository/RepositoryObject
-git clone https://github.com/studer-raimann/SrContainerObjectTree.git SrContainerObjectTree
+git clone https://github.com/fluxfw/SrContainerObjectTree.git SrContainerObjectTree
 ```
 
 Update, activate and config the plugin in the ILIAS Plugin Administration
