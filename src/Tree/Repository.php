@@ -8,6 +8,7 @@ use ilObject;
 use ilObjSrContainerObjectTree;
 use ilSrContainerObjectTreePlugin;
 use srag\DIC\SrContainerObjectTree\DICTrait;
+use srag\DIC\SrContainerObjectTree\Version\PluginVersionParameter;
 use srag\Plugins\SrContainerObjectTree\UserSettings\UserSettingsCtrl;
 use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 
@@ -216,8 +217,11 @@ final class Repository
             $glyph_factory = self::dic()->ui()->factory()->glyph();
         }
 
-        self::dic()->ui()->mainTemplate()->addCss(substr(self::plugin()->directory(), 2) . "/css/SrContainerObjectTree.css");
-        self::dic()->ui()->mainTemplate()->addJavaScript(substr(self::plugin()->directory(), 2) . "/js/SrContainerObjectTree.min.js");
+        $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
+
+        self::dic()->ui()->mainTemplate()->addCss($version_parameter->appendToUrl(self::plugin()->directory() . "/css/SrContainerObjectTree.css"));
+        self::dic()->ui()->mainTemplate()->addJavaScript($version_parameter->appendToUrl(self::plugin()->directory() . "/js/SrContainerObjectTree.min.js",
+            self::plugin()->directory() . "/js/SrContainerObjectTree.js"));
 
         $tpl = self::plugin()->template("SrContainerObjectTree.html");
         $config = [
