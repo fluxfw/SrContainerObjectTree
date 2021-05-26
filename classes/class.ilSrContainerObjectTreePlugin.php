@@ -10,8 +10,6 @@ use srag\RemovePluginDataConfirm\SrContainerObjectTree\RepositoryObjectPluginUni
 
 /**
  * Class ilSrContainerObjectTreePlugin
- *
- * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class ilSrContainerObjectTreePlugin extends ilRepositoryObjectPlugin
 {

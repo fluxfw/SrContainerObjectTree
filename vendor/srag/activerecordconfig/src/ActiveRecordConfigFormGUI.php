@@ -9,8 +9,6 @@ use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\ConfigPropertyFor
  *
  * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
- * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated Please use PropertyFormGUI from CustomInputGUIs instead
  */
 abstract class ActiveRecordConfigFormGUI extends ConfigPropertyFormGUI

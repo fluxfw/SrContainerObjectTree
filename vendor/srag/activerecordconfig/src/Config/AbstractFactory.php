@@ -8,8 +8,6 @@ use srag\DIC\SrContainerObjectTree\DICTrait;
  * Class AbstractFactory
  *
  * @package srag\ActiveRecordConfig\SrContainerObjectTree\Config
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 abstract class AbstractFactory
 {

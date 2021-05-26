@@ -11,8 +11,6 @@ use srag\CustomInputGUIs\SrContainerObjectTree\PropertyFormGUI\ObjectPropertyFor
  *
  * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
- * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated Please use PropertyFormGUI from CustomInputGUIs instead
  */
 abstract class ActiveRecordObjectFormGUI extends ObjectPropertyFormGUI

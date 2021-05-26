@@ -14,8 +14,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  *
  * @package           srag\Plugins\SrContainerObjectTree\Config
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\Plugins\SrContainerObjectTree\Config\ConfigCtrl: ilSrContainerObjectTreeConfigGUI
  */
 class ConfigCtrl

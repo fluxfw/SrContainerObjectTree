@@ -12,8 +12,6 @@ use srag\DIC\SrContainerObjectTree\DICTrait;
  *
  * @package    srag\ActiveRecordConfig\SrContainerObjectTree
  *
- * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated Please use ilPluginConfigGUI from ILIAS core instead
  */
 abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI

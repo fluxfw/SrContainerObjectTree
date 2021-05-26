@@ -4,8 +4,6 @@
 
 Add container objects tree view in repository objects
 
-This is an OpenSource project by studer + raimann ag, CH-Burgdorf (https://studer-raimann.ch)
-
 This project is licensed under the GPL-3.0-only license
 
 ## Requirements
@@ -20,7 +18,7 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/Repository/RepositoryObject
 cd Customizing/global/plugins/Services/Repository/RepositoryObject
-git clone https://github.com/fluxfw/SrContainerObjectTree.git SrContainerObjectTree
+git clone https://github.com/fluxapps/SrContainerObjectTree.git SrContainerObjectTree
 ```
 
 Update, activate and config the plugin in the ILIAS Plugin Administration
