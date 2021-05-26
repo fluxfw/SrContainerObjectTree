@@ -12,8 +12,6 @@ use srag\DIC\SrContainerObjectTree\Version\VersionInterface;
  * Trait DICTrait
  *
  * @package srag\DIC\SrContainerObjectTree
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 trait DICTrait
 {

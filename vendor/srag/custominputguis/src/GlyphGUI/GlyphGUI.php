@@ -10,9 +10,6 @@ use srag\DIC\SrContainerObjectTree\DICTrait;
  *
  * @package srag\CustomInputGUIs\SrContainerObjectTree\GlyphGUI
  *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- * @author  Fabian Schmid <fs@studer-raimann.ch>
- *
  * @deprecated
  */
 class GlyphGUI extends ilGlyphGUI

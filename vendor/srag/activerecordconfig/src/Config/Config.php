@@ -11,8 +11,6 @@ use srag\DIC\SrContainerObjectTree\DICTrait;
  * Class Config
  *
  * @package srag\ActiveRecordConfig\SrContainerObjectTree\Config
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class Config extends ActiveRecord
 {

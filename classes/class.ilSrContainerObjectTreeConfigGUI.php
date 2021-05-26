@@ -10,8 +10,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 /**
  * Class ilSrContainerObjectTreeConfigGUI
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\DevTools\SrContainerObjectTree\DevToolsCtrl: ilSrContainerObjectTreeConfigGUI
  */
 class ilSrContainerObjectTreeConfigGUI extends ilPluginConfigGUI

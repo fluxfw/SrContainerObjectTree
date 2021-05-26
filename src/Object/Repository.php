@@ -12,8 +12,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * Class Repository
  *
  * @package srag\Plugins\SrContainerObjectTree\Object
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class Repository
 {

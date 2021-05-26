@@ -12,8 +12,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  * Class ObjectSettings
  *
  * @package srag\Plugins\SrContainerObjectTree\ObjectSettings
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class ObjectSettings extends ActiveRecord
 {

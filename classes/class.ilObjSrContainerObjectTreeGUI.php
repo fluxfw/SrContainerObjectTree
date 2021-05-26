@@ -10,8 +10,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
 /**
  * Class ilObjSrContainerObjectTreeGUI
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy ilObjSrContainerObjectTreeGUI: ilRepositoryGUI
  * @ilCtrl_isCalledBy ilObjSrContainerObjectTreeGUI: ilObjPluginDispatchGUI
  * @ilCtrl_isCalledBy ilObjSrContainerObjectTreeGUI: ilAdministrationGUI

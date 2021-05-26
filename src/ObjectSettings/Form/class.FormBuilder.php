@@ -18,8 +18,6 @@ use srag\Plugins\SrContainerObjectTree\Utils\SrContainerObjectTreeTrait;
  *
  * @package      srag\Plugins\SrContainerObjectTree\ObjectSettings\Form
  *
- * @author       studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_Calls srag\Plugins\SrContainerObjectTree\ObjectSettings\Form\FormBuilder: ilFormPropertyDispatchGUI
  */
 class FormBuilder extends AbstractFormBuilder
