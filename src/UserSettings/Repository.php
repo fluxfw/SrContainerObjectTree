@@ -57,7 +57,7 @@ final class Repository
     /**
      * @param UserSettings $user_settings
      */
-    public function deleteUserSettings(UserSettings $user_settings)/* : void*/
+    public function deleteUserSettings(UserSettings $user_settings) : void
     {
         $user_settings->delete();
 
@@ -69,7 +69,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/* : void*/
+    public function dropTables() : void
     {
         self::dic()->database()->dropTable(UserSettings::TABLE_NAME, false);
     }
@@ -132,7 +132,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/* : void*/
+    public function installTables() : void
     {
         UserSettings::updateDB();
     }
@@ -141,7 +141,7 @@ final class Repository
     /**
      * @param UserSettings $user_settings
      */
-    public function storeUserSettings(UserSettings $user_settings)/* : void*/
+    public function storeUserSettings(UserSettings $user_settings) : void
     {
         $user_settings->store();
 

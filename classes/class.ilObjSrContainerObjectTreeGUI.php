@@ -56,7 +56,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
      *
      * @param ilObjSrContainerObjectTree $a_new_object
      */
-    public function afterSave(/*ilObjSrContainerObjectTree*/ ilObject $a_new_object)/* : void*/
+    public function afterSave(/*ilObjSrContainerObjectTree*/ ilObject $a_new_object) : void
     {
         parent::afterSave($a_new_object);
     }
@@ -103,7 +103,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     /**
      * @param string $cmd
      */
-    public function performCommand(string $cmd)/* : void*/
+    public function performCommand(string $cmd) : void
     {
         self::dic()->help()->setScreenIdComponent(ilSrContainerObjectTreePlugin::PLUGIN_ID);
         self::dic()->ui()->mainTemplate()->setPermanentLink(ilSrContainerObjectTreePlugin::PLUGIN_ID, $this->object->getRefId());
@@ -154,7 +154,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     /**
      * @inheritDoc
      */
-    protected function afterConstructor()/* : void*/
+    protected function afterConstructor() : void
     {
 
     }
@@ -163,7 +163,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     /**
      *
      */
-    protected function setTabs()/* : void*/
+    protected function setTabs() : void
     {
         if (!self::dic()->ctrl()->isAsynch()) {
             self::dic()->ui()->mainTemplate()->setTitle($this->object->getTitle());
@@ -204,7 +204,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     /**
      *
      */
-    protected function settings()/* : void*/
+    protected function settings() : void
     {
         self::dic()->tabs()->activateTab(self::TAB_SETTINGS);
 
@@ -217,7 +217,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     /**
      *
      */
-    protected function settingsStore()/* : void*/
+    protected function settingsStore() : void
     {
         self::dic()->tabs()->activateTab(self::TAB_SETTINGS);
 
@@ -238,7 +238,7 @@ class ilObjSrContainerObjectTreeGUI extends ilObjectPluginGUI
     /**
      *
      */
-    protected function showContents()/* : void*/
+    protected function showContents() : void
     {
         self::dic()->ctrl()->redirectByClass(TreeCtrl::class);
     }
