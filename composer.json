@@ -1,12 +1,12 @@
 {
   "name": "srag/srcontainerobjecttree",
   "description": "Add container objects tree view in repository objects",
-  "version": "2.13.6",
+  "version": "2.14.0",
   "extra": {
     "ilias_plugin": {
       "id": "xcot",
       "name": "SrContainerObjectTree",
-      "ilias_min_version": "5.4.0",
+      "ilias_min_version": "6.0",
       "ilias_max_version": "6.999",
       "lucene_search": true,
       "slot": "Services/Repository/RepositoryObject",

@@ -209,12 +209,6 @@ final class Repository
      */
     public function getHtml(ilObjSrContainerObjectTree $object, string $tree_fetch_url, string $edit_user_settings_update_url) : string
     {
-        if (self::version()->is6()) {
-            $glyph_factory = self::dic()->ui()->factory()->symbol()->glyph();
-        } else {
-            $glyph_factory = self::dic()->ui()->factory()->glyph();
-        }
-
         $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
 
         self::dic()->ui()->mainTemplate()->addCss($version_parameter->appendToUrl(self::plugin()->directory() . "/css/SrContainerObjectTree.css"));
@@ -249,7 +243,7 @@ final class Repository
         $tpl_user_settings = self::plugin()->template("SrContainerObjectTreeEditUserSettings.html");
 
         $tpl_user_settings_icon = self::plugin()->template("SrContainerObjectTreeEditUserSettingsIcon.html");
-        $tpl_user_settings_icon->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($glyph_factory->settings()));
+        $tpl_user_settings_icon->setVariable("USER_SETTINGS_ICON", self::output()->getHTML(self::dic()->ui()->factory()->symbol()->glyph()->settings()));
         $tpl_user_settings->setVariable("USER_SETTINGS_ICON", self::output()->getHTML($tpl_user_settings_icon));
 
         $tpl_user_settings_form_container = self::plugin()->template("SrContainerObjectUserSettingsFormContainer.html", true, false);
