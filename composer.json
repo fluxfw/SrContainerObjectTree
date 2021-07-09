@@ -7,7 +7,7 @@
       "id": "xcot",
       "name": "SrContainerObjectTree",
       "ilias_min_version": "6.0",
-      "ilias_max_version": "6.999",
+      "ilias_max_version": "7.999",
       "lucene_search": true,
       "slot": "Services/Repository/RepositoryObject",
       "events": [
