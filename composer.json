@@ -1,25 +1,22 @@
 {
   "name": "srag/srcontainerobjecttree",
   "description": "Add container objects tree view in repository objects",
-  "version": "2.13.6",
+  "version": "2.14.0",
   "extra": {
     "ilias_plugin": {
       "id": "xcot",
       "name": "SrContainerObjectTree",
-      "ilias_min_version": "5.4.0",
-      "ilias_max_version": "6.999",
+      "ilias_min_version": "6.0",
+      "ilias_max_version": "7.999",
       "lucene_search": true,
       "slot": "Services/Repository/RepositoryObject",
-      "supports_cli_setup": true,
       "events": [
         {
           "id": "change_child_before_output",
           "type": "raise"
         }
       ]
-    },
-    "generate_plugin_readme_template": "ILIAS_PLUGIN",
-    "long_description_template": "src/LONG_DESCRIPTION.md"
+    }
   },
   "type": "project",
   "keywords": [
@@ -41,7 +38,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.2",
     "srag/activerecordconfig": ">=0.1.0",
     "srag/custominputguis": ">=0.1.0",
     "srag/devtools": ">=0.1.0",
@@ -73,9 +70,7 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport",
-      "srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
-      "srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\GeneratePluginReadme::generatePluginReadme"
+      "srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\GeneratePluginPhpAndXml::generatePluginPhpAndXml"
     ],
     "update-version": [
       "srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\UpdateVersion::updateVersion"

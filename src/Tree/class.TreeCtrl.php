@@ -47,7 +47,7 @@ class TreeCtrl
     /**
      *
      */
-    public function executeCommand()/* : void*/
+    public function executeCommand() : void
     {
         $this->setTabs();
 
@@ -78,7 +78,7 @@ class TreeCtrl
     /**
      *
      */
-    protected function fetchTree()/* : void*/
+    protected function fetchTree() : void
     {
         $tree = self::srContainerObjectTree()->tree()->fetchTree($this->object);
 
@@ -89,7 +89,7 @@ class TreeCtrl
     /**
      *
      */
-    protected function getHtml()/* : void*/
+    protected function getHtml() : void
     {
         $html = self::srContainerObjectTree()
             ->tree()
@@ -103,7 +103,7 @@ class TreeCtrl
     /**
      *
      */
-    protected function setTabs()/* : void*/
+    protected function setTabs() : void
     {
 
     }

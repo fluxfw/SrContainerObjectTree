@@ -98,7 +98,7 @@ class FormBuilder extends AbstractFormBuilder
     /**
      * @inheritDoc
      */
-    protected function storeData(array $data)/* : void*/
+    protected function storeData(array $data) : void
     {
         self::srContainerObjectTree()->config()->setObjectTypes(MultiSelectSearchNewInputGUI::cleanValues((array) $data[Repository::KEY_OBJECT_TYPES]));
         self::srContainerObjectTree()->config()->setLinkContainerObjects(boolval($data[Repository::KEY_LINK_CONTAINER_OBJECTS]));

@@ -116,7 +116,7 @@ class UserSettings extends ActiveRecord
     /**
      * @param int $obj_id
      */
-    public function setObjId(int $obj_id)/* : void*/
+    public function setObjId(int $obj_id) : void
     {
         $this->obj_id = $obj_id;
     }
@@ -143,7 +143,7 @@ class UserSettings extends ActiveRecord
     /**
      * @param int $user_settings_id
      */
-    public function setUserSettingsId(int $user_settings_id)/* : void*/
+    public function setUserSettingsId(int $user_settings_id) : void
     {
         $this->user_settings_id = $user_settings_id;
     }
@@ -161,7 +161,7 @@ class UserSettings extends ActiveRecord
     /**
      * @param int $usr_id
      */
-    public function setUsrId(int $usr_id)/* : void*/
+    public function setUsrId(int $usr_id) : void
     {
         $this->usr_id = $usr_id;
     }
@@ -185,7 +185,7 @@ class UserSettings extends ActiveRecord
     /**
      * @param bool $show_metadata
      */
-    public function setShowMetadata(bool $show_metadata)/* : void*/
+    public function setShowMetadata(bool $show_metadata) : void
     {
         $this->show_metadata = ($show_metadata ? self::SHOW_METADATA_SHOW : self::SHOW_METADATA_HIDE);
     }
@@ -194,7 +194,7 @@ class UserSettings extends ActiveRecord
     /**
      * @param int $start_deep
      */
-    public function setStartDeep(int $start_deep)/* : void*/
+    public function setStartDeep(int $start_deep) : void
     {
         $this->max_deep = $start_deep;
     }

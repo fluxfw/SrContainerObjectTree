@@ -95,7 +95,7 @@ class ObjectSettings extends ActiveRecord
     /**
      * @param int $container_ref_id
      */
-    public function setContainerRefId(int $container_ref_id)/* : void*/
+    public function setContainerRefId(int $container_ref_id) : void
     {
         $this->container_ref_id = $container_ref_id;
     }
@@ -113,7 +113,7 @@ class ObjectSettings extends ActiveRecord
     /**
      * @param int $obj_id
      */
-    public function setObjId(int $obj_id)/* : void*/
+    public function setObjId(int $obj_id) : void
     {
         $this->obj_id = $obj_id;
     }
@@ -131,7 +131,7 @@ class ObjectSettings extends ActiveRecord
     /**
      * @param bool $is_online
      */
-    public function setOnline(bool $is_online = true)/* : void*/
+    public function setOnline(bool $is_online = true) : void
     {
         $this->is_online = $is_online;
     }

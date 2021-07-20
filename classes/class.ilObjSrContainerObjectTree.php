@@ -37,7 +37,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @inheritDoc
      */
-    public function doCreate()/* : void*/
+    public function doCreate() : void
     {
         $this->object_settings = self::srContainerObjectTree()->objectSettings()->factory()->newInstance();
 
@@ -50,7 +50,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @inheritDoc
      */
-    public function doDelete()/* : void*/
+    public function doDelete() : void
     {
         if ($this->object_settings !== null) {
             self::srContainerObjectTree()->objectSettings()->deleteObjectSettings($this->object_settings);
@@ -61,7 +61,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @inheritDoc
      */
-    public function doRead()/* : void*/
+    public function doRead() : void
     {
         $this->object_settings = self::srContainerObjectTree()->objectSettings()->getObjectSettingsById(intval($this->id));
     }
@@ -70,7 +70,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @inheritDoc
      */
-    public function doUpdate()/* : void*/
+    public function doUpdate() : void
     {
         self::srContainerObjectTree()->objectSettings()->storeObjectSettings($this->object_settings);
     }
@@ -106,7 +106,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @inheritDoc
      */
-    public final function initType()/* : void*/
+    public final function initType() : void
     {
         $this->setType(ilSrContainerObjectTreePlugin::PLUGIN_ID);
     }
@@ -133,7 +133,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @param int $container_ref_id
      */
-    public function setContainerRefId(int $container_ref_id)/* : void*/
+    public function setContainerRefId(int $container_ref_id) : void
     {
         $this->object_settings->setContainerRefId($container_ref_id);
     }
@@ -142,7 +142,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @param bool $is_online
      */
-    public function setOnline(bool $is_online = true)/* : void*/
+    public function setOnline(bool $is_online = true) : void
     {
         $this->object_settings->setOnline($is_online);
     }
@@ -151,7 +151,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @param bool $show_metadata
      */
-    public function setShowMetadata(bool $show_metadata)/* : void*/
+    public function setShowMetadata(bool $show_metadata) : void
     {
         $this->getUserSettings()->setShowMetadata($show_metadata);
     }
@@ -160,7 +160,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
     /**
      * @param int $max_deep
      */
-    public function setStartDeep(int $max_deep)/* : void*/
+    public function setStartDeep(int $max_deep) : void
     {
         $this->getUserSettings()->setStartDeep($max_deep);
     }
@@ -171,7 +171,7 @@ class ilObjSrContainerObjectTree extends ilObjectPlugin
      *
      * @param ilObjSrContainerObjectTree $new_obj
      */
-    protected function doCloneObject(/*ilObjSrContainerObjectTree*/ $new_obj, /*int*/ $a_target_id, /*?int*/ $a_copy_id = null)/* : void*/
+    protected function doCloneObject(/*ilObjSrContainerObjectTree*/ $new_obj, /*int*/ $a_target_id, /*?int*/ $a_copy_id = null) : void
     {
         $new_obj->object_settings = self::srContainerObjectTree()->objectSettings()->cloneObjectSettings($this->object_settings);
 

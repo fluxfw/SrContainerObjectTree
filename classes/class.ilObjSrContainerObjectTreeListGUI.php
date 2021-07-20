@@ -120,7 +120,7 @@ class ilObjSrContainerObjectTreeListGUI extends ilObjectPluginListGUI
     /**
      * @inheritDoc
      */
-    public function initType()/* : void*/
+    public function initType() : void
     {
         $this->setType(ilSrContainerObjectTreePlugin::PLUGIN_ID);
     }

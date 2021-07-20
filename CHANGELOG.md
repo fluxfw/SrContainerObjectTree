@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.14.0]
+- Switched to main branch
+- ILIAS 7 support
+- Remove ILIAS 5.4 support
+- Min PHP 7.2
+
 ## [2.13.6]
 - Change utils url
 

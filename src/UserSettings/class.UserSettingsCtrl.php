@@ -45,7 +45,7 @@ class UserSettingsCtrl
     /**
      *
      */
-    public function executeCommand()/* : void*/
+    public function executeCommand() : void
     {
         $this->setTabs();
 
@@ -71,7 +71,7 @@ class UserSettingsCtrl
     /**
      *
      */
-    protected function setTabs()/* : void*/
+    protected function setTabs() : void
     {
 
     }
@@ -80,7 +80,7 @@ class UserSettingsCtrl
     /**
      *
      */
-    protected function updateUserSettings()/* : void*/
+    protected function updateUserSettings() : void
     {
         $data = json_decode(file_get_contents("php://input"), true);
         $this->object->setShowMetadata(boolval($data["show_metadata"]));

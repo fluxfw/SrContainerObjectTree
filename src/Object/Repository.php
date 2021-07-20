@@ -79,7 +79,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/* : void*/
+    public function dropTables() : void
     {
 
     }
@@ -120,7 +120,7 @@ final class Repository
      *
      * @return ilObject|null
      */
-    public function getObjectByRefId(int $obj_ref_id)/* : ?ilObject*/
+    public function getObjectByRefId(int $obj_ref_id) : ?ilObject
     {
         if ($this->object_by_ref_id[$obj_ref_id] === null) {
             $this->object_by_ref_id[$obj_ref_id] = ilObjectFactory::getInstanceByRefId($obj_ref_id, false);
@@ -250,7 +250,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/* : void*/
+    public function installTables() : void
     {
 
     }

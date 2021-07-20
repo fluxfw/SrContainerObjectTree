@@ -117,7 +117,7 @@ class ilObjSrContainerObjectTreeAccess extends ilObjectPluginAccess
      * @param object|string $class
      * @param string        $cmd
      */
-    public static function redirectNonAccess($class, string $cmd = "")/* : void*/
+    public static function redirectNonAccess($class, string $cmd = "") : void
     {
         ilUtil::sendFailure(self::plugin()->translate("permission_denied", ilObjSrContainerObjectTreeGUI::LANG_MODULE_OBJECT), true);
 

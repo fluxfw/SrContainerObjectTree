@@ -94,7 +94,7 @@ final class Repository extends AbstractRepository
     /**
      * @param string[] $allowed_empty_container_object_types
      */
-    public function setAllowedEmptyContainerObjectTypes(array $allowed_empty_container_object_types)/* : void*/
+    public function setAllowedEmptyContainerObjectTypes(array $allowed_empty_container_object_types) : void
     {
         $this->setValue(self::KEY_ALLOWED_EMPTY_CONTAINER_OBJECT_TYPES, $allowed_empty_container_object_types);
         $this->allowed_empty_container_object_types = $allowed_empty_container_object_types;
@@ -117,7 +117,7 @@ final class Repository extends AbstractRepository
     /**
      * @param string[] $object_types
      */
-    public function setObjectTypes(array $object_types)/* : void*/
+    public function setObjectTypes(array $object_types) : void
     {
         $this->setValue(self::KEY_OBJECT_TYPES, $object_types);
         $this->object_types = $object_types;
@@ -153,7 +153,7 @@ final class Repository extends AbstractRepository
     /**
      * @param bool $link_container_objects
      */
-    public function setLinkContainerObjects(bool $link_container_objects)/* : void*/
+    public function setLinkContainerObjects(bool $link_container_objects) : void
     {
         $this->setValue(self::KEY_LINK_CONTAINER_OBJECTS, $link_container_objects);
         $this->link_container_objects = $link_container_objects;
@@ -163,7 +163,7 @@ final class Repository extends AbstractRepository
     /**
      * @param bool $open_links_in_new_tab
      */
-    public function setOpenLinksInNewTab(bool $open_links_in_new_tab)/* : void*/
+    public function setOpenLinksInNewTab(bool $open_links_in_new_tab) : void
     {
         $this->setValue(self::KEY_OPEN_LINKS_IN_NEW_TAB, $open_links_in_new_tab);
         $this->open_links_in_new_tab = $open_links_in_new_tab;
