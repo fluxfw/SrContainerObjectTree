@@ -1,23 +1,7 @@
 {
   "name": "srag/srcontainerobjecttree",
   "description": "Add container objects tree view in repository objects",
-  "version": "2.14.0",
-  "extra": {
-    "ilias_plugin": {
-      "id": "xcot",
-      "name": "SrContainerObjectTree",
-      "ilias_min_version": "6.0",
-      "ilias_max_version": "7.999",
-      "lucene_search": true,
-      "slot": "Services/Repository/RepositoryObject",
-      "events": [
-        {
-          "id": "change_child_before_output",
-          "type": "raise"
-        }
-      ]
-    }
-  },
+  "version": "2.15.0",
   "type": "project",
   "keywords": [
     "container",
@@ -27,23 +11,13 @@
     "repository",
     "tree"
   ],
-  "homepage": "https://github.com/fluxapps/SrContainerObjectTree",
   "license": "GPL-3.0-only",
-  "authors": [
-    {
-      "name": "fluxlabs",
-      "email": "support@fluxlabs.ch",
-      "homepage": "https://fluxlabs.ch",
-      "role": "Developer"
-    }
-  ],
   "require": {
     "php": ">=7.2",
     "srag/activerecordconfig": ">=0.1.0",
     "srag/custominputguis": ">=0.1.0",
     "srag/devtools": ">=0.1.0",
     "srag/dic": ">=0.1.0",
-    "srag/generateplugininfoshelper": ">=0.1.0",
     "srag/librariesnamespacechanger": ">=0.1.0",
     "srag/removeplugindataconfirm": ">=0.1.0"
   },
@@ -69,11 +43,7 @@
   },
   "scripts": {
     "pre-autoload-dump": [
-      "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\GeneratePluginPhpAndXml::generatePluginPhpAndXml"
-    ],
-    "update-version": [
-      "srag\\GeneratePluginInfosHelper\\SrContainerObjectTree\\UpdateVersion::updateVersion"
+      "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces"
     ]
   }
 }
