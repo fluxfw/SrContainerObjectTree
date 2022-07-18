@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.15.0]
+- Clean up
+
 ## [2.14.0]
 - Switched to main branch
 - ILIAS 7 support
